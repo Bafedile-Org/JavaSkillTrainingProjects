@@ -10,7 +10,7 @@ public class Cube extends Square {
 
     @Override
     public double calculateArea() {
-        return 6 * Math.pow(super.getLength(), 2);
+        return 6 * super.calculateArea();
     }
 
 }
