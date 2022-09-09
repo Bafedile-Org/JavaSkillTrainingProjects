@@ -26,7 +26,7 @@ public abstract class Shape {
     @Override
     public String toString(){
         return String.format("Shape Name is: %s%n"
-                + "Area of this shape is: %.2f centimeters squared%n",getName(),calculateArea());
+                + "Area of this %s is: %.2f%n",getName(),getName(),calculateArea());
     }
     public abstract double calculateArea();
 }
