@@ -33,29 +33,41 @@ public class GlobalPositionSatellite {
             System.out.print("Please enter the time: ");
             time = input.nextInt();
 
-            wayPoint = new GPS(x, y, time);
-            wayPoints.add(wayPoint);
+            wayPoint = new GPS(x, y, time); // making an instance of the GPS class
+            
+            wayPoints.add(wayPoint); //assign this instance to the arraylist
 
             System.out.println("Enter 1 to Enter more way points or 2 to exit: ");
             choice = input.nextInt();
 
         } while (choice == 1);
 
-        displayHikingSummary(determineTotalDistance(wayPoints), determineAverageTime(wayPoints));
+        displayHikingSummary(determineTotalDistanceX(wayPoints), determineTotalDistanceY(wayPoints),determineAverageTime(wayPoints));
     }
 
-    private double determineTotalDistance(ArrayList<GPS> wayPoints) {
+    private double determineTotalDistanceX(ArrayList<GPS> wayPoints) {
         double finish, total = 0;
 
         for (GPS wayPoint : wayPoints) {
             finish = wayPoints.indexOf(wayPoint) + 1;
             if (finish < wayPoints.size()) {
-               // total+=Math.sqrt(wayPoints.get((int) finish).getXCoordinate() - wayPoint.getXCoordinate());
                 total += wayPoints.get((int) finish).getXCoordinate() - wayPoint.getXCoordinate();
             }
         }
         return total;
     }
+    private double determineTotalDistanceY(ArrayList<GPS> wayPoints) {
+        double finish, total = 0;
+
+        for (GPS wayPoint : wayPoints) {
+            finish = wayPoints.indexOf(wayPoint) + 1;
+            if (finish < wayPoints.size()) {
+                total += wayPoints.get((int) finish).getYCoordinate() - wayPoint.getYCoordinate();
+            }
+        }
+        return total;
+    }
+    
 
     private int determineAverageTime(ArrayList<GPS> wayPoints) {
         int avgSpeed = 0;
@@ -70,7 +82,8 @@ public class GlobalPositionSatellite {
 
     }
 
-    private void displayHikingSummary(double totalDistance, int avgSpeed) {
+    private void displayHikingSummary(double totalDistanceX, double totalDistanceY, int avgSpeed) {
+        double totalDistance = Math.sqrt(Math.pow(totalDistanceX, 2)+Math.pow(totalDistanceY, 2));
         System.out.printf("The hiker travelled a distance of %.2f km in %d hour(s)%n ", (totalDistance / 10), avgSpeed);
     }
 
