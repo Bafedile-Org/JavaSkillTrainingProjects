@@ -24,8 +24,14 @@ public class PredicateTest {
 //        System.out.print("Please enter a telephone number: ");
 //        String tel = input.next();
 //        
-//        System.out.printf("The telephone number is %s%n",evaluate((str) -> str.contains("+27")
-//                && (str.length()==12), tel) ? "Valid" : "Invalid" );
+
+
+
+        System.out.printf("The telephone number is %s%n",evaluate((str) -> str.contains("+27")
+                && (str.length()==12), tel) ? "Valid" : "Invalid" );
+
+
+
 //        
 //        int value1=2,value2=3;
 //        System.out.printf("The sum of %d and %d is %d%n",value1,value2,sum((num1,num2)-> num1+num2, value1,value2));
