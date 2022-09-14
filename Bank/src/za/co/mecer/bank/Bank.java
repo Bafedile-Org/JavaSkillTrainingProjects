@@ -24,20 +24,21 @@ public class Bank {
 
     private void run() {
         Account credit = new CreditCardAccount();
-        Account sav = new SavingsAccount();
-        Account cheq = new ChequeAccount();
-        
+        Account sav = new SavingsAccount(1200);
+        Account cheq = new ChequeAccount(3000);
+
         int choice;
 
         do {
             choice = getChoice();
-             
-            
-            int accType = getAccountType();
 
-            makeTransations(accType, choice, sav, cheq, credit);
+            if (choice > 0 && choice < 4) {
+                int accType = getAccountType();
 
-        } while (choice!=4);
+                makeTransations(accType, choice, sav, cheq, credit);
+            }
+
+        } while (choice != 4);
 
     }
 
@@ -52,7 +53,10 @@ public class Bank {
                     + "Your choice: ");
             choice = input.nextInt();
 
-        } while (choice<1 && choice>4);
+            if (choice == 4) {
+                break;
+            }
+        } while (choice < 1 && choice > 4);
 
         return choice;
     }
@@ -93,19 +97,19 @@ public class Bank {
                         cheq.deposit(getAmount());
                         break;
                     default:
-                        credit.deposit(choice);
+                        credit.deposit(getAmount());
                 }
                 break;
             case 2:
                 switch (accountType) {
                     case 1:
-                        System.out.printf("Available Balance: %.2f%n",sav.getBalance());
+                        System.out.printf("Available Balance: %.2f%n%n", sav.getBalance());
                         break;
                     case 2:
-                        System.out.printf("Available Balance: %.2f%n",cheq.getBalance());
+                        System.out.printf("Available Balance: %.2f%n%n", cheq.getBalance());
                         break;
                     default:
-                        System.out.printf("Available Balance: %.2f%n",credit.getBalance());
+                        System.out.println(credit);
                 }
                 break;
             default:

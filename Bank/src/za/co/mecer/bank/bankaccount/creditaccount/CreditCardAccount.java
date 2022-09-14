@@ -15,7 +15,16 @@ public class CreditCardAccount extends BankAccount {
      * @param amount
      * @return
      */
-    private double creditLimit = 1500.0;
+    private double creditLimit;
+
+    public CreditCardAccount() {
+        this.creditLimit = creditLimit = 1500.0;
+    }
+
+    public CreditCardAccount(double creditLimit, double amount) {
+        super(amount);
+        this.creditLimit = creditLimit;
+    }
 
     @Override
     public double determineChargeFee(double amount) {
@@ -35,25 +44,18 @@ public class CreditCardAccount extends BankAccount {
             System.err.printf("Insufficient Funds%n");
         } else {
             this.amount = this.getBalance() - amount;
+            if (this.amount < 0) {
+                this.amount += creditLimit;
+                creditLimit -= this.amount;
+            }
         }
-    }
-
-    private double determineCreditBalance() {
-        double balance;
-        if (creditLimit < 0.0) {
-            creditLimit = 0.0;
-            balance = 1500.00;
-        } else {
-            balance = 1500 - creditLimit;
-        }
-        return balance;
     }
 
     @Override
     public String toString() {
         return String.format("Your Credit Card Account has%n"
                 + "Credit Balance: %.2f%n"
-                + "Credit Amount: %.2f%n", determineCreditBalance(), getBalance() + creditLimit);
+                + "Credit Amount: %.2f%n", getBalance(), creditLimit);
     }
 
 }
