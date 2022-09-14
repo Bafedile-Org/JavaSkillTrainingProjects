@@ -26,10 +26,10 @@ public abstract class BankAccount implements Account {
     public void withdraw(double amount) {
         if (amount>this.getBalance()) {
             System.err.printf("Insufficient Funds%n"
-                    + "You have %.2f in your account%n", this.getBalance());
+                    + "You have %.2f in your account%n%n", this.getBalance());
         } else {
             this.amount = this.getBalance() - (amount + determineChargeFee(amount));
-            System.out.printf("%.2f Withdrawn%n",amount);
+            System.out.printf("%n%.2f Withdrawn%n%n",amount);
         }
 
     }

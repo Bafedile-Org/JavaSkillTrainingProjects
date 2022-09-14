@@ -31,13 +31,13 @@ public class Bank {
 
         do {
             choice = getChoice();
-
+             
+            
             int accType = getAccountType();
 
             makeTransations(accType, choice, sav, cheq, credit);
 
-            choice = getChoice();
-        } while (choice != 4);
+        } while (choice!=4);
 
     }
 
@@ -52,7 +52,7 @@ public class Bank {
                     + "Your choice: ");
             choice = input.nextInt();
 
-        } while (choice != 4);
+        } while (choice<1 && choice>4);
 
         return choice;
     }
@@ -99,13 +99,13 @@ public class Bank {
             case 2:
                 switch (accountType) {
                     case 1:
-                        System.out.println(sav);
+                        System.out.printf("Available Balance: %.2f%n",sav.getBalance());
                         break;
                     case 2:
-                        System.out.println(cheq);
+                        System.out.printf("Available Balance: %.2f%n",cheq.getBalance());
                         break;
                     default:
-                        System.out.println(credit);
+                        System.out.printf("Available Balance: %.2f%n",credit.getBalance());
                 }
                 break;
             default:
