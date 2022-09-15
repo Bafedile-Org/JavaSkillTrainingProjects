@@ -1,6 +1,7 @@
 package za.co.mecer.bank.bankaccount.creditaccount;
 
 import za.co.mecer.bank.bankaccount.BankAccount;
+import za.co.mecer.exception.InsufficientFundsException;
 
 /**
  *
@@ -39,9 +40,9 @@ public class CreditCardAccount extends BankAccount {
     }
 
     @Override
-    public void withdraw(double amount) {
+    public void withdraw(double amount) throws InsufficientFundsException {
         if (amount > (this.getBalance() + creditLimit)) {
-            System.err.printf("Insufficient Funds%n");
+            throw new InsufficientFundsException(String.format("Insufficient Funds%n%s", toString()));
         } else {
             this.amount = this.getBalance() - amount;
             if (this.amount < 0) {
@@ -55,7 +56,7 @@ public class CreditCardAccount extends BankAccount {
     public String toString() {
         return String.format("Your Credit Card Account has%n"
                 + "Credit Balance: %.2f%n"
-                + "Credit Amount: %.2f%n", getBalance(), creditLimit);
+                + "Credit Amount: %.2f%n%n", getBalance(), creditLimit);
     }
 
 }
