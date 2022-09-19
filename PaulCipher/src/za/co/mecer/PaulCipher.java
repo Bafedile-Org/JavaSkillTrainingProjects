@@ -50,7 +50,7 @@ public class PaulCipher {
                             if (Character.isLetter(str.charAt(i - k))) {
 
                                 // 64 represent character 'A' in the ASCII Chart
-                                sb.append(alphas[(((int) str.charAt(i - k)) - 'A'
+                                sb.append(alphas[(((int) str.charAt(i - k)) - 64
                                         + (j)) % 26]);
                                 continue loop;
                             }
