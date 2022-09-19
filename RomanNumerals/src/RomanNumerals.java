@@ -7,33 +7,11 @@ public class RomanNumerals {
 
     public static void main(String[] args) {
         new RomanNumerals().run();
-//        String roman = "";
-//        label:
-//        for (int i = 1; i <= 10; i++) {
-//            for (int j = 0; j < i; j++) {
-//                roman += "I";
-//                if (j == 4) {
-//                    roman += "IV ";
-//
-//                }
-//                if (i == 5) {
-//                    roman += "V ";
-//                }
-//                if (i > 5) {
-//                    roman += "V";
-//                }
-//            }
-//
-//            roman += " ";
-//        }
-//        System.out.println(roman);
-
     }
 
     private void run() {
         new RomanCount().getRoman();
     }
-
 }
 
 class RomanCount {
@@ -76,7 +54,6 @@ class RomanCount {
             System.out.print(ch);
             in -= decrement;
         }
-
         return in;
     }
 
