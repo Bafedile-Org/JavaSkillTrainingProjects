@@ -1,5 +1,6 @@
 
 import java.util.*;
+import za.co.mecer.ShoulderSurfing;
 
 /**
  *
@@ -11,12 +12,15 @@ public class TraditionalPass {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new TraditionalPass().run();
+//        new TraditionalPass().run();
+        ShoulderSurfing ss = new ShoulderSurfing();
+        ss.run();
     }
 
     private void run() {
         int[] pinNums = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
         int[] num = new int[10];
+        String hardCodedPin = "12345";
         String pin;
         Scanner input = new Scanner(System.in);
         StringBuilder sb = new StringBuilder();
@@ -47,16 +51,20 @@ public class TraditionalPass {
         pin = sb.toString();
         sb.delete(0, sb.length());
 
-        loop:
         for (int i = 0; i < pin.length(); i++) {
-            for (int j = 0; j < num.length; j++) {
-                if (Integer.parseInt("" + pin.charAt(i)) == num[j]) {
-                    sb.append(pinNums[j]);
-                    continue loop;
-                }
+            for (int j = 0; j < hardCodedPin.length(); j++) {
             }
-            sb.append("\n");
         }
+//        loop:
+//        for (int i = 0; i < pin.length(); i++) {
+//            for (int j = 0; j < num.length; j++) {
+//                if (Integer.parseInt("" + pin.charAt(i)) == num[j]) {
+//                    sb.append(pinNums[j]);
+//                    continue loop;
+//                }
+//            }
+//            sb.append("\n");
+//        }
         System.out.println(sb.toString());
 
     }
