@@ -14,6 +14,7 @@ public class GlobalPositionSatellite {
      */
     public static void main(String[] args) {
         new GlobalPositionSatellite().run();
+         int choice, time;
     }
 
     private void run() {
