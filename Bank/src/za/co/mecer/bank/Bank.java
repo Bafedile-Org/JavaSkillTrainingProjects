@@ -4,6 +4,8 @@ import java.util.Scanner;
 import za.co.mecer.bank.bankaccount.chequeaccount.ChequeAccount;
 import za.co.mecer.bank.bankaccount.creditaccount.CreditCardAccount;
 import za.co.mecer.bank.bankaccount.savingsaccount.SavingsAccount;
+import za.co.mecer.exception.InsufficientFundsException;
+import za.co.mecer.exception.InvalidDepositException;
 import za.co.mecer.interfaces.Account;
 
 /**
@@ -45,7 +47,7 @@ public class Bank {
     private int getChoice() {
         int choice;
         do {
-            System.out.print("Please choose from the below\n"
+            System.out.print("\nPlease choose from the below\n"
                     + "1 Deposit Money\n"
                     + "2 Get Available Balance\n"
                     + "3 Make A Withdrawal\n"
@@ -54,6 +56,9 @@ public class Bank {
             choice = input.nextInt();
 
             if (choice == 4) {
+                System.out.println("==========================================\n"
+                        + "\tTHANK YOU FOR USING OUR SERVICES\n"
+                        + "==========================================\n");
                 break;
             }
         } while (choice < 1 && choice > 4);
@@ -63,11 +68,8 @@ public class Bank {
 
     private double getAmount() {
         double amount;
-        do {
-            System.out.print("Please enter an amount: ");
-            amount = input.nextDouble();
-
-        } while (amount < 0.0);
+        System.out.print("Please enter an amount: ");
+        amount = input.nextDouble();
 
         return amount;
     }
@@ -75,7 +77,7 @@ public class Bank {
     private int getAccountType() {
         int choice;
         do {
-            System.out.print("Please choose account type below\n"
+            System.out.print("\nPlease choose account type below\n"
                     + "1 Savings Account\n"
                     + "2 Cheque Account\n"
                     + "3 Credit Account\n"
@@ -87,43 +89,47 @@ public class Bank {
     }
 
     private void makeTransations(int accountType, int choice, Account sav, Account cheq, Account credit) {
-        switch (choice) {
-            case 1:
-                switch (accountType) {
-                    case 1:
-                        sav.deposit(getAmount());
-                        break;
-                    case 2:
-                        cheq.deposit(getAmount());
-                        break;
-                    default:
-                        credit.deposit(getAmount());
-                }
-                break;
-            case 2:
-                switch (accountType) {
-                    case 1:
-                        System.out.printf("Available Balance: %.2f%n%n", sav.getBalance());
-                        break;
-                    case 2:
-                        System.out.printf("Available Balance: %.2f%n%n", cheq.getBalance());
-                        break;
-                    default:
-                        System.out.println(credit);
-                }
-                break;
-            default:
-                switch (accountType) {
-                    case 1:
-                        sav.withdraw(getAmount());
-                        break;
-                    case 2:
-                        cheq.withdraw(getAmount());
-                        break;
-                    default:
-                        credit.withdraw(getAmount());
-                }
-                break;
+        try {
+            switch (choice) {
+                case 1:
+                    switch (accountType) {
+                        case 1:
+                            sav.deposit(getAmount());
+                            break;
+                        case 2:
+                            cheq.deposit(getAmount());
+                            break;
+                        default:
+                            credit.deposit(getAmount());
+                    }
+                    break;
+                case 2:
+                    switch (accountType) {
+                        case 1:
+                            System.out.printf("Available Balance: %.2f%n%n", sav.getBalance());
+                            break;
+                        case 2:
+                            System.out.printf("Available Balance: %.2f%n%n", cheq.getBalance());
+                            break;
+                        default:
+                            System.out.println(credit);
+                    }
+                    break;
+                default:
+                    switch (accountType) {
+                        case 1:
+                            sav.withdraw(getAmount());
+                            break;
+                        case 2:
+                            cheq.withdraw(getAmount());
+                            break;
+                        default:
+                            credit.withdraw(getAmount());
+                    }
+                    break;
+            }
+        } catch (InsufficientFundsException | InvalidDepositException ife) {
+            System.out.printf("ERROR: %s", ife.getMessage());
         }
     }
 
