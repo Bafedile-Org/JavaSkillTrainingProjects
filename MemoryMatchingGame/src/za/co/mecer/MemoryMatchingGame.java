@@ -34,7 +34,7 @@ public class MemoryMatchingGame {
                 pointTwo = getCoordinates("Second");
                 getTheCards(cards, pointOne, pointTwo);
                 displayCards(cards);
-            } catch (ArrayIndexOutOfBoundsException | CoordinatesException ex) {
+            } catch (ArrayIndexOutOfBoundsException | CoordinatesException | NumberFormatException ex) {
                 System.out.printf("%nERROR: %s%n%n", ex.getMessage());
             }
 
