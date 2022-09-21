@@ -58,7 +58,7 @@ public class Game implements GameInterface {
                 }
 
             } catch (CardException ex) {
-                System.out.printf("ERROR: %s%n", ex.getMessage());
+                System.out.printf("%nERROR: %s%n", ex.getMessage());
             }
 
         } while (choice != 1 && cardCounter < 5);
@@ -67,7 +67,7 @@ public class Game implements GameInterface {
                 dealer.flipCards(stackCards, dealerCards);
                 getGameResults(player, dealer);
             } catch (CardException ex) {
-                System.out.printf("ERROR: %s%n", ex.getMessage());
+                System.out.printf("%nERROR: %s%n", ex.getMessage());
             }
 
         }
@@ -142,7 +142,7 @@ public class Game implements GameInterface {
     public void getGameResults(Player player, Dealer dealer) {
 
         if (player.getSumOfCards(playerCards) > dealer.getSumOfCards(dealerCards) || determineRoyalFlush()) {
-            System.out.printf("%nPLAYER [%s]"
+            System.out.printf("%n%nPLAYER [%s]"
                     + "%n=================================%n"
                     + "Total Sum of Player Cards [%d]%n"
                     + "Total Sum of Dealer Cards [%d]%n"
@@ -151,7 +151,7 @@ public class Game implements GameInterface {
         } else if ((player.getSumOfCards(playerCards) == dealer.getSumOfCards(dealerCards))
                 || (player.getSumOfCards(playerCards) < dealer.getSumOfCards(dealerCards))) {
 
-            System.out.printf("%nPLAYER [%s]%n"
+            System.out.printf("%n%nPLAYER [%s]%n"
                     + "%n=================================%n"
                     + "Total Sum of Player Cards [%d]%n"
                     + "Total Sum of Dealer Cards [%d]%n"
@@ -175,7 +175,7 @@ public class Game implements GameInterface {
         boolean isValid;
         int choice;
         do {
-            System.out.printf("1 > Stick%n"
+            System.out.printf("%n1 > Stick%n"
                     + "2 > Get Card%n"
                     + "Your choice: ");
             choice = input.nextInt();

@@ -33,13 +33,16 @@ public class Cards {
     public void getRank(Cards[] playerCards, int cardNum) {
         switch (playerCards[cardNum].getCardNumber()) {
             case 11:
-                System.out.printf("JACK of %s%n", playerCards[cardNum].getCardSuit());
+                System.out.printf("J of %s%n", playerCards[cardNum].getCardSuit());
+                playerCards[cardNum].cardNumber = 10;
                 break;
             case 12:
-                System.out.printf("QUEEN of %s%n", playerCards[cardNum].getCardSuit());
+                System.out.printf("Q of %s%n", playerCards[cardNum].getCardSuit());
+                playerCards[cardNum].cardNumber = 10;
                 break;
             case 13:
-                System.out.printf("KING of %s%n", playerCards[cardNum].getCardSuit());
+                System.out.printf("K of %s%n", playerCards[cardNum].getCardSuit());
+                playerCards[cardNum].cardNumber = 10;
                 break;
             default:
                 System.out.printf("%d of %s%n", playerCards[cardNum].getCardNumber(), playerCards[cardNum].getCardSuit());

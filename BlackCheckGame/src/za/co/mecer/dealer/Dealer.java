@@ -5,12 +5,13 @@ import java.util.Stack;
 import za.co.mecer.cards.Cards;
 import za.co.mecer.exceptions.CardException;
 import za.co.mecer.interfaces.CardsInterface;
+import za.co.mecer.interfaces.PlayerInterface;
 
 /**
  *
  * @author Dimakatso Sebatane
  */
-public class Dealer implements CardsInterface {
+public class Dealer implements CardsInterface, PlayerInterface {
 
     private String name;
 
@@ -18,6 +19,7 @@ public class Dealer implements CardsInterface {
         this.name = name;
     }
 
+    @Override
     public String getName() {
         return name.toUpperCase();
     }
