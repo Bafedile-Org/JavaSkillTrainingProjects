@@ -30,9 +30,20 @@ public class Cards {
         return cardNumber;
     }
 
-    private void checkCardNumber(int cardNumber) throws CardException {
-        if (cardNumber < 1 || cardNumber > 13) {
-            throw new CardException("Invalid Card!!");
+    public void getRank(Cards[] playerCards, int cardNum) {
+        switch (playerCards[cardNum].getCardNumber()) {
+            case 11:
+                System.out.printf("JACK of %s%n", playerCards[cardNum].getCardSuit());
+                break;
+            case 12:
+                System.out.printf("QUEEN of %s%n", playerCards[cardNum].getCardSuit());
+                break;
+            case 13:
+                System.out.printf("KING of %s%n", playerCards[cardNum].getCardSuit());
+                break;
+            default:
+                System.out.printf("%d of %s%n", playerCards[cardNum].getCardNumber(), playerCards[cardNum].getCardSuit());
+                break;
         }
     }
 

@@ -1,6 +1,7 @@
 package za.co.mecer;
 
 import za.co.mecer.game.Game;
+import za.co.mecer.interfaces.GameInterface;
 
 /**
  *
@@ -17,8 +18,9 @@ public class BlackCheckGame {
 
     private void run() {
         try {
-            Game game = new Game();
+            GameInterface game = new Game();
             game.populateCardsArray();
+            game.playGame();
 
         } catch (IllegalArgumentException ex) {
             System.out.printf("%s%n", ex.getMessage());

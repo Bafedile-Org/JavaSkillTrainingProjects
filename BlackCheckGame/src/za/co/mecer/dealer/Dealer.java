@@ -1,7 +1,9 @@
 package za.co.mecer.dealer;
 
+import java.util.Collections;
 import java.util.Stack;
 import za.co.mecer.cards.Cards;
+import za.co.mecer.exceptions.CardException;
 import za.co.mecer.interfaces.CardsInterface;
 
 /**
@@ -11,27 +13,33 @@ import za.co.mecer.interfaces.CardsInterface;
 public class Dealer implements CardsInterface {
 
     private String name;
-    private final int dealerCards[] = new int[5];
 
     public Dealer(String name) {
         this.name = name;
     }
 
     public String getName() {
-        return name;
+        return name.toUpperCase();
     }
 
-    public void flipCards(Stack<Cards> cards) {
-        Cards card = cards.pop();
+    public void flipCards(Stack<Cards> cards, Cards[] dealerCards) throws CardException {
+        while (dealerCards[dealerCards.length - 1] == null) {
+            if (!(getSumOfCards(dealerCards) >= 21)) {
+                Cards card = cards.pop();
+                addCards(dealerCards, card);
+            } else {
+                break;
+            }
 
-        System.out.printf("%d of %s %n", card.getCardNumber(), card.getCardSuit());
+        }
     }
 
-    @Override
-    public void viewCards(Cards[] dealerCards) {
+    public void shuffleCards(Stack<Cards> stackCards) {
+        Collections.shuffle(stackCards);
     }
 
-    @Override
-    public void stickToCards() {
+    public Cards giveCard(Stack<Cards> stackCards) {
+        shuffleCards(stackCards);
+        return stackCards.pop();
     }
 }
