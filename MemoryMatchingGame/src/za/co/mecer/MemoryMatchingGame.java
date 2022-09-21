@@ -34,11 +34,24 @@ public class MemoryMatchingGame {
                 pointTwo = getCoordinates("Second");
                 getTheCards(cards, pointOne, pointTwo);
                 displayCards(cards);
+                isValid = checkAllPairs(cards);
             } catch (ArrayIndexOutOfBoundsException | CoordinatesException | NumberFormatException ex) {
                 System.out.printf("%nERROR: %s%n%n", ex.getMessage());
             }
 
         } while (!isValid);
+    }
+
+    private boolean checkAllPairs(Cards[][] cards) {
+        for (int i = 0; i < cards.length; i++) {
+            for (int j = 0; j < cards[i].length; j++) {
+                if (cards[i][j].getFace().equalsIgnoreCase("Down")) {
+                    return false;
+                }
+            }
+        }
+        System.out.println("YOU WIN");
+        return true;
     }
 
     private String getCoordinates(String msg) throws CoordinatesException {
