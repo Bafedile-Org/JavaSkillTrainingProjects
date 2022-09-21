@@ -17,19 +17,19 @@ public class MemoryMatchingGame {
      */
     public static void main(String[] args) {
         new MemoryMatchingGame().run();
-
+        
     }
-
+    
     private void run() {
         Card[][] cards = new Card[4][4];
         int[][] randomNumbers = new int[4][4];
         String pointOne, pointTwo;
         boolean isValid = false;
         initializeCards(randomNumbers, cards);
-
+        
         do {
             try {
-
+                displayCardsNumbers(cards);
                 pointOne = getCoordinates("First");
                 pointTwo = getCoordinates("Second");
                 getTheCards(cards, pointOne, pointTwo);
@@ -37,10 +37,10 @@ public class MemoryMatchingGame {
             } catch (ArrayIndexOutOfBoundsException | CoordinatesException | NumberFormatException ex) {
                 System.out.printf("%nERROR: %s%n%n", ex.getMessage());
             }
-
+            
         } while (!isValid);
     }
-
+    
     private String getCoordinates(String msg) throws CoordinatesException {
         Scanner input = new Scanner(System.in);
         System.out.printf("Please enter the %s coordinates in the following (x,y): ", msg);
@@ -50,22 +50,25 @@ public class MemoryMatchingGame {
         }
         return coordinates;
     }
-
-    private void getTheCards(Card[][] cards, String pointsOne, String pointsTwo) {
+    
+    private void getTheCards(Card[][] cards, String pointsOne, String pointsTwo) throws CoordinatesException {
         String pointsArr[] = pointsOne.split(",");
         String pointsArr2[] = pointsTwo.split(",");
         Card card1 = cards[Integer.parseInt(pointsArr[0]) - 1][Integer.parseInt(pointsArr[1]) - 1];
         Card card2 = cards[Integer.parseInt(pointsArr2[0]) - 1][Integer.parseInt(pointsArr2[1]) - 1];
+        if (pointsOne.equals(pointsTwo)) {
+            throw new CoordinatesException("You have chosen the same coordinates");
+        }
         if (card1.getValue() == card2.getValue()) {
             card1.setFace("UP");
             card2.setFace("UP");
-
+            
             System.out.println("Correct");
         } else {
             System.out.println("Wrong!!!");
         }
     }
-
+    
     private void initializeCards(int[][] randomNumbers, Card[][] cards) {
         addRandomNumbers(randomNumbers);
         for (int i = 0; i < cards.length; i++) {
@@ -74,7 +77,7 @@ public class MemoryMatchingGame {
             }
         }
     }
-
+    
     private void addNumbers(ArrayList<Integer> randomNumbers) {
         for (int i = 1; i <= 8; i++) {
             randomNumbers.add(i);
@@ -82,7 +85,7 @@ public class MemoryMatchingGame {
         }
         Collections.shuffle(randomNumbers);
     }
-
+    
     private void addRandomNumbers(int[][] randomNumbers) {
         ArrayList<Integer> numbers = new ArrayList<>();
         addNumbers(numbers);
@@ -92,23 +95,23 @@ public class MemoryMatchingGame {
                 randomNumbers[i][j] = numbers.get(counter);
                 counter++;
             }
-
+            
         }
     }
-
+    
     private void displayCards(Card[][] cards) {
         for (int i = 0; i < cards.length; i++) {
             for (int j = 0; j < cards[i].length; j++) {
                 if (cards[i][j].getFace().equalsIgnoreCase("down")) {
-                    System.out.printf("%s\t", cards[i][j].getFace());
+                    System.out.printf("%s\t", "*");
                 } else {
-                    System.out.printf("%s\t", cards[i][j]);
+                    System.out.printf("%s\t", cards[i][j].getValue());
                 }
             }
             System.out.println();
         }
     }
-
+    
     private void displayCardsNumbers(Card[][] cards) {
         for (int i = 0; i < cards.length; i++) {
             for (int j = 0; j < cards[i].length; j++) {
@@ -117,5 +120,5 @@ public class MemoryMatchingGame {
             System.out.println("");
         }
     }
-
+    
 }
