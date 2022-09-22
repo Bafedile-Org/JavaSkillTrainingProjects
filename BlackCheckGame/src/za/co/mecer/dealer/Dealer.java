@@ -25,7 +25,8 @@ public class Dealer implements CardsInterface, PlayerInterface {
     }
 
     public void flipCards(Stack<Cards> cards, Cards[] dealerCards) throws CardException {
-        while (dealerCards[dealerCards.length - 1] == null) {
+        int counter = (int) (Math.random() * 5) + 1;
+        while (dealerCards[dealerCards.length - counter] == null) {
             if (!(getSumOfCards(dealerCards) >= 21)) {
                 Cards card = cards.pop();
                 addCards(dealerCards, card);

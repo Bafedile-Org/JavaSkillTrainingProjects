@@ -21,10 +21,6 @@ public class Game implements GameInterface {
     private final Cards dealerCards[] = new Cards[5];
     int cardCounter = 1;
 
-    public Game() {
-
-    }
-
     @Override
     public void populateCardsArray() {
         Suits[] arr = Suits.values();
@@ -65,6 +61,7 @@ public class Game implements GameInterface {
         if (cardCounter == 5) {
             try {
                 dealer.flipCards(stackCards, dealerCards);
+                dealer.viewCards(dealerCards, "Dealer");
                 getGameResults(player, dealer);
             } catch (CardException ex) {
                 System.out.printf("%nERROR: %s%n", ex.getMessage());
