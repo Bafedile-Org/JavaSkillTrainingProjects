@@ -19,48 +19,37 @@ public class Messaging {
     }
 
     private void run() {
-        char ch[] = new char[26];
+        char alphas[] = new char[26];
         Message sms = new SMS("This is java", "+27183838383");
-        Message email = new Email("dk", "dimakatso", "mecer", "subject");
+        Message email = new Email("DK has arrived", "dimakatso", "mecer", "subject");
         DisplayMessage dm = (msg) -> System.out.printf("%s", msg.toString());
-        Alphabets alphas = cha -> {
+        Alphabets ch = cha -> {
             int i = 0;
             for (char a = 'a'; a <= 'z'; a++) {
                 cha[i] = a;
                 i++;
             }
-
         };
+        ch.getAlphabets(alphas);
 
-        alphas.getAlphabets(ch);
         Encode encode = msg -> {
             StringBuilder sb = new StringBuilder();
-            char alpha;
-            for (int i = 0; i < msg.toString().toLowerCase().length(); i++) {
-                alpha = msg.toString().toLowerCase().charAt(i);
-                for (int j = 0; j < ch.length; j++) {
-                    if (Character.isLetter(alpha)) {
-                        if (alpha == ch[j]) {
-                            sb.append(ch[(j)]);
-                        }
-                    }
-
+            String str = msg.getText().toLowerCase();
+            for (int i = 0; i < str.length(); i++) {
+                if (Character.isLetter(str.charAt(i))) {
+                    sb.append(alphas[(str.charAt(i) - 'a' + 1)]);
+                } else {
+                    sb.append(str.charAt(i));
                 }
-                sb.append(" ");
             }
-            return sb.toString();
+            msg.setText(sb.toString());
+            return msg.toString();
+
         };
-
         System.out.println(encode.encodedString(sms));
-
-//        System.out.println(ContainsKeyword(sms, "Hello"));
-//        perform(dm, sms);
-//        perform(dm, email);
+        System.out.println(encode.encodedString(email));
     }
 
-//    private void perform(DisplayMessage dis, Message msg) {
-//        dis.display(msg);
-//    }
     @FunctionalInterface
     interface DisplayMessage {
 
