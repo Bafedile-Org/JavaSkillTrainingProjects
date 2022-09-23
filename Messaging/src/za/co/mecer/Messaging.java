@@ -22,7 +22,6 @@ public class Messaging {
         char alphas[] = new char[26];
         Message sms = new SMS("This is java", "+27183838383");
         Message email = new Email("DK has arrived", "dimakatso", "mecer", "subject");
-        DisplayMessage dm = (msg) -> System.out.printf("%s", msg.toString());
         Alphabets ch = cha -> {
             int i = 0;
             for (char a = 'a'; a <= 'z'; a++) {
@@ -46,8 +45,11 @@ public class Messaging {
             return msg.toString();
 
         };
-        System.out.println(encode.encodedString(sms));
-        System.out.println(encode.encodedString(email));
+        DisplayMessage dm = msg -> {
+            System.out.printf("%S%n", encode.encodedString(msg));
+        };
+        dm.display(sms);
+        dm.display(email);
     }
 
     @FunctionalInterface
