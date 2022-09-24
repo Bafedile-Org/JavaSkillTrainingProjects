@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/G:/JavaSkillTrainingProjects/BlackCheckGame/src/za/co/mecer/cards/Cards.java</file>
+            <file>file:/G:/JavaSkillTrainingProjects/BlackCheckGame/src/za/co/mecer/interfaces/GameInterface.java</file>
+            <file>file:/G:/JavaSkillTrainingProjects/BlackCheckGame/src/za/co/mecer/BlackJackGame.java</file>
+            <file>file:/G:/JavaSkillTrainingProjects/BlackCheckGame/src/za/co/mecer/exceptions/CardException.java</file>
+            <file>file:/G:/JavaSkillTrainingProjects/BlackCheckGame/src/za/co/mecer/interfaces/CardsInterface.java</file>
+            <file>file:/G:/JavaSkillTrainingProjects/BlackCheckGame/src/za/co/mecer/player/Player.java</file>
+            <file>file:/G:/JavaSkillTrainingProjects/BlackCheckGame/src/za/co/mecer/dealer/Dealer.java</file>
+            <file>file:/G:/JavaSkillTrainingProjects/BlackCheckGame/src/za/co/mecer/game/Game.java</file>
+            <file>file:/G:/JavaSkillTrainingProjects/BlackCheckGame/src/za/co/mecer/interfaces/PlayerInterface.java</file>
+            <file>file:/G:/JavaSkillTrainingProjects/BlackCheckGame/src/za/co/mecer/cards/suits/Suits.java</file>
+        </group>
+    </open-files>
+</project-private>
