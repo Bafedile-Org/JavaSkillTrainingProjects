@@ -40,6 +40,7 @@ public class FileCopying2 {
             if (args.length == 3) {
                 copy(args[2], args);
             }
+
         } catch (IOException iox) {
             System.out.printf("File Error: %s%n", iox.getMessage());
         }
