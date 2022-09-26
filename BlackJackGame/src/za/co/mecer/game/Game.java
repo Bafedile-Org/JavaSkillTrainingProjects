@@ -56,7 +56,6 @@ public class Game implements GameInterface {
             } catch (CardException ex) {
                 System.out.printf("%nERROR: %s%n", ex.getMessage());
             }
-
         } while (choice != 1 && cardCounter < 5);
         if (cardCounter == 5) {
             try {

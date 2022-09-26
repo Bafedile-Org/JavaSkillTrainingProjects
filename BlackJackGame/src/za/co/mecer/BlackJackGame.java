@@ -19,9 +19,7 @@ public class BlackJackGame {
     private void run() {
         try {
             GameInterface game = new Game();
-//            game.getPlayers();
             game.playGame();
-
         } catch (IllegalArgumentException ex) {
             System.out.printf("%s%n", ex.getMessage());
         }
