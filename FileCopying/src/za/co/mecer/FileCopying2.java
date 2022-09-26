@@ -33,7 +33,6 @@ public class FileCopying2 {
     }
 
     private void run(String[] args) {
-
         try {
             if (args.length == 2) {
                 copy("", args);
@@ -41,7 +40,6 @@ public class FileCopying2 {
             if (args.length == 3) {
                 copy(args[2], args);
             }
-
         } catch (IOException iox) {
             System.out.printf("File Error: %s%n", iox.getMessage());
         }
@@ -60,7 +58,6 @@ public class FileCopying2 {
         } catch (IOException iox) {
             System.out.printf("Reader Error: %s%n", iox.getMessage());
         }
-
         switch (arg) {
             case "-u":
                 return sb.toString().toUpperCase();
@@ -69,7 +66,6 @@ public class FileCopying2 {
             default:
                 return sb.toString();
         }
-
     }
 
     private void copyTo(File file1, File file2, String arg) {

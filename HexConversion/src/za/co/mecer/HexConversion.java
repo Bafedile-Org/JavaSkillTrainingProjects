@@ -23,5 +23,4 @@ public class HexConversion {
             System.out.printf("Error: %s%n%n", ex.getMessage());
         }
     }
-
 }
