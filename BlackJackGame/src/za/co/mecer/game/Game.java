@@ -3,6 +3,7 @@ package za.co.mecer.game;
 import java.util.Scanner;
 import java.util.Stack;
 import za.co.mecer.cards.Cards;
+import za.co.mecer.cards.suits.Suits;
 import za.co.mecer.dealer.Dealer;
 import za.co.mecer.exceptions.CardException;
 import za.co.mecer.interfaces.GameInterface;
@@ -16,43 +17,38 @@ public class Game implements GameInterface {
 
     private final Stack<Cards> stackCards = new Stack<>();
     private Scanner input = new Scanner(System.in);
-    Cards[] playerCards;
-    Cards[] dealerCards;
-    Player player;
-    Dealer dealer;
-    int cardCounter;
+    private final Cards[] playerCards = new Cards[5];
+    private final Cards dealerCards[] = new Cards[5];
+    int cardCounter = 1;
 
-    public Game() {
-        getPlayers();
-    }
+    @Override
+    public void populateCardsArray() {
+        Suits[] arr = Suits.values();
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < 13; j++) {
+                stackCards.push(new Cards(arr[i], (j + 1)));
+            }
+        }
 
-    public void getPlayers() {
-        String playerName, dealerName;
-
-        playerName = getName("Player");
-        dealerName = getName("Dealer");
-        // create player and dealer
-        player = new Player(playerName);
-        dealer = new Dealer(dealerName);
     }
 
     @Override
     public void playGame() {
-        playerCards = new Cards[5];
-        dealerCards = new Cards[5];
-        int choice = 0, contChoice;
-        populateCardsArray(stackCards);
-        dealer.shuffleCards(stackCards);
-        cardCounter = 0;
+        String playerName, dealerName;
+        int choice = 0;
+        playerName = getName("Player");
+        dealerName = getName("Dealer");
+
+        // create player and dealer
+        Player player = new Player(playerName);
+        Dealer dealer = new Dealer(dealerName);
+        populateCardsArray();
         do {
             try {
-                if (cardCounter < 2) {
-                    player.addCards(playerCards, dealer.giveCard(stackCards));
-                    if (cardCounter == 1) {
-                        player.viewCards(playerCards, "[PLAYER] ".concat(player.getName()));
-                    }
+                if (cardCounter >= 1 && cardCounter < 2) {
+                    playersCardsInitialization(player, dealer);
                     cardCounter += 1;
-                } else if (cardCounter < 5) {
+                } else if (cardCounter > 1 && cardCounter <= 5) {
                     choice = displayChoices();
                     choicePlays(choice, player, dealer);
                 }
@@ -65,54 +61,37 @@ public class Game implements GameInterface {
         if (cardCounter == 5) {
             try {
                 dealer.flipCards(stackCards, dealerCards);
+                dealer.viewCards(dealerCards, "Dealer");
                 getGameResults(player, dealer);
             } catch (CardException ex) {
                 System.out.printf("%nERROR: %s%n", ex.getMessage());
             }
 
         }
-        try {
-            contChoice = getPlayChoice();
-            if (contChoice == 1) {
-                playGame();
-            } else {
-                System.out.printf("\n==========================================\n"
-                        + "\tTHANK YOU FOR PLAYING\n"
-                        + "\n==========================================\n");
-            }
-        } catch (CardException ex) {
-            System.out.printf("%nERROR: %s%n", ex.getMessage());
-        }
+
     }
 
-    public int getPlayChoice() throws CardException {
-        boolean isValid = true;
-        int choice = 0;
-        do {
-            System.out.print("Press [1] to Play or [2] to exit the Game: ");
-            choice = input.nextInt();
-            if (choice < 0 && choice > 2) {
-                isValid = false;
-                throw new CardException("\nEnter either 1 or 2\n");
+    @Override
+    public void playersCardsInitialization(Player player, Dealer dealer) throws CardException {
+        player.addCards(playerCards, dealer.giveCard(stackCards));
+        player.addCards(playerCards, dealer.giveCard(stackCards));
+        player.viewCards(playerCards, "Player");
 
-            }
-        } while (!isValid);
-
-        return choice;
     }
 
     @Override
     public void choicePlays(int choice, Player player, Dealer dealer) throws CardException {
         switch (choice) {
             case 1:
+
                 dealer.flipCards(stackCards, dealerCards);
-                dealer.viewCards(dealerCards, "[DEALER] ".concat(dealer.getName()));
+                dealer.viewCards(dealerCards, "Dealer");
                 getGameResults(player, dealer);
                 break;
             default:
-
+                dealer.shuffleCards(stackCards);
                 player.addCards(playerCards, dealer.giveCard(stackCards));
-                player.viewCards(playerCards, "[PLAYER] ".concat(player.getName()));
+                player.viewCards(playerCards, "Player");
                 cardCounter += 1;
 
         }
@@ -137,7 +116,6 @@ public class Game implements GameInterface {
     @Override
     public boolean getRoyalCards(Cards card) {
         boolean jack = false, queen = false, king = false, ten = true;
-
         switch (card.getCardNumber()) {
             case 10:
                 ten = true;
@@ -165,7 +143,7 @@ public class Game implements GameInterface {
                     + "%n=================================%n"
                     + "Total Sum of Player Cards [%d]%n"
                     + "Total Sum of Dealer Cards [%d]%n"
-                    + "You WIN!%n%n", player.getName(), player.getSumOfCards(playerCards), player.getSumOfCards(dealerCards));
+                    + "You have WON!%n%n", player.getName(), player.getSumOfCards(playerCards), player.getSumOfCards(dealerCards));
 
         } else if ((player.getSumOfCards(playerCards) == dealer.getSumOfCards(dealerCards))
                 || (player.getSumOfCards(playerCards) < dealer.getSumOfCards(dealerCards))) {
@@ -174,7 +152,7 @@ public class Game implements GameInterface {
                     + "%n=================================%n"
                     + "Total Sum of Player Cards [%d]%n"
                     + "Total Sum of Dealer Cards [%d]%n"
-                    + "Black Jack%nYou  LOSE!!%n%n", player.getName(), player.getSumOfCards(playerCards), player.getSumOfCards(dealerCards));
+                    + "Black Check%nYou  LOSE!!%n%n", player.getName(), player.getSumOfCards(playerCards), player.getSumOfCards(dealerCards));
         }
     }
 
@@ -182,9 +160,9 @@ public class Game implements GameInterface {
     public String getName(String str) {
         String name;
         do {
-            System.out.printf("\nPlease enter a %s name: ", str);
-            name = input.next();
-        } while (name.isEmpty());
+            System.out.printf("Please enter a %s name: ", str);
+            name = input.nextLine();
+        } while (name == null);
 
         return name;
     }
