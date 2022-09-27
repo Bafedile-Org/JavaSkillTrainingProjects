@@ -1,6 +1,8 @@
 package za.co.mecer;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,10 +19,14 @@ public class NIO2Test {
      * @throws java.io.IOException
      */
     public static void main(String[] args) throws IOException {
-        new NIO2Test().run();
+//        new NIO2Test().runTest1();
+//        new NIO2Test().runTest2();
+//        new NIO2Test().runTest3();
+        new NIO2Test().runTest4();
+
     }
 
-    private void run() throws IOException {
+    private void runTest1() throws IOException {
         StringBuilder sb = new StringBuilder();
         Path path = Paths.get("C:\\test\\nio2.txt");
         sb.append("Hello World!\n");
@@ -38,6 +44,35 @@ public class NIO2Test {
 //        }
 
         read.forEach((s) -> System.out.printf("%s%n", s));
+        //   read.forEach(System.out::println);
     }
 
+    private void runTest2() throws IOException {
+        Path path = Paths.get("C:\\test\\nio2.txt");
+        try (BufferedReader reader = Files.newBufferedReader(path, Charset.forName("UTF-8"))) {
+            String read;
+            while ((read = reader.readLine()) != null) {
+                System.out.printf("%s%n", read);
+            }
+        } catch (IOException iox) {
+            System.out.printf("ERROR: %s%n", iox.getMessage());
+        }
+    }
+
+    private void runTest3() throws IOException {
+        Path path = Paths.get("c:\\test\\test1.txt");
+        System.out.println(Files.deleteIfExists(path) ? "File deleted" : "File does not exists");
+    }
+
+    private void runTest4() throws IOException {
+        Path path = Paths.get("C:\\test\\nio2.txt");
+        System.out.printf("Path: %s%n", path);
+        path = path.normalize();
+        System.out.printf("Path [normalized]: %s%n", path);
+        path = path.toAbsolutePath();
+        System.out.printf("Path [absolute]: %s%n", path);
+        path = path.toRealPath();
+        System.out.printf("Path [real]: %s%n", path);
+
+    }
 }
