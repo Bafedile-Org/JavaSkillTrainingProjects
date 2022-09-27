@@ -12,3 +12,9 @@ Projects that are committed in this repository are the ones I have been tasked t
 > Objects
 > Polymorphism
 > Collections
+#### Advanced Java 
+> Lambdas
+> Input/Output Streams
+> Concurrency and Threads
+> MySQL Database 
+> Generics
