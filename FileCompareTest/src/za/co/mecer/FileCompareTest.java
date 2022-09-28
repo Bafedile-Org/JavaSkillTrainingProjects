@@ -40,9 +40,18 @@ public class FileCompareTest {
             String[] file2Arr = file2Str.split("\\n");
 
             for (int i = 0; i < file1Arr.length; i++) {
-                if (!file1Arr[i].equals(file2Arr[i])) {
-                    System.out.printf("[file: %s][Line: %d]  %s%n", file1, (i + 1), file1Arr[i]);
+                if ((i >= file1Arr.length) && (i < file2Arr.length)) {
                     System.out.printf("[file: %s][Line: %d]  %s%n", file2, (i + 1), file2Arr[i]);
+                }
+                if ((i >= file2Arr.length) && (i < file1Arr.length)) {
+                    System.out.printf("[file: %s][Line: %d]  %s%n", file1, (i + 1), file1Arr[i]);
+                }
+
+                if (i < file1Arr.length && i < file2Arr.length) {
+                    if (!file1Arr[i].equals(file2Arr[i])) {
+                        System.out.printf("[file: %s][Line: %d]  %s%n", file1, (i + 1), file1Arr[i]);
+                        System.out.printf("[file: %s][Line: %d]  %s%n", file2, (i + 1), file2Arr[i]);
+                    }
                 }
             }
         }
