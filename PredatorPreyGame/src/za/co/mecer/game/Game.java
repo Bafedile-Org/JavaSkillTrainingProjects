@@ -1,5 +1,8 @@
 package za.co.mecer.game;
 
+import java.util.Scanner;
+import za.co.mecer.game.exceptions.GameException;
+import za.co.mecer.impl.Gaming;
 import za.co.mecer.organism.Organism;
 import za.co.mecer.organism.ants.Ants;
 import za.co.mecer.organism.dooglebugs.DoogleBugs;
@@ -8,36 +11,107 @@ import za.co.mecer.organism.dooglebugs.DoogleBugs;
  *
  * @author Dimakatso Sebatane
  */
-public class Game {
+public class Game implements Gaming {
 
-    Organism[][] orgs = new Organism[6][6];
+    final Organism[][] orgs = new Organism[3][3];
+    int i = 0;
+
+    public int getChoice() {
+        int choice = 0, option;
+        Scanner input = new Scanner(System.in);
+        do {
+            try {
+                System.out.print("Choose Playing Options\n"
+                        + "1  AutoPlay\n"
+                        + "2  Manual Play\n"
+                        + "Your choice: ");
+                choice = input.nextInt();
+                if (choice < 1 && choice > 2) {
+                    throw new GameException("Choose between 1 and 2\n");
+                }
+            } catch (GameException ge) {
+
+            }
+        } while (choice < 1 && choice > 2);
+
+        return choice;
+    }
 
     public void play() {
+        Scanner input = new Scanner(System.in);
         populateWorldGrid();
-        do {
-            displayGrid();
-            moveAnts();
-            moveBugs();
-            displayGrid();
 
-        } while (checkPopulation());
+        int choice = getChoice();
+
+        if (choice == 1) {
+            do {
+                displayGrid();
+                moveAnts();
+                //checkBreed();
+                moveBugs();
+            } while (checkPopulation());
+        } else {
+            displayGrid();
+            System.out.println("Press Enter to continue");
+            input.next();
+
+            moveAnts();
+            //checkBreed();
+            moveBugs();
+        }
+
     }
 
     private void populateWorldGrid() {
-        System.out.println("Please be patient while populating the World Grid");
-        populateAnts();
-        populateBugs();
+        try {
+            displayIntro();
 
+            populateAnts();
+            populateBugs();
+        } catch (InterruptedException ex) {
+            System.out.printf("%nError: %s%n", ex.getMessage());
+        }
+
+    }
+
+    private void displayIntro() throws InterruptedException {
+        String intro = "Predation is a key system in the life cycle.\n"
+                + "It is a mechanism for the transmission of carbon and energy,\n"
+                + "from the simplest to the most complex forms of life, \n"
+                + "also exerting pressure on the species known as natural selection,\n"
+                + "which is nothing more than the competition to survive and reproduce,\n"
+                + "and is one of the most efficient engines for evolution.\n\n"
+                + "\nPlease be patient while populating the World Grid..\n\n\n"
+                + "===========================PLAY===========================\n\n\n";
+
+        for (int counter = 0; counter < intro.length(); counter++) {
+            System.out.print(intro.charAt(counter));
+            Thread.sleep(10);
+        }
+
+    }
+
+    private void checkBreed() {
+        for (Organism[] org : orgs) {
+            for (Organism org1 : org) {
+                if (org1 instanceof Ants) {
+                    org1.breed(orgs);
+                }
+                if (org1 instanceof DoogleBugs) {
+                    org1.breed(orgs);
+                }
+            }
+        }
     }
 
     private boolean checkPopulation() {
         boolean ants = false, bugs = false;
-        for (int i = 0; i < orgs.length; i++) {
-            for (int j = 0; j < orgs[i].length; j++) {
-                if (orgs[i][j] instanceof Ants) {
+        for (Organism[] org : orgs) {
+            for (Organism org1 : org) {
+                if (org1 instanceof Ants) {
                     ants = true;
                 }
-                if (orgs[i][j] instanceof DoogleBugs) {
+                if (org1 instanceof DoogleBugs) {
                     bugs = true;
                 }
             }
@@ -46,30 +120,32 @@ public class Game {
     }
 
     private void moveAnts() {
-        System.out.println("\n");
-        for (int i = 0; i < orgs.length; i++) {
-            for (int j = 0; j < orgs[i].length; j++) {
-                if (orgs[i][j] instanceof Ants) {
-                    orgs[i][j].move(orgs);
+        for (Organism[] org : orgs) {
+            for (Organism org1 : org) {
+                if (org1 instanceof Ants) {
+                    org1.move(orgs);
+                    displayGrid();
                 }
             }
         }
+
     }
 
     private void moveBugs() {
-        System.out.println("\n");
-        for (int i = 0; i < orgs.length; i++) {
-            for (int j = 0; j < orgs[i].length; j++) {
-                if (orgs[i][j] instanceof DoogleBugs) {
-                    orgs[i][j].move(orgs);
+        for (Organism[] org : orgs) {
+            for (Organism org1 : org) {
+                if (org1 instanceof DoogleBugs) {
+                    org1.move(orgs);
+                    displayGrid();
                 }
             }
         }
+
     }
 
     private void populateAnts() {
         int antsCount = 0, x, y;
-        while (antsCount < 30) {
+        while (antsCount < ANTS_NUM) {
             x = randomNumber();
             y = randomNumber();
             if (orgs[x][y] == null) {
@@ -81,7 +157,7 @@ public class Game {
 
     private void populateBugs() {
         int bugsCount = 0, x, y;
-        while (bugsCount < 5) {
+        while (bugsCount < BUGS_NUM) {
 
             x = randomNumber();
             y = randomNumber();
@@ -93,26 +169,23 @@ public class Game {
     }
 
     private int randomNumber() {
-        int rand = (int) (Math.random() * 5);
+        int rand = (int) (Math.random() * orgs.length);
         return rand;
     }
 
     private void displayGrid() {
-        System.out.println("\n");
-        for (int i = 0; i < orgs.length; i++) {
-            for (int j = 0; j < orgs[i].length; j++) {
-                if (orgs[i][j] instanceof Ants) {
+        System.out.println("");
+        for (Organism[] org : orgs) {
+            for (Organism org1 : org) {
+                if (org1 instanceof Ants) {
                     System.out.print(String.format("%-10s", " 0 "));
-                } else if (orgs[i][j] instanceof DoogleBugs) {
+                } else if (org1 instanceof DoogleBugs) {
                     System.out.print(String.format("%-10s", " X "));
-
                 } else {
                     System.out.print(String.format("%-10s", " * "));
-
                 }
-
             }
-            System.out.println();
+            System.out.println("\n");
         }
     }
 
