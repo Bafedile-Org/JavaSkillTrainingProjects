@@ -18,7 +18,7 @@ public class DoogleBugs extends Organism {
     }
 
     @Override
-    public void moveUp(Organisms[][] orgs) {
+    public void moveRight(Organisms[][] orgs) {
         if (getYCor() - 1 >= 0) {
             if (orgs[getXCor()][getYCor() - 1] == null) {
                 DoogleBugs bug = new DoogleBugs(getXCor(), getYCor() - 1);
@@ -32,14 +32,15 @@ public class DoogleBugs extends Organism {
                 bug.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
                 orgs[getXCor()][getYCor() - 1] = bug;
                 orgs[getXCor()][getYCor()] = null;
+                eaten = true;
             }
 
         }
     }
 
     @Override
-    public void moveDown(Organisms[][] orgs) {
-        if (getYCor() + 1 <= 4) {
+    public void moveLeft(Organisms[][] orgs) {
+        if (getYCor() + 1 < orgs.length) {
             if (orgs[getXCor()][getYCor() + 1] == null) {
                 DoogleBugs bug = new DoogleBugs(getXCor(), getYCor() + 1);
                 bug.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
@@ -51,13 +52,15 @@ public class DoogleBugs extends Organism {
                 bug.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
                 orgs[getXCor()][getYCor() + 1] = bug;
                 orgs[getXCor()][getYCor()] = null;
+                eaten = true;
+
             }
 
         }
     }
 
     @Override
-    public void moveLeft(Organisms[][] orgs) {
+    public void moveDown(Organisms[][] orgs) {
         if (getXCor() - 1 >= 0) {
             if (orgs[getXCor() - 1][getYCor()] == null) {
                 DoogleBugs bug = new DoogleBugs(getXCor() - 1, getYCor());
@@ -70,13 +73,15 @@ public class DoogleBugs extends Organism {
                 bug.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
                 orgs[getXCor() - 1][getYCor()] = bug;
                 orgs[getXCor()][getYCor()] = null;
+                eaten = true;
+
             }
         }
     }
 
     @Override
-    public void moveRight(Organisms[][] orgs) {
-        if (getXCor() + 1 <= 4) {
+    public void moveUp(Organisms[][] orgs) {
+        if (getXCor() + 1 < orgs.length) {
             if (orgs[getXCor() + 1][getYCor()] == null) {
                 DoogleBugs bug = new DoogleBugs(getXCor() + 1, getYCor());
                 bug.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
@@ -88,6 +93,8 @@ public class DoogleBugs extends Organism {
                 bug.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
                 orgs[getXCor() + 1][getYCor()] = bug;
                 orgs[getXCor()][getYCor()] = null;
+                eaten = true;
+
             }
         }
     }
@@ -114,7 +121,7 @@ public class DoogleBugs extends Organism {
 
         }
 //        breed(orgs);
-//        starve(orgs);
+        starve(orgs);
     }
 
     @Override
@@ -122,7 +129,7 @@ public class DoogleBugs extends Organism {
     }
 
     public void starve(Organisms[][] org) {
-        if (org[getXCor()][getYCor()].getSteps() == 8 && eaten == false) {
+        if (org[getXCor()][getYCor()] != null && org[getXCor()][getYCor()].getSteps() == 8 && eaten == false) {
             org[getXCor()][getYCor()] = null;
         }
     }

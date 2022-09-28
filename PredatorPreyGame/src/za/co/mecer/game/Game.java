@@ -11,19 +11,17 @@ import za.co.mecer.organism.dooglebugs.DoogleBugs;
  */
 public class Game implements Gaming {
 
-    Organism[][] orgs = new Organism[5][5];
+    final Organism[][] orgs = new Organism[3][3];
+    int i = 0;
 
     public void play() {
         populateWorldGrid();
+        displayGrid();
         do {
-            displayGrid();
             moveAnts();
-            displayGrid();
-            checkBreed();
-            displayGrid();
+            //checkBreed();
             moveBugs();
         } while (checkPopulation());
-//        displayGrid();
     }
 
     private void populateWorldGrid() {
@@ -62,25 +60,27 @@ public class Game implements Gaming {
     }
 
     private void moveAnts() {
-        System.out.println("\n");
         for (Organism[] org : orgs) {
             for (Organism org1 : org) {
                 if (org1 instanceof Ants) {
                     org1.move(orgs);
+                    displayGrid();
                 }
             }
         }
+
     }
 
     private void moveBugs() {
-        System.out.println("\n");
         for (Organism[] org : orgs) {
             for (Organism org1 : org) {
                 if (org1 instanceof DoogleBugs) {
                     org1.move(orgs);
+                    displayGrid();
                 }
             }
         }
+
     }
 
     private void populateAnts() {
@@ -114,7 +114,7 @@ public class Game implements Gaming {
     }
 
     private void displayGrid() {
-        System.out.println("\n--------------------------------------------------------");
+        System.out.println("");
         for (Organism[] org : orgs) {
             for (Organism org1 : org) {
                 if (org1 instanceof Ants) {
@@ -127,7 +127,6 @@ public class Game implements Gaming {
             }
             System.out.println("\n");
         }
-        System.out.println("--------------------------------------------------------");
     }
 
 }

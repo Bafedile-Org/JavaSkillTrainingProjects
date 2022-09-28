@@ -31,18 +31,17 @@ public class Ants extends Organism {
             case LEFT:
                 moveLeft(orgs);
                 break;
-
             default:
                 moveRight(orgs);
                 break;
         }
-        orgs[getXCor()][getYCor()] = null;
+//        orgs[getXCor()][getYCor()] = null;
     }
 
     @Override
     public void breed(Organisms[][] orgs) {
         int steps = orgs[getXCor()][getYCor()].getSteps();
-        System.out.println("Steps: " + steps);
+        //  System.out.println("Steps: " + steps);
         if (steps == 3) {
             moveUp(orgs);
             if (!up) {
@@ -57,69 +56,64 @@ public class Ants extends Organism {
     }
 
     @Override
-    public void moveUp(Organisms[][] orgs) {
-        if (getYCor() - 1 >= 0) {
-            if (orgs[getXCor()][getYCor() - 1] == null) {
-                Ants ant = new Ants(getXCor(), getYCor() - 1);
-                if (orgs[getXCor()][getYCor()].getSteps() >= 3) {
-                    ant.setSteps(0);
-                } else {
-                    ant.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
-                }
-
-                orgs[getXCor()][getYCor() - 1] = ant;
-
-            }
-
-        }
-    }
-
-    @Override
-    public void moveDown(Organisms[][] orgs) {
-        if (getYCor() + 1 <= 4) {
-            if (orgs[getXCor()][getYCor() + 1] == null) {
-                Ants ant = new Ants(getXCor(), getYCor() + 1);
-                if (orgs[getXCor()][getYCor()].getSteps() >= 3) {
-                    ant.setSteps(0);
-                } else {
-                    ant.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
-                }
-                orgs[getXCor()][getYCor() + 1] = ant;
-                down = true;
-            }
-
-        }
-    }
-
-    @Override
     public void moveLeft(Organisms[][] orgs) {
-        if (getXCor() - 1 >= 0) {
-            if (orgs[getXCor() - 1][getYCor()] == null) {
-                Ants ant = new Ants(getXCor() - 1, getYCor());
-                if (orgs[getXCor()][getYCor()].getSteps() >= 3) {
-                    ant.setSteps(0);
-                } else {
-                    ant.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
-                }
-                orgs[getXCor() - 1][getYCor()] = ant;
-                left = true;
+        if ((getYCor() - 1 >= 0) && (orgs[getXCor()][getYCor() - 1] == null)) {
+            Ants ant = new Ants(getXCor(), getYCor() - 1);
+            if (orgs[getXCor()][getYCor()].getSteps() >= 3) {
+                ant.setSteps(0);
+            } else {
+                ant.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
             }
+
+            orgs[getXCor()][getYCor() - 1] = ant;
+            orgs[getXCor()][getYCor()] = null;
+            up = true;
         }
     }
 
     @Override
     public void moveRight(Organisms[][] orgs) {
-        if (getXCor() + 1 <= 4) {
-            if (orgs[getXCor() + 1][getYCor()] == null) {
-                Ants ant = new Ants(getXCor() + 1, getYCor());
-                if (orgs[getXCor()][getYCor()].getSteps() >= 3) {
-                    ant.setSteps(0);
-                } else {
-                    ant.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
-                }
-                orgs[getXCor() + 1][getYCor()] = ant;
-                right = true;
+        if ((getYCor() + 1 < orgs.length) && (orgs[getXCor()][getYCor() + 1] == null)) {
+            Ants ant = new Ants(getXCor(), getYCor() + 1);
+            if (orgs[getXCor()][getYCor()].getSteps() >= 3) {
+                ant.setSteps(0);
+            } else {
+                ant.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
             }
+            orgs[getXCor()][getYCor() + 1] = ant;
+            orgs[getXCor()][getYCor()] = null;
+            down = true;
+
+        }
+    }
+
+    @Override
+    public void moveUp(Organisms[][] orgs) {
+        if ((getXCor() - 1 >= 0) && (orgs[getXCor() - 1][getYCor()] == null)) {
+            Ants ant = new Ants(getXCor() - 1, getYCor());
+            if (orgs[getXCor()][getYCor()].getSteps() >= 3) {
+                ant.setSteps(0);
+            } else {
+                ant.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
+            }
+            orgs[getXCor() - 1][getYCor()] = ant;
+            orgs[getXCor()][getYCor()] = null;
+            left = true;
+        }
+    }
+
+    @Override
+    public void moveDown(Organisms[][] orgs) {
+        if ((getXCor() + 1 < orgs.length) && (orgs[getXCor() + 1][getYCor()] == null)) {
+            Ants ant = new Ants(getXCor() + 1, getYCor());
+            if (orgs[getXCor()][getYCor()].getSteps() >= 3) {
+                ant.setSteps(0);
+            } else {
+                ant.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
+            }
+            orgs[getXCor() + 1][getYCor()] = ant;
+            orgs[getXCor()][getYCor()] = null;
+            right = true;
         }
     }
 
