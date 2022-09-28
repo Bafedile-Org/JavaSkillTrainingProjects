@@ -1,6 +1,6 @@
 package za.co.mecer.organism;
 
-import za.co.mecer.organism.impl.Organisms;
+import za.co.mecer.impl.Organisms;
 
 /**
  *
@@ -15,26 +15,32 @@ public abstract class Organism implements Organisms {
         this.yCor = yCor;
     }
 
+    @Override
     public int getSteps() {
         return steps;
     }
 
+    @Override
     public void setSteps(int steps) {
         this.steps = steps;
     }
 
+    @Override
     public void setXCor(int xCor) {
         this.xCor = xCor;
     }
 
+    @Override
     public int getXCor() {
         return xCor;
     }
 
+    @Override
     public void setYCor(int yCor) {
         this.yCor = yCor;
     }
 
+    @Override
     public int getYCor() {
         return yCor;
     }

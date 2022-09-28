@@ -1,4 +1,4 @@
-package za.co.mecer.organism.impl;
+package za.co.mecer.impl;
 
 /**
  *
@@ -6,7 +6,15 @@ package za.co.mecer.organism.impl;
  */
 public interface Organisms {
 
-    void move(Organisms[][] org);
+    void move(Organisms[][] orgs);
+
+    void moveUp(Organisms[][] orgs);
+
+    void moveDown(Organisms[][] orgs);
+
+    void moveLeft(Organisms[][] orgs);
+
+    void moveRight(Organisms[][] orgs);
 
     void breed(Organisms[][] org);
 
@@ -21,4 +29,5 @@ public interface Organisms {
     void setYCor(int yCor);
 
     int getYCor();
+
 }

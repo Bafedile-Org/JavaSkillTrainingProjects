@@ -1,5 +1,6 @@
 package za.co.mecer.game;
 
+import za.co.mecer.impl.Gaming;
 import za.co.mecer.organism.Organism;
 import za.co.mecer.organism.ants.Ants;
 import za.co.mecer.organism.dooglebugs.DoogleBugs;
@@ -8,19 +9,19 @@ import za.co.mecer.organism.dooglebugs.DoogleBugs;
  *
  * @author Dimakatso Sebatane
  */
-public class Game {
+public class Game implements Gaming {
 
-    Organism[][] orgs = new Organism[6][6];
+    Organism[][] orgs = new Organism[5][5];
 
     public void play() {
         populateWorldGrid();
         do {
             displayGrid();
             moveAnts();
-            moveBugs();
             displayGrid();
-
+            moveBugs();
         } while (checkPopulation());
+        displayGrid();
     }
 
     private void populateWorldGrid() {
@@ -69,7 +70,7 @@ public class Game {
 
     private void populateAnts() {
         int antsCount = 0, x, y;
-        while (antsCount < 30) {
+        while (antsCount < ANTS_NUM) {
             x = randomNumber();
             y = randomNumber();
             if (orgs[x][y] == null) {
@@ -81,7 +82,7 @@ public class Game {
 
     private void populateBugs() {
         int bugsCount = 0, x, y;
-        while (bugsCount < 5) {
+        while (bugsCount < BUGS_NUM) {
 
             x = randomNumber();
             y = randomNumber();
@@ -93,12 +94,12 @@ public class Game {
     }
 
     private int randomNumber() {
-        int rand = (int) (Math.random() * 5);
+        int rand = (int) (Math.random() * orgs.length);
         return rand;
     }
 
     private void displayGrid() {
-        System.out.println("\n");
+        System.out.println("\n--------------------------------------------------------");
         for (int i = 0; i < orgs.length; i++) {
             for (int j = 0; j < orgs[i].length; j++) {
                 if (orgs[i][j] instanceof Ants) {
@@ -112,8 +113,9 @@ public class Game {
                 }
 
             }
-            System.out.println();
+            System.out.println("\n");
         }
+        System.out.println("--------------------------------------------------------");
     }
 
 }
