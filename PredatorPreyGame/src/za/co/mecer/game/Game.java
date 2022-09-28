@@ -1,5 +1,7 @@
 package za.co.mecer.game;
 
+import java.util.Scanner;
+import za.co.mecer.game.exceptions.GameException;
 import za.co.mecer.impl.Gaming;
 import za.co.mecer.organism.Organism;
 import za.co.mecer.organism.ants.Ants;
@@ -14,20 +16,78 @@ public class Game implements Gaming {
     final Organism[][] orgs = new Organism[3][3];
     int i = 0;
 
-    public void play() {
-        populateWorldGrid();
-        displayGrid();
+    public int getChoice() {
+        int choice = 0, option;
+        Scanner input = new Scanner(System.in);
         do {
+            try {
+                System.out.print("Choose Playing Options\n"
+                        + "1  AutoPlay\n"
+                        + "2  Manual Play\n"
+                        + "Your choice: ");
+                choice = input.nextInt();
+                if (choice < 1 && choice > 2) {
+                    throw new GameException("Choose between 1 and 2\n");
+                }
+            } catch (GameException ge) {
+
+            }
+        } while (choice < 1 && choice > 2);
+
+        return choice;
+    }
+
+    public void play() {
+        Scanner input = new Scanner(System.in);
+        populateWorldGrid();
+
+        int choice = getChoice();
+
+        if (choice == 1) {
+            do {
+                displayGrid();
+                moveAnts();
+                //checkBreed();
+                moveBugs();
+            } while (checkPopulation());
+        } else {
+            displayGrid();
+            System.out.println("Press Enter to continue");
+            input.next();
+
             moveAnts();
             //checkBreed();
             moveBugs();
-        } while (checkPopulation());
+        }
+
     }
 
     private void populateWorldGrid() {
-        System.out.println("Please be patient while populating the World Grid");
-        populateAnts();
-        populateBugs();
+        try {
+            displayIntro();
+
+            populateAnts();
+            populateBugs();
+        } catch (InterruptedException ex) {
+            System.out.printf("%nError: %s%n", ex.getMessage());
+        }
+
+    }
+
+    private void displayIntro() throws InterruptedException {
+        String intro = "Predation is a key system in the life cycle.\n"
+                + "It is a mechanism for the transmission of carbon and energy,\n"
+                + "from the simplest to the most complex forms of life, \n"
+                + "also exerting pressure on the species known as natural selection,\n"
+                + "which is nothing more than the competition to survive and reproduce,\n"
+                + "and is one of the most efficient engines for evolution.\n\n"
+                + "\nPlease be patient while populating the World Grid..\n\n\n"
+                + "===========================PLAY===========================\n\n\n";
+
+        for (int counter = 0; counter < intro.length(); counter++) {
+            System.out.print(intro.charAt(counter));
+            Thread.sleep(10);
+        }
 
     }
 
