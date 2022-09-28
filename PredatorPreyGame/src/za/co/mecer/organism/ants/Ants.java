@@ -36,16 +36,23 @@ public class Ants extends Organism {
                 moveRight(orgs);
                 break;
         }
+        orgs[getXCor()][getYCor()] = null;
     }
 
     @Override
     public void breed(Organisms[][] orgs) {
         int steps = orgs[getXCor()][getYCor()].getSteps();
+        System.out.println("Steps: " + steps);
         if (steps == 3) {
             moveUp(orgs);
-            if (up) {
-
+            if (!up) {
+                moveDown(orgs);
+            } else if (!down) {
+                moveLeft(orgs);
+            } else if (!left) {
+                moveRight(orgs);
             }
+            orgs[getXCor()][getYCor()].setSteps(0);
         }
     }
 
@@ -54,10 +61,14 @@ public class Ants extends Organism {
         if (getYCor() - 1 >= 0) {
             if (orgs[getXCor()][getYCor() - 1] == null) {
                 Ants ant = new Ants(getXCor(), getYCor() - 1);
-                ant.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
+                if (orgs[getXCor()][getYCor()].getSteps() >= 3) {
+                    ant.setSteps(0);
+                } else {
+                    ant.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
+                }
+
                 orgs[getXCor()][getYCor() - 1] = ant;
-                orgs[getXCor()][getYCor()] = null;
-                up = true;
+
             }
 
         }
@@ -68,9 +79,12 @@ public class Ants extends Organism {
         if (getYCor() + 1 <= 4) {
             if (orgs[getXCor()][getYCor() + 1] == null) {
                 Ants ant = new Ants(getXCor(), getYCor() + 1);
-                ant.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
+                if (orgs[getXCor()][getYCor()].getSteps() >= 3) {
+                    ant.setSteps(0);
+                } else {
+                    ant.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
+                }
                 orgs[getXCor()][getYCor() + 1] = ant;
-                orgs[getXCor()][getYCor()] = null;
                 down = true;
             }
 
@@ -82,9 +96,12 @@ public class Ants extends Organism {
         if (getXCor() - 1 >= 0) {
             if (orgs[getXCor() - 1][getYCor()] == null) {
                 Ants ant = new Ants(getXCor() - 1, getYCor());
-                ant.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
+                if (orgs[getXCor()][getYCor()].getSteps() >= 3) {
+                    ant.setSteps(0);
+                } else {
+                    ant.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
+                }
                 orgs[getXCor() - 1][getYCor()] = ant;
-                orgs[getXCor()][getYCor()] = null;
                 left = true;
             }
         }
@@ -95,9 +112,12 @@ public class Ants extends Organism {
         if (getXCor() + 1 <= 4) {
             if (orgs[getXCor() + 1][getYCor()] == null) {
                 Ants ant = new Ants(getXCor() + 1, getYCor());
-                ant.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
+                if (orgs[getXCor()][getYCor()].getSteps() >= 3) {
+                    ant.setSteps(0);
+                } else {
+                    ant.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
+                }
                 orgs[getXCor() + 1][getYCor()] = ant;
-                orgs[getXCor()][getYCor()] = null;
                 right = true;
             }
         }

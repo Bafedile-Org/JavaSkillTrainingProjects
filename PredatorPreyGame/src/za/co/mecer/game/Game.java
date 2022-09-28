@@ -19,9 +19,11 @@ public class Game implements Gaming {
             displayGrid();
             moveAnts();
             displayGrid();
+            checkBreed();
+            displayGrid();
             moveBugs();
         } while (checkPopulation());
-        displayGrid();
+//        displayGrid();
     }
 
     private void populateWorldGrid() {
@@ -31,14 +33,27 @@ public class Game implements Gaming {
 
     }
 
+    private void checkBreed() {
+        for (Organism[] org : orgs) {
+            for (Organism org1 : org) {
+                if (org1 instanceof Ants) {
+                    org1.breed(orgs);
+                }
+                if (org1 instanceof DoogleBugs) {
+                    org1.breed(orgs);
+                }
+            }
+        }
+    }
+
     private boolean checkPopulation() {
         boolean ants = false, bugs = false;
-        for (int i = 0; i < orgs.length; i++) {
-            for (int j = 0; j < orgs[i].length; j++) {
-                if (orgs[i][j] instanceof Ants) {
+        for (Organism[] org : orgs) {
+            for (Organism org1 : org) {
+                if (org1 instanceof Ants) {
                     ants = true;
                 }
-                if (orgs[i][j] instanceof DoogleBugs) {
+                if (org1 instanceof DoogleBugs) {
                     bugs = true;
                 }
             }
@@ -48,10 +63,10 @@ public class Game implements Gaming {
 
     private void moveAnts() {
         System.out.println("\n");
-        for (int i = 0; i < orgs.length; i++) {
-            for (int j = 0; j < orgs[i].length; j++) {
-                if (orgs[i][j] instanceof Ants) {
-                    orgs[i][j].move(orgs);
+        for (Organism[] org : orgs) {
+            for (Organism org1 : org) {
+                if (org1 instanceof Ants) {
+                    org1.move(orgs);
                 }
             }
         }
@@ -59,10 +74,10 @@ public class Game implements Gaming {
 
     private void moveBugs() {
         System.out.println("\n");
-        for (int i = 0; i < orgs.length; i++) {
-            for (int j = 0; j < orgs[i].length; j++) {
-                if (orgs[i][j] instanceof DoogleBugs) {
-                    orgs[i][j].move(orgs);
+        for (Organism[] org : orgs) {
+            for (Organism org1 : org) {
+                if (org1 instanceof DoogleBugs) {
+                    org1.move(orgs);
                 }
             }
         }
@@ -100,18 +115,15 @@ public class Game implements Gaming {
 
     private void displayGrid() {
         System.out.println("\n--------------------------------------------------------");
-        for (int i = 0; i < orgs.length; i++) {
-            for (int j = 0; j < orgs[i].length; j++) {
-                if (orgs[i][j] instanceof Ants) {
+        for (Organism[] org : orgs) {
+            for (Organism org1 : org) {
+                if (org1 instanceof Ants) {
                     System.out.print(String.format("%-10s", " 0 "));
-                } else if (orgs[i][j] instanceof DoogleBugs) {
+                } else if (org1 instanceof DoogleBugs) {
                     System.out.print(String.format("%-10s", " X "));
-
                 } else {
                     System.out.print(String.format("%-10s", " * "));
-
                 }
-
             }
             System.out.println("\n");
         }
