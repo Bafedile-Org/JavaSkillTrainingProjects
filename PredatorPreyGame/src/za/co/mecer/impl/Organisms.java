@@ -8,22 +8,25 @@ import za.co.mecer.organism.Organism;
  */
 public interface Organisms {
 
-    void move(Organisms[][] orgs);
+    void move(Organism[][] orgs, Organism org);
 
-    void moveUp(Organisms[][] orgs, Organism org);
+    void doMove(Organism[][] orgs);
 
-    void moveDown(Organisms[][] orgs, Organism org);
+    void moveUp(Organism[][] orgs, Organism org);
 
-    void moveLeft(Organisms[][] orgs, Organism org);
+    void moveDown(Organism[][] orgs, Organism org);
 
-    void moveRight(Organisms[][] orgs, Organism org);
+    void moveLeft(Organism[][] orgs, Organism org);
 
-    void breed(Organisms[][] orgs);
-//    void breed(Organisms[][] orgs, Organisms org);
+    void moveRight(Organism[][] orgs, Organism org);
+
+    void breed(Organism[][] orgs);
 
     public boolean getBreed();
 
-    public void setBreed(Organism org);
+    public void determineBreed(Organism org);
+
+    public void setBreed(boolean breed);
 
     public void setMove(boolean move);
 

@@ -31,7 +31,7 @@ public class Game implements Gaming {
                     throw new GameException("Choose between 1 and 2\n");
                 }
             } catch (GameException ge) {
-
+                System.out.printf("Error: %s%n", ge.getMessage());
             }
         } while (choice < 1 && choice > 2);
 
@@ -42,33 +42,43 @@ public class Game implements Gaming {
         Scanner input = new Scanner(System.in);
         populateWorldGrid();
 
-        int choice = getChoice();
+        int choice = getChoice(), enKey;
 
         if (choice == 1) {
-            do {
+            while (checkPopulation()) {
                 displayGrid();
                 moveOrganisms();
-            } while (checkPopulation());
+            }
+
         } else {
             displayGrid();
-            while (input.next().isEmpty()) {
-                System.out.println("Press Enter to continue");
+            do {
+                System.out.println("Press Enter  to continue");
+//                String str = input.next();
+                if (!input.next().isEmpty()) {
+                    enKey = 0;
+                } else {
+                    enKey = 1;
+                }
                 moveOrganisms();
                 displayGrid();
-            }
+                if (!checkPopulation()) {
+                    break;
+                }
+            } while (enKey == 1);
         }
 
     }
 
     private void populateWorldGrid() {
-        // try {
-        // displayIntro();
+        try {
+            displayIntro();
 
-        populateAnts();
-        populateBugs();
-//        } catch (InterruptedException ex) {
-//            System.out.printf("%nError: %s%n", ex.getMessage());
-//        }
+            populateAnts();
+            populateBugs();
+        } catch (InterruptedException ex) {
+            System.out.printf("%nError: %s%n", ex.getMessage());
+        }
 
     }
 
@@ -114,13 +124,19 @@ public class Game implements Gaming {
         for (Organism[] org : orgs) {
             for (Organism org1 : org) {
                 if (org1 instanceof Ants) {
-                    org1.move(orgs);
-                    displayGrid();
+                    org1.doMove(orgs);
+                    ((Ants) org1).breed(orgs);
                 }
                 if (org1 instanceof DoogleBugs) {
-                    org1.move(orgs);
-                    displayGrid();
+                    org1.doMove(orgs);
+                    ((DoogleBugs) org1).breed(orgs);
+
+                } else {
+                    System.out.printf("==================================\n"
+                            + "NO MOVE MADE\n"
+                            + "==================================\n");
                 }
+                displayGrid();
 
             }
 
@@ -170,7 +186,7 @@ public class Game implements Gaming {
                     System.out.print(String.format("%-10s", " * "));
                 }
             }
-            System.out.println("\n");
+            System.out.println("\n\n");
         }
     }
 

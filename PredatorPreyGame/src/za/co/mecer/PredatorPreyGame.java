@@ -9,7 +9,6 @@ import za.co.mecer.game.Game;
 public class PredatorPreyGame {
 
     public static void main(String[] args) {
-
         new PredatorPreyGame().run();
     }
 

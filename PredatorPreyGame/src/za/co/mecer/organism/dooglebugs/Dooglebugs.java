@@ -1,8 +1,6 @@
 package za.co.mecer.organism.dooglebugs;
 
-import za.co.mecer.impl.Organisms;
 import za.co.mecer.organism.Organism;
-import za.co.mecer.organism.directions.Directions;
 
 /**
  *
@@ -21,51 +19,34 @@ public class DoogleBugs extends Organism {
     }
 
     @Override
-    public void move(Organisms[][] orgs) {
-        int random = (int) (Math.random() * 4);
-        Directions[] dir = Directions.values();
-        //Remember to set the steps of the new bug when moving 
-        switch (dir[random]) {
-            case UP:
-                moveUp(orgs, new DoogleBugs());
-                break;
-            case DOWN:
-                moveDown(orgs, new DoogleBugs());
-                break;
-            case LEFT:
-                moveLeft(orgs, new DoogleBugs());
-                break;
+    public void doMove(Organism[][] orgs) {
+        move(orgs, new DoogleBugs());
+    }
 
-            default:
-                moveRight(orgs, new DoogleBugs());
-                break;
+    public boolean starve(Organism[][] orgs, Organism org) {
+        if (((DoogleBugs) org).getSteps() == 3 && !((DoogleBugs) org).getEaten()) {
+            System.out.printf("-------------------------------\n"
+                    + "DOOGLEBUG [%d][%d] STARVED TO DEATH\n"
+                    + "-------------------------------\n", ((DoogleBugs) org).getXCor(),
+                    ((DoogleBugs) org).getYCor());
+            return true;
+
         }
-        //breed(orgs);
-        starve(orgs);
+        return false;
+    }
+
+    public void setEaten(boolean starve) {
+        eaten = true;
+    }
+
+    public boolean getEaten() {
+        return eaten;
     }
 
     @Override
-    public void breed(Organisms[][] orgs) {
-        if (getSteps() == 8) {
-            while (!getMove()) {
-                move(orgs);
-            }
-            setSteps(0);
-        }
-    }
-
-    public void starve(Organisms[][] org) {
-        if (org[getXCor()][getYCor()] != null && org[getXCor()][getYCor()].getSteps() == 3 && eaten == false) {
-            org[getXCor()][getYCor()] = null;
-        }
-    }
-
-    @Override
-    public void setBreed(Organism org) {
+    public void determineBreed(Organism org) {
         if (org.getSteps() == 8) {
-            breed = true;
+            org.setBreed(true);
         }
-
     }
-
 }
