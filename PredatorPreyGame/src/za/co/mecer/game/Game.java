@@ -13,7 +13,7 @@ import za.co.mecer.organism.dooglebugs.DoogleBugs;
  */
 public class Game implements Gaming {
 
-    final Organism[][] orgs = new Organism[3][3];
+    final Organism[][] orgs = new Organism[GRID_LENGTH][GRID_LENGTH];
     int i = 0;
 
     public int getChoice() {
@@ -46,31 +46,30 @@ public class Game implements Gaming {
         if (choice == 1) {
             do {
                 displayGrid();
-                moveAnts();
+                moveOrganisms();
                 //checkBreed();
-                moveBugs();
+                //  moveBugs();
             } while (checkPopulation());
         } else {
             displayGrid();
             System.out.println("Press Enter to continue");
-            input.next();
 
-            moveAnts();
-            //checkBreed();
-            moveBugs();
+//            moveAnts();
+//            //checkBreed();
+//            moveBugs();
         }
 
     }
 
     private void populateWorldGrid() {
-        try {
-            displayIntro();
+        // try {
+        // displayIntro();
 
-            populateAnts();
-            populateBugs();
-        } catch (InterruptedException ex) {
-            System.out.printf("%nError: %s%n", ex.getMessage());
-        }
+        populateAnts();
+        populateBugs();
+//        } catch (InterruptedException ex) {
+//            System.out.printf("%nError: %s%n", ex.getMessage());
+//        }
 
     }
 
@@ -119,30 +118,49 @@ public class Game implements Gaming {
         return ants && bugs;
     }
 
-    private void moveAnts() {
+    private void moveOrganisms() {
         for (Organism[] org : orgs) {
             for (Organism org1 : org) {
                 if (org1 instanceof Ants) {
                     org1.move(orgs);
-                    displayGrid();
                 }
-            }
-        }
-
-    }
-
-    private void moveBugs() {
-        for (Organism[] org : orgs) {
-            for (Organism org1 : org) {
                 if (org1 instanceof DoogleBugs) {
                     org1.move(orgs);
-                    displayGrid();
                 }
+                displayGrid();
+
             }
+//            if (checkPopulation()) {
+//                break;
+//            }
+
         }
 
     }
+//    private void moveAnts() {
+//        for (Organism[] org : orgs) {
+//            for (Organism org1 : org) {
+//                if (org1 instanceof Ants) {
+//                    org1.move(orgs);
+//                    displayGrid();
+//                    moveBugs();
+//                }
+//            }
+//        }
+//
+//    }
 
+//    private void moveBugs() {
+//        for (Organism[] org : orgs) {
+//            for (Organism org1 : org) {
+//                if (org1 instanceof DoogleBugs) {
+//                    org1.move(orgs);
+//                    displayGrid();
+//                }
+//            }
+//        }
+//
+//    }
     private void populateAnts() {
         int antsCount = 0, x, y;
         while (antsCount < ANTS_NUM) {

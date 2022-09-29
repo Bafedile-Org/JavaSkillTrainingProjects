@@ -2,7 +2,6 @@ package za.co.mecer.organism.dooglebugs;
 
 import za.co.mecer.impl.Organisms;
 import za.co.mecer.organism.Organism;
-import za.co.mecer.organism.ants.Ants;
 import za.co.mecer.organism.directions.Directions;
 
 /**
@@ -13,90 +12,12 @@ public class DoogleBugs extends Organism {
 
     private boolean eaten = false;
 
+    public DoogleBugs() {
+
+    }
+
     public DoogleBugs(int xCor, int yCor) {
         super(xCor, yCor);
-    }
-
-    @Override
-    public void moveRight(Organisms[][] orgs) {
-        if (getYCor() - 1 >= 0) {
-            if (orgs[getXCor()][getYCor() - 1] == null) {
-                DoogleBugs bug = new DoogleBugs(getXCor(), getYCor() - 1);
-                bug.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
-                orgs[getXCor()][getYCor() - 1] = bug;
-                orgs[getXCor()][getYCor()] = null;
-            }
-
-            if (orgs[getXCor()][getYCor() - 1] instanceof Ants) {
-                DoogleBugs bug = new DoogleBugs(getXCor(), getYCor() - 1);
-                bug.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
-                orgs[getXCor()][getYCor() - 1] = bug;
-                orgs[getXCor()][getYCor()] = null;
-                eaten = true;
-            }
-
-        }
-    }
-
-    @Override
-    public void moveLeft(Organisms[][] orgs) {
-        if (getYCor() + 1 < orgs.length) {
-            if (orgs[getXCor()][getYCor() + 1] == null) {
-                DoogleBugs bug = new DoogleBugs(getXCor(), getYCor() + 1);
-                bug.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
-                orgs[getXCor()][getYCor() + 1] = bug;
-                orgs[getXCor()][getYCor()] = null;
-            }
-            if (orgs[getXCor()][getYCor() + 1] instanceof Ants) {
-                DoogleBugs bug = new DoogleBugs(getXCor(), getYCor() + 1);
-                bug.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
-                orgs[getXCor()][getYCor() + 1] = bug;
-                orgs[getXCor()][getYCor()] = null;
-                eaten = true;
-
-            }
-
-        }
-    }
-
-    @Override
-    public void moveDown(Organisms[][] orgs) {
-        if (getXCor() - 1 >= 0) {
-            if (orgs[getXCor() - 1][getYCor()] == null) {
-                DoogleBugs bug = new DoogleBugs(getXCor() - 1, getYCor());
-                bug.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
-                orgs[getXCor() - 1][getYCor()] = bug;
-                orgs[getXCor()][getYCor()] = null;
-            }
-            if (orgs[getXCor() - 1][getYCor()] instanceof Ants) {
-                DoogleBugs bug = new DoogleBugs(getXCor() - 1, getYCor());
-                bug.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
-                orgs[getXCor() - 1][getYCor()] = bug;
-                orgs[getXCor()][getYCor()] = null;
-                eaten = true;
-
-            }
-        }
-    }
-
-    @Override
-    public void moveUp(Organisms[][] orgs) {
-        if (getXCor() + 1 < orgs.length) {
-            if (orgs[getXCor() + 1][getYCor()] == null) {
-                DoogleBugs bug = new DoogleBugs(getXCor() + 1, getYCor());
-                bug.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
-                orgs[getXCor() + 1][getYCor()] = bug;
-                orgs[getXCor()][getYCor()] = null;
-            }
-            if (orgs[getXCor() + 1][getYCor()] instanceof Ants) {
-                DoogleBugs bug = new DoogleBugs(getXCor() + 1, getYCor());
-                bug.setSteps(orgs[getXCor()][getYCor()].getSteps() + 1);
-                orgs[getXCor() + 1][getYCor()] = bug;
-                orgs[getXCor()][getYCor()] = null;
-                eaten = true;
-
-            }
-        }
     }
 
     @Override
@@ -106,17 +27,17 @@ public class DoogleBugs extends Organism {
         //Remember to set the steps of the new bug when moving 
         switch (dir[random]) {
             case UP:
-                moveUp(orgs);
+                moveUp(orgs, new DoogleBugs());
                 break;
             case DOWN:
-                moveDown(orgs);
+                moveDown(orgs, new DoogleBugs());
                 break;
             case LEFT:
-                moveLeft(orgs);
+                moveLeft(orgs, new DoogleBugs());
                 break;
 
             default:
-                moveRight(orgs);
+                moveRight(orgs, new DoogleBugs());
                 break;
 
         }
