@@ -10,16 +10,27 @@ import za.co.mecer.organism.dooglebugs.DoogleBugs;
  */
 public abstract class Organism implements Organisms {
 
-    private Organism orgAd;
     private int xCor, yCor, steps = 0;
+    private boolean breed, move;
 
     public Organism() {
-
+        this.breed = false;
     }
 
     public Organism(int xCor, int yCor) {
         this.xCor = xCor;
         this.yCor = yCor;
+        this.breed = false;
+    }
+
+    @Override
+    public void setBreed(boolean breed) {
+        this.breed = breed;
+    }
+
+    @Override
+    public boolean getBreed() {
+        return breed;
     }
 
     @Override
@@ -53,80 +64,132 @@ public abstract class Organism implements Organisms {
     }
 
     @Override
+    public void setMove(boolean move) {
+        this.move = move;
+    }
+
+    public boolean getMove() {
+        return move;
+    }
+
+    public boolean getMoveUp(Organisms[][] orgs, Organism org) {
+        return ((getXCor() - 1 >= 0) && (orgs[getXCor() - 1][getYCor()] == null))
+                || (org instanceof DoogleBugs && (getXCor() - 1 >= 0)
+                && orgs[getXCor() - 1][getYCor()] instanceof Ants);
+    }
+
+    public boolean getMoveDown(Organisms[][] orgs, Organism org) {
+        return ((getXCor() + 1 < orgs.length) && (orgs[getXCor() + 1][getYCor()] == null))
+                || (org instanceof DoogleBugs && (getXCor() + 1 < orgs.length)
+                && orgs[getXCor() + 1][getYCor()] instanceof Ants);
+    }
+
+    public boolean getMoveLeft(Organisms[][] orgs, Organism org) {
+        return ((getYCor() - 1 >= 0) && (orgs[getXCor()][getYCor() - 1] == null))
+                || (org instanceof DoogleBugs && (getYCor() - 1 >= 0)
+                && orgs[getXCor()][getYCor() - 1] instanceof Ants);
+    }
+
+    public boolean getMoveRight(Organisms[][] orgs, Organism org) {
+        return ((getYCor() + 1 < orgs.length) && (orgs[getXCor()][getYCor() + 1] == null))
+                || (org instanceof DoogleBugs && (getYCor() + 1 < orgs.length)
+                && orgs[getXCor()][getYCor() + 1] instanceof Ants);
+    }
+
+    @Override
     public void moveUp(Organisms[][] orgs, Organism org) {
-        orgAd = (Organism) (orgs[getXCor()][getYCor()]);
-        if (((getXCor() - 1 >= 0) && (orgs[getXCor() - 1][getYCor()] == null))
-                || (org instanceof DoogleBugs && (getXCor() - 1 >= 0) && orgs[getXCor() - 1][getYCor()] instanceof Ants)) {
+        if (getMoveUp(orgs, org)) {
             org.setXCor(getXCor() - 1);
             org.setYCor(getYCor());
-            if (orgAd.getSteps() >= 3) {
+            if (getSteps() >= 3) {
                 org.setSteps(0);
             } else {
-                org.setSteps(orgAd.getSteps() + 1);
+                org.setSteps(getSteps() + 1);
             }
             orgs[getXCor() - 1][getYCor()] = org;
+            setMove(true);
+            setBreed(org);
+        }
+        if (getMove() && !org.getBreed()) {
             orgs[getXCor()][getYCor()] = null;
+            setMove(false);
+
+        }
+        if (org.getBreed()) {
+
         }
 
     }
 
     @Override
     public void moveDown(Organisms[][] orgs, Organism org) {
-        orgAd = (Organism) (orgs[getXCor()][getYCor()]);
-        if (((getXCor() + 1 < orgs.length) && (orgs[getXCor() + 1][getYCor()] == null))
-                || (org instanceof DoogleBugs && (getXCor() + 1 < orgs.length) && orgs[getXCor() + 1][getYCor()] instanceof Ants)) {
+        if (getMoveDown(orgs, org)) {
             org.setXCor(getXCor() + 1);
             org.setYCor(getYCor());
             if (orgs[getXCor()][getYCor()].getSteps() >= 3) {
                 org.setSteps(0);
             } else {
-                org.setSteps(orgAd.getSteps() + 1);
+                org.setSteps(getSteps() + 1);
             }
             orgs[getXCor() + 1][getYCor()] = org;
+            setMove(true);
+            setBreed(org);
+
+        }
+        if (getMove() && !org.getBreed()) {
             orgs[getXCor()][getYCor()] = null;
-            //   right = true;
+            setMove(false);
+
         }
 
     }
 
     @Override
     public void moveLeft(Organisms[][] orgs, Organism org) {
-        orgAd = (Organism) orgs[getXCor()][getYCor()];
 
-        if (((getYCor() - 1 >= 0) && (orgs[getXCor()][getYCor() - 1] == null))
-                || (org instanceof DoogleBugs && (getYCor() - 1 >= 0) && orgs[getXCor()][getYCor() - 1] instanceof Ants)) {
+        if (getMoveLeft(orgs, org)) {
             org.setXCor(getXCor());
             org.setYCor(getYCor() - 1);
-            if (orgAd.getSteps() >= 3) {
+            if (getSteps() >= 3) {
                 org.setSteps(0);
             } else {
-                org.setSteps(orgAd.getSteps() + 1);
+                org.setSteps(getSteps() + 1);
             }
 
             orgs[getXCor()][getYCor() - 1] = org;
+            setMove(true);
+            setBreed(org);
+
+        }
+        if (getMove() && !org.getBreed()) {
             orgs[getXCor()][getYCor()] = null;
-            // up = true;
+            setMove(false);
+
         }
 
     }
 
     @Override
     public void moveRight(Organisms[][] orgs, Organism org) {
-        orgAd = (Organism) orgs[getXCor()][getYCor()];
-        if (((getYCor() + 1 < orgs.length) && (orgs[getXCor()][getYCor() + 1] == null))
-                || (org instanceof DoogleBugs && (getYCor() + 1 < orgs.length) && orgs[getXCor()][getYCor() + 1] instanceof Ants)) {
+        if (getMoveRight(orgs, org)) {
             org.setXCor(getXCor());
             org.setYCor(getYCor() + 1);
-            if (orgAd.getSteps() >= 3) {
+            if (getSteps() >= 3) {
                 org.setSteps(0);
             } else {
-                org.setSteps(orgAd.getSteps() + 1);
+                org.setSteps(getSteps() + 1);
             }
             orgs[getXCor()][getYCor() + 1] = org;
-            orgs[getXCor()][getYCor()] = null;
-            // down = true;
+            setMove(true);
+            setBreed(org);
 
         }
+        if (getMove() && !org.getBreed()) {
+            orgs[getXCor()][getYCor()] = null;
+            setMove(false);
+
+        }
+
     }
 
 }

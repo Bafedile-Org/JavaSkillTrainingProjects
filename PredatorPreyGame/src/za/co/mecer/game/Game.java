@@ -14,6 +14,7 @@ import za.co.mecer.organism.dooglebugs.DoogleBugs;
 public class Game implements Gaming {
 
     final Organism[][] orgs = new Organism[GRID_LENGTH][GRID_LENGTH];
+
     int i = 0;
 
     public int getChoice() {
@@ -47,16 +48,14 @@ public class Game implements Gaming {
             do {
                 displayGrid();
                 moveOrganisms();
-                //checkBreed();
-                //  moveBugs();
             } while (checkPopulation());
         } else {
             displayGrid();
-            System.out.println("Press Enter to continue");
-
-//            moveAnts();
-//            //checkBreed();
-//            moveBugs();
+            while (input.next().isEmpty()) {
+                System.out.println("Press Enter to continue");
+                moveOrganisms();
+                displayGrid();
+            }
         }
 
     }
@@ -90,22 +89,11 @@ public class Game implements Gaming {
 
     }
 
-    private void checkBreed() {
-        for (Organism[] org : orgs) {
-            for (Organism org1 : org) {
-                if (org1 instanceof Ants) {
-                    org1.breed(orgs);
-                }
-                if (org1 instanceof DoogleBugs) {
-                    org1.breed(orgs);
-                }
-            }
-        }
-    }
-
     private boolean checkPopulation() {
         boolean ants = false, bugs = false;
+        loop:
         for (Organism[] org : orgs) {
+
             for (Organism org1 : org) {
                 if (org1 instanceof Ants) {
                     ants = true;
@@ -113,7 +101,11 @@ public class Game implements Gaming {
                 if (org1 instanceof DoogleBugs) {
                     bugs = true;
                 }
+                if (ants && bugs) {
+                    break loop;
+                }
             }
+
         }
         return ants && bugs;
     }
@@ -123,44 +115,19 @@ public class Game implements Gaming {
             for (Organism org1 : org) {
                 if (org1 instanceof Ants) {
                     org1.move(orgs);
+                    displayGrid();
                 }
                 if (org1 instanceof DoogleBugs) {
                     org1.move(orgs);
+                    displayGrid();
                 }
-                displayGrid();
 
             }
-//            if (checkPopulation()) {
-//                break;
-//            }
 
         }
 
     }
-//    private void moveAnts() {
-//        for (Organism[] org : orgs) {
-//            for (Organism org1 : org) {
-//                if (org1 instanceof Ants) {
-//                    org1.move(orgs);
-//                    displayGrid();
-//                    moveBugs();
-//                }
-//            }
-//        }
-//
-//    }
 
-//    private void moveBugs() {
-//        for (Organism[] org : orgs) {
-//            for (Organism org1 : org) {
-//                if (org1 instanceof DoogleBugs) {
-//                    org1.move(orgs);
-//                    displayGrid();
-//                }
-//            }
-//        }
-//
-//    }
     private void populateAnts() {
         int antsCount = 0, x, y;
         while (antsCount < ANTS_NUM) {

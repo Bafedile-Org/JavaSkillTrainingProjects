@@ -18,7 +18,16 @@ public interface Organisms {
 
     void moveRight(Organisms[][] orgs, Organism org);
 
-    void breed(Organisms[][] org);
+    void breed(Organisms[][] orgs);
+//    void breed(Organisms[][] orgs, Organisms org);
+
+    public boolean getBreed();
+
+    public void setBreed(boolean breed);
+
+    public void setMove(boolean move);
+
+    public boolean getMove();
 
     int getSteps();
 

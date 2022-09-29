@@ -10,7 +10,7 @@ import za.co.mecer.organism.directions.Directions;
  */
 public class DoogleBugs extends Organism {
 
-    private boolean eaten = false;
+    private boolean eaten = false, breed = false;
 
     public DoogleBugs() {
 
@@ -41,16 +41,23 @@ public class DoogleBugs extends Organism {
                 break;
 
         }
-//        breed(orgs);
+        //breed(orgs);
         starve(orgs);
     }
 
     @Override
-    public void breed(Organisms[][] org) {
+    public void breed(Organisms[][] orgs) {
+        if (getSteps() == 8) {
+            setBreed(true);
+            while (!getMove()) {
+                move(orgs);
+            }
+            setSteps(0);
+        }
     }
 
     public void starve(Organisms[][] org) {
-        if (org[getXCor()][getYCor()] != null && org[getXCor()][getYCor()].getSteps() == 8 && eaten == false) {
+        if (org[getXCor()][getYCor()] != null && org[getXCor()][getYCor()].getSteps() == 3 && eaten == false) {
             org[getXCor()][getYCor()] = null;
         }
     }
