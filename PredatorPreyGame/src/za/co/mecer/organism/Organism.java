@@ -24,11 +24,6 @@ public abstract class Organism implements Organisms {
     }
 
     @Override
-    public void setBreed(boolean breed) {
-        this.breed = breed;
-    }
-
-    @Override
     public boolean getBreed() {
         return breed;
     }

@@ -38,29 +38,32 @@ public class Ants extends Organism {
                 break;
             default:
                 moveRight(orgs, new Ants());
-                setBreed(false);
                 break;
         }
         //  breed(orgs);
 //        orgs[getXCor()][getYCor()] = null;
     }
 
-    @Override
-    public void breed(Organisms[][] orgs) {
-
-        setBreed(true);
-        while (getMove()) {
-            move(orgs);
-        }
-        setSteps(0);
-    }
-
+//    @Override
+//    public void breed(Organisms[][] orgs) {
+//
+//        setBreed(true);
+//        while (getMove()) {
+//            move(orgs);
+//        }
+//        setSteps(0);
+//    }
     @Override
     public void setBreed(Organism org) {
         if (org.getSteps() == 3) {
             breed = true;
         }
 
+    }
+
+    @Override
+    public void breed(Organisms[][] orgs) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -39,7 +39,6 @@ public class DoogleBugs extends Organism {
             default:
                 moveRight(orgs, new DoogleBugs());
                 break;
-
         }
         //breed(orgs);
         starve(orgs);
@@ -48,7 +47,6 @@ public class DoogleBugs extends Organism {
     @Override
     public void breed(Organisms[][] orgs) {
         if (getSteps() == 8) {
-            setBreed(true);
             while (!getMove()) {
                 move(orgs);
             }
@@ -60,6 +58,14 @@ public class DoogleBugs extends Organism {
         if (org[getXCor()][getYCor()] != null && org[getXCor()][getYCor()].getSteps() == 3 && eaten == false) {
             org[getXCor()][getYCor()] = null;
         }
+    }
+
+    @Override
+    public void setBreed(Organism org) {
+        if (org.getSteps() == 8) {
+            breed = true;
+        }
+
     }
 
 }

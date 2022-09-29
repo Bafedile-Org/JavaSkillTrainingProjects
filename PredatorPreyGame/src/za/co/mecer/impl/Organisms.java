@@ -23,7 +23,7 @@ public interface Organisms {
 
     public boolean getBreed();
 
-    public void setBreed(boolean breed);
+    public void setBreed(Organism org);
 
     public void setMove(boolean move);
 
