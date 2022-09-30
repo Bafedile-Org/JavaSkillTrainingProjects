@@ -54,18 +54,24 @@ public class Game implements Gaming {
             displayGrid();
             do {
                 System.out.println("Press Enter  to continue");
-//                String str = input.next();
-                if (!input.next().isEmpty()) {
+                String str = input.nextLine();
+                if (str.isEmpty() || str.charAt(0) == '0') {
                     enKey = 0;
                 } else {
                     enKey = 1;
                 }
+
+//                if (!input.nextLine().isEmpty()) {
+//                    enKey = 0;
+//                } else {
+//                    enKey = 1;
+//                }
                 moveOrganisms();
                 displayGrid();
-                if (!checkPopulation()) {
-                    break;
-                }
-            } while (enKey == 1);
+//                if (!checkPopulation()) {
+//                    break;
+//                }
+            } while (enKey != 1);
         }
 
     }
@@ -126,17 +132,20 @@ public class Game implements Gaming {
                 if (org1 instanceof Ants) {
                     org1.doMove(orgs);
                     ((Ants) org1).breed(orgs);
+                    displayGrid();
                 }
                 if (org1 instanceof DoogleBugs) {
                     org1.doMove(orgs);
                     ((DoogleBugs) org1).breed(orgs);
+                    displayGrid();
 
-                } else {
+                }
+                if ((org1 instanceof Ants) && (org1 instanceof DoogleBugs)) {
                     System.out.printf("==================================\n"
                             + "NO MOVE MADE\n"
                             + "==================================\n");
+                    displayGrid();
                 }
-                displayGrid();
 
             }
 

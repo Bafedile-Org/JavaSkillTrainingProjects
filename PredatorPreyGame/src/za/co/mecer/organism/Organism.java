@@ -201,10 +201,10 @@ public abstract class Organism implements Organisms {
                 }
             }
             orgs[getXCor() + 1][getYCor()] = org;
-            System.out.printf("==========================\n"
-                    + "%S moved to [%d][%d]%n"
-                    + "==========================\n", org.getClass().getSimpleName(),
-                    org.getXCor(), org.getYCor());
+//            System.out.printf("==========================\n"
+//                    + "%S moved to [%d][%d]%n"
+//                    + "==========================\n", org.getClass().getSimpleName(),
+//                    org.getXCor(), org.getYCor());
             org.setMove(true);
             org.determineBreed(org);
             org.setStarve(orgs, this);
@@ -314,13 +314,16 @@ public abstract class Organism implements Organisms {
                     break;
                 default:
                     moveRight(orgs, orgC);
-                    down = true;
+                    right = true;
                     if (orgC.getMove()) {
                         isValid = true;
                         break loop;
                     }
-                    if (!(up && down && left && down)) {
+                    if (!(up && down && left && right)) {
                         break;
+                    } else {
+                        isValid = true;
+                        break loop;
                     }
             }
 
