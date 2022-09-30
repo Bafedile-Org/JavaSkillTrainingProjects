@@ -16,6 +16,11 @@ public class Game implements Gaming {
     final Organism[][] orgs = new Organism[GRID_LENGTH][GRID_LENGTH];
 
     int i = 0;
+    Scanner input = new Scanner(System.in);
+
+    public Game() {
+        populateWorldGrid();
+    }
 
     public int getChoice() {
         int choice = 0, option;
@@ -39,17 +44,15 @@ public class Game implements Gaming {
     }
 
     public void play() {
-        Scanner input = new Scanner(System.in);
-        populateWorldGrid();
 
         int choice = getChoice(), enKey;
-
+        int x, y;
         if (choice == 1) {
             while (checkPopulation()) {
+
                 displayGrid();
                 moveOrganisms();
             }
-
         } else {
             displayGrid();
             do {
@@ -60,20 +63,14 @@ public class Game implements Gaming {
                 } else {
                     enKey = 1;
                 }
-
-//                if (!input.nextLine().isEmpty()) {
-//                    enKey = 0;
-//                } else {
-//                    enKey = 1;
-//                }
-                moveOrganisms();
-                displayGrid();
-//                if (!checkPopulation()) {
-//                    break;
-//                }
+                x = (int) (Math.random() * GRID_LENGTH);
+                y = (int) (Math.random() * GRID_LENGTH);
+                if (orgs[x][y] != null) {
+                    orgs[x][y].doMove(orgs);
+                    displayGrid();
+                }
             } while (enKey != 1);
         }
-
     }
 
     private void populateWorldGrid() {
