@@ -46,11 +46,9 @@ public class Game implements Gaming {
     public void play() {
 
         int choice = getChoice(), enKey;
-        int x, y;
+
         if (choice == 1) {
             while (checkPopulation()) {
-
-                displayGrid();
                 moveOrganisms();
             }
         } else {
@@ -63,12 +61,7 @@ public class Game implements Gaming {
                 } else {
                     enKey = 1;
                 }
-                x = (int) (Math.random() * GRID_LENGTH);
-                y = (int) (Math.random() * GRID_LENGTH);
-                if (orgs[x][y] != null) {
-                    orgs[x][y].doMove(orgs);
-                    displayGrid();
-                }
+                moveOrganisms();
             } while (enKey != 1);
         }
     }
@@ -124,28 +117,12 @@ public class Game implements Gaming {
     }
 
     private void moveOrganisms() {
-        for (Organism[] org : orgs) {
-            for (Organism org1 : org) {
-                if (org1 instanceof Ants) {
-                    org1.doMove(orgs);
-                    ((Ants) org1).breed(orgs);
-                    displayGrid();
-                }
-                if (org1 instanceof DoogleBugs) {
-                    org1.doMove(orgs);
-                    ((DoogleBugs) org1).breed(orgs);
-                    displayGrid();
-
-                }
-                if ((org1 instanceof Ants) && (org1 instanceof DoogleBugs)) {
-                    System.out.printf("==================================\n"
-                            + "NO MOVE MADE\n"
-                            + "==================================\n");
-                    displayGrid();
-                }
-
-            }
-
+        int x, y;
+        x = (int) (Math.random() * GRID_LENGTH);
+        y = (int) (Math.random() * GRID_LENGTH);
+        if (orgs[x][y] != null) {
+            orgs[x][y].doMove(orgs);
+            displayGrid();
         }
 
     }
