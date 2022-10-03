@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import za.co.mecer.person.Person;
@@ -25,7 +26,8 @@ public class StreamsTest {
 //        test2();
 //        test3();
 //        test4();
-        test5();
+//        test5();
+        test6();
     }
 
     private void test1() {
@@ -123,4 +125,24 @@ public class StreamsTest {
             System.out.printf("Error: %s%n", iox.getMessage());
         }
     }
+
+    private void test6() {
+        List<Person> list = new ArrayList<>();
+        list.add(new Person("Jessie Michaels", 32, 'F', 17388.33));
+        list.add(new Person("Jassie Mich", 18, 'F', 16453.33));
+        list.add(new Person("Nathalie Newton", 29, 'F', 27818.23));
+        list.add(new Person("Molly Jean", 34, 'F', 12737.32));
+        list.add(new Person("Jim Micha", 19, 'M', 8964.32));
+        list.add(new Person("Anatoly Chuchkluck", 25, 'M', 5643.32));
+        list.add(new Person("Will Meghan", 23, 'M', 12779.32));
+
+        OptionalDouble avg = list.stream()
+                .filter((p) -> p.getSalary() < 3000)
+                .mapToDouble((p) -> p.getSalary())
+                .average();
+        System.out.println(avg.isPresent()
+                ? String.format("The total average is %.2f%n", avg.getAsDouble())
+                : "Optional has no value and is empty");
+    }
+
 }
