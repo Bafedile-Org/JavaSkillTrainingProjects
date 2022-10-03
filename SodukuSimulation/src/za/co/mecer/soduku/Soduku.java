@@ -10,6 +10,20 @@ public class Soduku implements Sodukus {
 
     private final int[][] nums = new int[GRID_LENGTH][GRID_LENGTH];
 
+//    public void populateGrid() {
+//        int i = getRandomNum();
+//        int j = getRandomNum();
+//        while (checkDigit(nums[i][j])) {
+//            nums[i][j] = getRandomNum();
+//            displayGrid();
+//            System.out.println("");
+//            while (!(checkRow(i, nums[i][j]) && checkColumn(j, nums[i][j]) && checkBlock(i, j, nums[i][j]))) {
+//                nums[i][j] = getRandomNum();
+//                displayGrid();
+//                System.out.println("");
+//            }
+//        }
+//    }
     public void populateGrid() {
         for (int i = 0; i < nums.length; i++) {
             for (int j = 0; j < nums[i].length; j++) {
@@ -23,6 +37,17 @@ public class Soduku implements Sodukus {
                 }
             }
         }
+    }
+
+    private boolean checkDigit(int num) {
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 0; j < nums[i].length; j++) {
+                if (nums[i][j] == num) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private int getRandomNum() {
