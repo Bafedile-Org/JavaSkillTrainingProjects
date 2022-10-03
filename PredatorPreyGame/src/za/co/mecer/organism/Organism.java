@@ -77,7 +77,7 @@ public abstract class Organism implements Organisms {
     @Override
     public void breed(Organism[][] orgs) {
         if (getBreed()) {
-            setBreed(false);
+
             if (getAntInstance(this)) {
                 System.out.printf("-------------------------------\n"
                         + "ANT AT [%d][%d] BRED\n"
@@ -89,6 +89,7 @@ public abstract class Organism implements Organisms {
                         + "DOOGLEBUG AT [%d][%d] BRED\n"
                         + "-------------------------------\n", getXCor(), getYCor());
             }
+            setBreed(false);
             doMove(orgs);
 
         }
@@ -201,10 +202,6 @@ public abstract class Organism implements Organisms {
                 }
             }
             orgs[getXCor() + 1][getYCor()] = org;
-            System.out.printf("==========================\n"
-                    + "%S moved to [%d][%d]%n"
-                    + "==========================\n", org.getClass().getSimpleName(),
-                    org.getXCor(), org.getYCor());
             org.setMove(true);
             org.determineBreed(org);
             org.setStarve(orgs, this);
@@ -314,13 +311,16 @@ public abstract class Organism implements Organisms {
                     break;
                 default:
                     moveRight(orgs, orgC);
-                    down = true;
+                    right = true;
                     if (orgC.getMove()) {
                         isValid = true;
                         break loop;
                     }
-                    if (!(up && down && left && down)) {
+                    if (!(up && down && left && right)) {
                         break;
+                    } else {
+                        isValid = true;
+                        break loop;
                     }
             }
 

@@ -16,6 +16,11 @@ public class Game implements Gaming {
     final Organism[][] orgs = new Organism[GRID_LENGTH][GRID_LENGTH];
 
     int i = 0;
+    Scanner input = new Scanner(System.in);
+
+    public Game() {
+        populateWorldGrid();
+    }
 
     public int getChoice() {
         int choice = 0, option;
@@ -39,35 +44,26 @@ public class Game implements Gaming {
     }
 
     public void play() {
-        Scanner input = new Scanner(System.in);
-        populateWorldGrid();
 
         int choice = getChoice(), enKey;
 
         if (choice == 1) {
             while (checkPopulation()) {
-                displayGrid();
                 moveOrganisms();
             }
-
         } else {
             displayGrid();
             do {
                 System.out.println("Press Enter  to continue");
-//                String str = input.next();
-                if (!input.next().isEmpty()) {
+                String str = input.nextLine();
+                if (str.isEmpty() || str.charAt(0) == '0') {
                     enKey = 0;
                 } else {
                     enKey = 1;
                 }
                 moveOrganisms();
-                displayGrid();
-                if (!checkPopulation()) {
-                    break;
-                }
-            } while (enKey == 1);
+            } while (enKey != 1);
         }
-
     }
 
     private void populateWorldGrid() {
@@ -121,25 +117,12 @@ public class Game implements Gaming {
     }
 
     private void moveOrganisms() {
-        for (Organism[] org : orgs) {
-            for (Organism org1 : org) {
-                if (org1 instanceof Ants) {
-                    org1.doMove(orgs);
-                    ((Ants) org1).breed(orgs);
-                }
-                if (org1 instanceof DoogleBugs) {
-                    org1.doMove(orgs);
-                    ((DoogleBugs) org1).breed(orgs);
-
-                } else {
-                    System.out.printf("==================================\n"
-                            + "NO MOVE MADE\n"
-                            + "==================================\n");
-                }
-                displayGrid();
-
-            }
-
+        int x, y;
+        x = (int) (Math.random() * GRID_LENGTH);
+        y = (int) (Math.random() * GRID_LENGTH);
+        if (orgs[x][y] != null) {
+            orgs[x][y].doMove(orgs);
+            displayGrid();
         }
 
     }
