@@ -119,3 +119,5 @@
 /FutureConcurrencyTest/build/
 /CyclicBarrierConcurrencyTest/nbproject/private/
 /CyclicBarrierConcurrencyTest/build/
+/LocaleTest/nbproject/private/
+/LocaleTest/build/
