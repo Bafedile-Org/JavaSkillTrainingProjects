@@ -7,17 +7,18 @@ package za.co.mecer.sortthread;
 public class SortThread<T> implements Runnable {
 
     private T[] array;
-    private int i, j;
+    private int i, j, start, end;
 
-    public SortThread(T[] array) {
+    public SortThread(T[] array, int start, int end) {
         this.array = array;
+        this.start = start;
+        this.end = end;
     }
 
     @Override
     public void run() {
         try {
             sort();
-//            display();
         } catch (InterruptedException ex) {
             System.out.printf("Error: %s%n", ex.getMessage());
         }
@@ -25,11 +26,11 @@ public class SortThread<T> implements Runnable {
 
     public void sort() throws InterruptedException {
         System.out.println("Sorting the array be patient...");
-        for (i = 0; i < array.length; i++) {
-            for (j = 0; j < i; j++) {
+        for (i = start; i < end; i++) {
+            for (j = start; j < i; j++) {
                 T min = array[i];
                 T max = array[j];
-                System.out.printf("Sorting by %s%n", Thread.currentThread().getName());
+//                System.out.printf("Sorting by %s%n", Thread.currentThread().getName());
                 sortIntegers(min, max, i, j);
                 sortStrings(min, max, i, j);
             }
@@ -42,7 +43,6 @@ public class SortThread<T> implements Runnable {
             if ((Integer) min < (Integer) max) {
                 array[i] = (T) max;
                 array[j] = (T) min;
-
             }
         }
     }
