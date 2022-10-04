@@ -109,3 +109,13 @@
 /BuzzerTime/build/
 /SortingAlgoThread/nbproject/private/
 /SortingAlgoThread/build/
+/AtomicTest/nbproject/private/
+/AtomicTest/build/
+/ReentrantTest/nbproject/private/
+/ReentrantTest/build/
+/ExecutorTest/nbproject/private/
+/ExecutorTest/build/
+/FutureConcurrencyTest/nbproject/private/
+/FutureConcurrencyTest/build/
+/CyclicBarrierConcurrencyTest/nbproject/private/
+/CyclicBarrierConcurrencyTest/build/
