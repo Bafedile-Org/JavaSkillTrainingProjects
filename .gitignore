@@ -123,3 +123,6 @@
 /LocaleTest/build/
 /QueueProducerConsumer/nbproject/private/
 /QueueProducerConsumer/build/
+/TimeZoneTest/nbproject/private/
+/TimeZoneTest/build/
+/TimeZoneTest/dist/
