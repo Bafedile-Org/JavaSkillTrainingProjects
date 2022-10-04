@@ -121,3 +121,5 @@
 /CyclicBarrierConcurrencyTest/build/
 /LocaleTest/nbproject/private/
 /LocaleTest/build/
+/QueueProducerConsumer/nbproject/private/
+/QueueProducerConsumer/build/
