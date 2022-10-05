@@ -19,11 +19,10 @@ public class TimeZoneTest {
     private void run() {
         int choice;
         String timeZone;
-        boolean isValid;
+        boolean isValid = false;
         choice = getChoice();
         loop:
-        do {
-
+        while (!isValid) {
             switch (choice) {
                 case 1:
                     timeZone = getTimeZone();
@@ -37,11 +36,8 @@ public class TimeZoneTest {
                     break loop;
             }
             choice = getChoice();
-            if (choice == 3) {
-                System.out.printf("%nThank you for using our service %n");
-            }
-            isValid = !(choice < 1 && choice > 3);
-        } while (!isValid);
+            isValid = !(choice > 0 && choice < 4);
+        }
 
     }
 

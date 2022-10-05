@@ -22,7 +22,7 @@ public class TimeZone {
         try (BufferedReader reader = Files.newBufferedReader(path)) {
             String str;
             while ((str = reader.readLine()) != null) {
-                if (str.equalsIgnoreCase(timeZone)) {
+                if (str.equals(timeZone) || str.contains(timeZone)) {
                     return str;
                 }
 
@@ -36,9 +36,9 @@ public class TimeZone {
     public void determineDateTime(String timeZone) {
         try {
             if (searchTimeZone(timeZone) != null) {
-                ZonedDateTime zDateTime = ZonedDateTime.now(ZoneId.of(timeZone));
+                ZonedDateTime zDateTime = ZonedDateTime.now(ZoneId.of(searchTimeZone(timeZone)));
                 System.out.printf("The Date and Time in %s is %s%n",
-                        timeZone.split("/")[1],
+                        searchTimeZone(timeZone),
                         zDateTime.format(DateTimeFormatter.ofPattern("dd/MM/YYYY HH:mm:ss z")));
             } else {
                 System.out.printf("Time Zone does not exist%n");

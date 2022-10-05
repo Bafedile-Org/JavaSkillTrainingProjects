@@ -40,13 +40,17 @@ public class QueueProducerConsumer {
 
         public synchronized void produce() throws InterruptedException {
 
-            while (queue.size() < 10) {
-                int value = (int) (Math.random() * 1000);
-                queue.add(value);
-                System.out.printf("Produced [%d]:%n", value);
-                TimeUnit.MILLISECONDS.sleep((int) (Math.random() * 200));
+            if (queue.size() < 10) {
+                while (queue.size() < 10) {
+                    int value = (int) (Math.random() * 1000);
+                    queue.add(value);
+                    System.out.printf("Produced [%d]:%n", value);
+                    TimeUnit.MILLISECONDS.sleep((int) (Math.random() * 200));
+                }
+            } else {
+                notifyAll();
             }
-            notifyAll();
+
         }
 
         @Override
@@ -68,11 +72,14 @@ public class QueueProducerConsumer {
         }
 
         public synchronized void consume() throws InterruptedException {
-            while (!queue.isEmpty()) {
-                System.out.printf("%s consumed from the queue%n", queue.poll());
-                TimeUnit.MILLISECONDS.sleep((int) (Math.random() * 150));
+            if (!queue.isEmpty()) {
+                while (!queue.isEmpty()) {
+                    System.out.printf("%s consumed from the queue%n", queue.remove());
+                    TimeUnit.MILLISECONDS.sleep((int) (Math.random() * 150));
+                }
+            } else {
+                wait();
             }
-            wait();
         }
 
         @Override
