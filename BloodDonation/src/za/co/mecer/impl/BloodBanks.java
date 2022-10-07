@@ -13,4 +13,8 @@ public interface BloodBanks {
     public void setAddress(String address);
 
     public String getAddress();
+
+    public void setDonorId(int donorId);
+
+    public int getDonorId();
 }

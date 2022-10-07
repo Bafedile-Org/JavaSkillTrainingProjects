@@ -14,23 +14,7 @@ public interface Individuals {
 
     public String getName();
 
-    public default void setBloodGroupId(String bloodGroup) {
-        int bloodId;
-        switch (bloodGroup.toUpperCase()) {
-            case "A":
-                bloodId = 1;
-                break;
-            case "B":
-                bloodId = 2;
-                break;
-            case "AB":
-                bloodId = 3;
-                break;
-            default:
-                bloodId = 4;
-
-        }
-    }
+    public void setBloodGroupId(String bloodGroup);
 
     public int getBloodGroupId();
 

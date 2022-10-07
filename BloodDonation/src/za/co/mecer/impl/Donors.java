@@ -10,7 +10,4 @@ public interface Donors extends Individuals {
 
     public String getMedicalReport();
 
-    public void setAddress(String address);
-
-    public String getAddress();
 }

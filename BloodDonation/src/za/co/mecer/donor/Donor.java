@@ -15,7 +15,7 @@ public class Donor implements Donors {
         this.name = name;
         this.bloodGroup = bloodGroup;
         this.medicalReport = medicalReport;
-        setBloodGroupId(bloodGroup);
+
     }
 
     @Override
@@ -54,19 +54,25 @@ public class Donor implements Donors {
     }
 
     @Override
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    @Override
-    public String getAddress() {
-        return address;
-
-    }
-
-    @Override
     public int getBloodGroupId() {
+        setBloodGroupId(bloodGroup);
         return bloodGroupId;
     }
 
+    @Override
+    public void setBloodGroupId(String bloodGroup) {
+        switch (bloodGroup.toUpperCase()) {
+            case "A":
+                bloodGroupId = 1;
+                break;
+            case "B":
+                bloodGroupId = 2;
+                break;
+            case "AB":
+                bloodGroupId = 3;
+                break;
+            default:
+                bloodGroupId = 4;
+        }
+    }
 }
