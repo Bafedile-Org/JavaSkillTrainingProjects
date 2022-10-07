@@ -1,0 +1,9 @@
+CREATE DATABASE library_sys;
+
+CREATE TABLE books (isbn INT(13) PRIMARY KEY , title VARCHAR(45),  borrowable BOOLEAN, available BOOLEAN);
+CREATE TABLE author(name VARCHAR(25), book_isbn FOREIGN KEY(books.isbn), PRIMARY KEY(name,book_isbn));
+
+CREATE TABLE client(client_id INT, id_num VARCHAR(13), firstname VARCHAR(25) NOT NULL, lastname VARCHAR(25) NOT NULL, 
+address VARCHAR(60), telephone_work INT(10), telephone_home INT(10) NOT NULL, telephone_mobile INT(10), PRIMARY KEY(client_id));
+
+CREATE TABLE loan (client_id INT, book_id INT, return_date DATE, FOREIGN KEY(client_id,book_id));
