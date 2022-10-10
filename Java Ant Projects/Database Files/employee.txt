@@ -1,0 +1,10 @@
+1	Christopher	Hansley	m	chrisH@gmail.com	marketing	marketing director	43892.3
+2	Daniel	Langley	m	danielL@gmail.com	finance	accountant	36828.2
+3	Laura	West	f	lauraW@yahoo.com	information technology	cybersecurity specialist	41938.32
+4	Sarah	Monroe	f	sarahM@mecer.co.za	human resources	human resources manager	32928.3
+5	Jessica	Ashley	f	jessicaA@outlook.com	marketing	sales consultant	25993.3
+6	Paul	Cromwell	m	paulC@yahoo.com	information technology	java developer	66382.32
+7	Mark	Hansley	m	markH@marks.com	human resources	recruiter	17083.03
+8	Kimberly	St. James	f	kimberlyS@mecer.co.za	marketing	accountant	30039.20
+9	Deborah	Bardot	f	deborahB@makemoney.co.za	information technology	frontend developer	38928.32
+10	Donald	Raven	m	donaldR@makemoney.co.za	information technology	software tester	46883.23
