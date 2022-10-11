@@ -3,6 +3,7 @@ package za.co.mecer;
 import java.io.IOException;
 import java.sql.SQLException;
 import za.co.mecer.dbconnection.DatabaseConnection;
+import za.co.mecer.exceptions.AuthorException;
 import za.co.mecer.exceptions.ClientException;
 import za.co.mecer.exceptions.LoanException;
 import za.co.mecer.exceptions.PaymentException;
@@ -27,9 +28,10 @@ public class LibrarySystem {
                 choice = service.getMenuChoice();
                 service.setOptionChoice(choice);
 
-            } catch (SQLException | ClientException | LoanException | IOException ex) {
+            } catch (SQLException | ClientException | LoanException
+                    | IOException | AuthorException | PaymentException ex) {
                 System.out.printf("Error: %s%n", ex.getMessage());
             }
-        } while (choice != 5);
+        } while (choice != 6);
     }
 }

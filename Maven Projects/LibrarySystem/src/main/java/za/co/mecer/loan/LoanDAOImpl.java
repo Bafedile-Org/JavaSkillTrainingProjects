@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import za.co.mecer.client.Client;
-import za.co.mecer.impl.LoanDAO;
+import za.co.mecer.impl.dao.LoanDAO;
 
 /**
  *
@@ -28,9 +28,9 @@ public class LoanDAOImpl implements LoanDAO {
          * <<Loan Fields>> client_id, borroweddate, returndate, fine
          */
         preparedStatement = conn.prepareStatement("INSERT INTO loan (client_id,borroweddate, returndate,fine)"
-                + "VALUES (?,?,?,?)");
-        preparedStatement.setInt(1, conn.prepareStatement(String.format("SELECT client_id from client WHERE identitynum = %s",
-                clientIdentityNum)).executeQuery().getInt("client_id"));
+                + "VALUES ((SELECT client_id FROM client WHERE identityNum = ?),?,?,?)");
+
+        preparedStatement.setString(1, clientIdentityNum);
         preparedStatement.setString(2, loan.getBorrowedDate().toString());
         preparedStatement.setString(3, loan.getReturnDate().toString());
         preparedStatement.setDouble(4, loan.getFine());

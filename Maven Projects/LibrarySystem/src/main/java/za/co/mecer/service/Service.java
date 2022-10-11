@@ -9,16 +9,22 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import za.co.mecer.author.Author;
 import za.co.mecer.book.Book;
 import za.co.mecer.book.BookDAOImpl;
 import za.co.mecer.client.Client;
 import za.co.mecer.client.ClientDAOImpl;
 import za.co.mecer.dbconnection.DatabaseConnection;
+import za.co.mecer.exceptions.AuthorException;
 import za.co.mecer.exceptions.ClientException;
 import za.co.mecer.exceptions.LoanException;
+import za.co.mecer.author.AuthorDAOImpl;
+import za.co.mecer.exceptions.PaymentException;
 import za.co.mecer.impl.Services;
 import za.co.mecer.loan.Loan;
 import za.co.mecer.loan.LoanDAOImpl;
+import za.co.mecer.payment.Payment;
+import za.co.mecer.payment.PaymentDAOImpl;
 
 /**
  *
@@ -32,11 +38,15 @@ public class Service implements Services {
     BookDAOImpl bookImpl;
     ClientDAOImpl clientImpl;
     LoanDAOImpl loanImpl;
+    AuthorDAOImpl authorImpl;
+    PaymentDAOImpl paymentImpl;
 
     public Service(Connection conn) throws SQLException {
         this.bookImpl = new BookDAOImpl(conn);
         this.clientImpl = new ClientDAOImpl(conn);
         this.loanImpl = new LoanDAOImpl(conn);
+        this.authorImpl = new AuthorDAOImpl(conn);
+        this.paymentImpl = new PaymentDAOImpl(conn);
     }
 
     @Override
@@ -51,10 +61,11 @@ public class Service implements Services {
                         + "2 Display Client Menu\n"
                         + "3 Display Loan Menu\n"
                         + "4 Display Payment Menu\n"
-                        + "5 Exit\n"
+                        + "5 Display Author Menu\n"
+                        + "6 Exit\n"
                         + "Your choice: \n");
                 choice = input.nextInt();
-                isValid = !(choice < 1 && choice > 5);
+                isValid = !(choice < 1 && choice > 6);
 
             } catch (NumberFormatException | InputMismatchException ex) {
                 System.out.println(String.format("Error: %s%n", ex.getMessage()));
@@ -65,7 +76,7 @@ public class Service implements Services {
     }
 
     @Override
-    public void setOptionChoice(int choice) throws SQLException, ClientException, LoanException, IOException {
+    public void setOptionChoice(int choice) throws SQLException, ClientException, LoanException, IOException, AuthorException, PaymentException {
         switch (choice) {
             case 1:
 
@@ -80,6 +91,8 @@ public class Service implements Services {
             case 4:
                 processPaymentMenu(getPaymentMenuChoice());
                 break;
+            case 5:
+                processAuthorMenu(getAuthorMenuChoice());
             default:
                 System.out.println(String.format("%n------------------------------------------------%n"
                         + "\tTHANK YOU FOR USING OUR SERVICES%n"
@@ -126,10 +139,11 @@ public class Service implements Services {
                         + "1 Add An Author\n"
                         + "2 Get An Author\n"
                         + "3 Remove An Author\n"
-                        + "4 Exit Author Menu\n"
+                        + "4 Get ALL Authors\n"
+                        + "5 Exit Author Menu\n"
                         + "Your Choice:\n"));
                 choice = input.nextInt();
-                isValid = !(choice < 1 && choice > 4);
+                isValid = !(choice < 1 && choice > 5);
             } catch (NumberFormatException ex) {
                 System.out.println(String.format("Error: %s%n", ex.getMessage()));
                 isValid = false;
@@ -260,8 +274,11 @@ public class Service implements Services {
             System.out.println(String.format("Book title: %S%n"
                     + "Book ISBN Number: %s%n"
                     + "Book Availability: %s%n"
-                    + "Book Accessibility: %s%n", set.getString("title"),
-                    set.getString("isbn"), set.getBoolean("available"), set.getBoolean("borrowable")));
+                    + "Book Accessibility: %s%n",
+                    set.getString("title"),
+                    set.getString("isbn"),
+                    set.getBoolean("available"),
+                    set.getBoolean("borrowable")));
         }
     }
 
@@ -290,8 +307,44 @@ public class Service implements Services {
     }
 
     @Override
-    public void processAuthorMenu(int choice) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void processAuthorMenu(int choice) throws SQLException, AuthorException {
+        switch (choice) {
+            case 1:
+                authorImpl.addAuthor(getAuthorDetails());
+                break;
+            case 2:
+                displayAuthor(authorImpl.searchAuthor(getAuthorName()));
+                break;
+            case 3:
+                authorImpl.removeAuthor(getAuthorDetails());
+                break;
+            case 4:
+                displayAuthor(authorImpl.getAllAuthors());
+                break;
+            default:
+                System.out.println("EXITED AUTHOR MENU!!");
+        }
+    }
+
+    public void displayAuthor(ResultSet set) throws SQLException {
+        while (set.next()) {
+            System.out.println(String.format("Author Name: %s%n"
+                    + "Author's Book ID: %s%n%n", set.getString("author"), set.getString("book_id")));
+        }
+    }
+
+    public String getAuthorName() {
+        System.out.println("Please enter author name: ");
+        String name = input.next();
+        return name;
+    }
+
+    public Author getAuthorDetails() throws AuthorException {
+        String name = getAuthorName();
+        System.out.println("Please enter author's book isbn: ");
+        String bookISBN = input.next();
+
+        return new Author(name, bookISBN);
     }
 
     @Override
@@ -345,7 +398,6 @@ public class Service implements Services {
     public String getAddress() throws IOException {
         System.out.println("Please enter client address: ");
         String address = reader.readLine();
-
         return address;
     }
 
@@ -429,6 +481,7 @@ public class Service implements Services {
         String returnDateString = input.next();
         LocalDate returnDate = LocalDate.of(Integer.parseInt(returnDateString.split("-")[2]),
                 Integer.parseInt(returnDateString.split("-")[1]), Integer.parseInt(returnDateString.split("-")[0]));
+        System.out.println(returnDate.toString());
         return returnDate;
     }
 
@@ -438,13 +491,56 @@ public class Service implements Services {
 
         LocalDate borrowedDate = LocalDate.of(Integer.parseInt(dateString.split("-")[2]),
                 Integer.parseInt(dateString.split("-")[1]), Integer.parseInt(dateString.split("-")[0]));
+
         LocalDate returnDate = getReturnDate();
 
         return new Loan(borrowedDate, returnDate, 0);
     }
 
     @Override
-    public void processPaymentMenu(int choice) throws SQLException {
+    public void processPaymentMenu(int choice) throws SQLException, PaymentException {
+        switch (choice) {
+            case 1:
+                paymentImpl.addPayment(getLoanId(), new Payment(getPayment()));
+                break;
+            case 2:
+                displayPayment(paymentImpl.getPayment(getLoanId()));
+                break;
+            case 3:
+                paymentImpl.removePayment(getLoanId());
+                break;
+            case 4:
+                displayPayment(paymentImpl.getAllPayments());
+                break;
+            default:
+                System.out.println("EXITED PAYMENT MENU!!!");
+        }
+
+    }
+
+    public void displayPayment(ResultSet set) throws SQLException {
+        while (set.next()) {
+            System.out.println(String.format("Payment Id: %d%n"
+                    + "Loan Id: %d%n"
+                    + "Amount paid: .2f%f%n%n", set.getInt("payment_id"), set.getInt("loan_id"), set.getDouble("amount")));
+        }
+    }
+
+    public double getPayment() {
+        boolean isValid;
+        double amount = 0;
+        do {
+            try {
+                System.out.println("Please enter the amount to pay for the loan");
+                amount = input.nextDouble();
+                isValid = !(amount < 0);
+            } catch (InputMismatchException ex) {
+                System.out.println(String.format("Error: %s%n", ex.getMessage()));
+                isValid = false;
+            }
+        } while (!isValid);
+
+        return amount;
 
     }
 

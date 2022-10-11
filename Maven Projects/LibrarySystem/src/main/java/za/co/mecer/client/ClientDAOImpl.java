@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import za.co.mecer.impl.ClientDAO;
+import za.co.mecer.impl.dao.ClientDAO;
 
 /**
  *

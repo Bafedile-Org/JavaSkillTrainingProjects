@@ -1,4 +1,4 @@
-package za.co.mecer.impl;
+package za.co.mecer.impl.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
