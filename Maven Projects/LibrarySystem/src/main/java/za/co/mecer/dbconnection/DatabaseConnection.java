@@ -72,6 +72,11 @@ public class DatabaseConnection {
                     + "FOREIGN KEY(book_id) REFERENCES book(book_id), FOREIGN KEY(author_id) REFERENCES author(author_id), PRIMARY KEY(author_id,book_id));").executeUpdate();
             //conn.prepareStatement("USE " + database).executeUpdate();
         }
+
+    }
+
+    public Connection getConnection() {
+        return conn;
     }
 
 }

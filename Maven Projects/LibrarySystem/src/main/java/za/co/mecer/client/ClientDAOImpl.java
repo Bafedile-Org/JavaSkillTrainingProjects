@@ -14,6 +14,7 @@ public class ClientDAOImpl implements ClientDAO {
 
     private PreparedStatement preparedStatement = null;
     private Connection conn = null;
+    private ResultSet result = null;
 
     public ClientDAOImpl(Connection conn) {
         this.conn = conn;
@@ -24,7 +25,7 @@ public class ClientDAOImpl implements ClientDAO {
         /**
          * <<Client Fields>> firstname, lastname, identity, address, hometel, worktel,mobiletel
          */
-        preparedStatement = conn.prepareStatement("INSERT INTO book (firstname,lastname,identitynum,address,"
+        preparedStatement = conn.prepareStatement("INSERT INTO client (firstname,lastname,identitynum,address,"
                 + " hometel, worktel, mobiletel) VALUES"
                 + "(?,?,?,?,?,?,?)");
         preparedStatement.setString(1, client.getFirstName());
@@ -36,7 +37,6 @@ public class ClientDAOImpl implements ClientDAO {
         preparedStatement.setString(7, client.getMobileTel());
         preparedStatement.executeUpdate();
 
-        preparedStatement.close();
     }
 
     @Override
@@ -44,7 +44,6 @@ public class ClientDAOImpl implements ClientDAO {
         preparedStatement = conn.prepareStatement("DELETE FROM client WHERE identitynum = ?");
         preparedStatement.setString(1, identityNum);
         preparedStatement.executeUpdate();
-        preparedStatement.close();
     }
 
     @Override
@@ -53,7 +52,6 @@ public class ClientDAOImpl implements ClientDAO {
         preparedStatement.setString(1, newAddress);
         preparedStatement.setString(2, identityNum);
         preparedStatement.executeUpdate();
-        preparedStatement.close();
     }
 
     @Override
@@ -62,7 +60,6 @@ public class ClientDAOImpl implements ClientDAO {
         preparedStatement.setString(1, newHomeTel);
         preparedStatement.setString(2, identityNum);
         preparedStatement.executeUpdate();
-        preparedStatement.close();
     }
 
     @Override
@@ -71,7 +68,6 @@ public class ClientDAOImpl implements ClientDAO {
         preparedStatement.setString(1, newWorkTel);
         preparedStatement.setString(2, identityNum);
         preparedStatement.executeUpdate();
-        preparedStatement.close();
     }
 
     @Override
@@ -80,15 +76,21 @@ public class ClientDAOImpl implements ClientDAO {
         preparedStatement.setString(1, newMobileTel);
         preparedStatement.setString(2, identityNum);
         preparedStatement.executeUpdate();
-        preparedStatement.close();
     }
 
     @Override
     public ResultSet searchClient(String identityNum) throws SQLException {
         preparedStatement = conn.prepareStatement("SELECT * FROM client WHERE identitynum =?");
         preparedStatement.setString(1, identityNum);
-        ResultSet result = preparedStatement.executeQuery();
-        preparedStatement.close();
+        result = preparedStatement.executeQuery();
+
+        return result;
+    }
+
+    @Override
+    public ResultSet getAllClients() throws SQLException {
+        preparedStatement = conn.prepareStatement("SELECT * FROM client ");
+        result = preparedStatement.executeQuery();
 
         return result;
     }

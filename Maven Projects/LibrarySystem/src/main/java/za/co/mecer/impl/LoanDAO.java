@@ -14,7 +14,9 @@ public interface LoanDAO {
 
     public double FINE = 12.5;
 
-    void addLoan(Client client, Loan loan) throws SQLException;
+    public ResultSet getAllLoans() throws SQLException;
+
+    void addLoan(String clientIdentityNum, Loan loan) throws SQLException;
 
     void removeLoan(int loanId) throws SQLException;
 

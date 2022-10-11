@@ -16,25 +16,25 @@ public class LoanDAOImpl implements LoanDAO {
 
     private Connection conn = null;
     private PreparedStatement preparedStatement = null;
+    private ResultSet result = null;
 
     public LoanDAOImpl(Connection conn) {
         this.conn = conn;
     }
 
     @Override
-    public void addLoan(Client client, Loan loan) throws SQLException {
+    public void addLoan(String clientIdentityNum, Loan loan) throws SQLException {
         /**
          * <<Loan Fields>> client_id, borroweddate, returndate, fine
          */
         preparedStatement = conn.prepareStatement("INSERT INTO loan (client_id,borroweddate, returndate,fine)"
                 + "VALUES (?,?,?,?)");
         preparedStatement.setInt(1, conn.prepareStatement(String.format("SELECT client_id from client WHERE identitynum = %s",
-                client.getIdentityNum())).executeQuery().getInt("client_id"));
+                clientIdentityNum)).executeQuery().getInt("client_id"));
         preparedStatement.setString(2, loan.getBorrowedDate().toString());
         preparedStatement.setString(3, loan.getReturnDate().toString());
         preparedStatement.setDouble(4, loan.getFine());
         preparedStatement.executeUpdate();
-        preparedStatement.close();
     }
 
     @Override
@@ -42,7 +42,6 @@ public class LoanDAOImpl implements LoanDAO {
         preparedStatement = conn.prepareStatement("DELETE FROM loan WHERE loan_id = ? ");
         preparedStatement.setInt(1, loanId);
         preparedStatement.executeUpdate();
-        preparedStatement.close();
     }
 
     @Override
@@ -51,7 +50,6 @@ public class LoanDAOImpl implements LoanDAO {
         preparedStatement.setString(1, newReturnDate.toString());
         preparedStatement.setInt(2, loanId);
         preparedStatement.executeUpdate();
-        preparedStatement.close();
     }
 
     @Override
@@ -60,7 +58,6 @@ public class LoanDAOImpl implements LoanDAO {
         preparedStatement.setDouble(1, FINE);
         preparedStatement.setInt(2, loanId);
         preparedStatement.executeUpdate();
-        preparedStatement.close();
 
     }
 
@@ -68,8 +65,16 @@ public class LoanDAOImpl implements LoanDAO {
     public ResultSet searchLoan(int loanId) throws SQLException {
         preparedStatement = conn.prepareStatement("SELECT * FROM loan WHERE loan_id =?");
         preparedStatement.setInt(1, loanId);
-        ResultSet result = preparedStatement.executeQuery();
-        preparedStatement.close();
+        result = preparedStatement.executeQuery();
+
+        return result;
+
+    }
+
+    @Override
+    public ResultSet getAllLoans() throws SQLException {
+        preparedStatement = conn.prepareStatement("SELECT * FROM loan");
+        result = preparedStatement.executeQuery();
 
         return result;
 

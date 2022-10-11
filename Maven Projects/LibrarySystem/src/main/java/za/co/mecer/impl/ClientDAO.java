@@ -12,6 +12,8 @@ public interface ClientDAO {
 
     void addClient(Client client) throws SQLException;
 
+    public ResultSet getAllClients() throws SQLException;
+
     void removeClient(String identityNum) throws SQLException;
 
     void changeClientAddress(String identityNum, String newAddress) throws SQLException;

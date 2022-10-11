@@ -14,6 +14,7 @@ public class BookDAOImpl implements BookDAO {
 
     private PreparedStatement preparedStatement = null;
     private Connection con = null;
+    private ResultSet result = null;
 
     public BookDAOImpl(Connection con) throws SQLException {
         this.con = con;
@@ -32,7 +33,7 @@ public class BookDAOImpl implements BookDAO {
         preparedStatement.setBoolean(4, true);
         preparedStatement.executeUpdate();
 
-        preparedStatement.close();
+        // preparedStatement.close();
     }
 
     @Override
@@ -40,7 +41,7 @@ public class BookDAOImpl implements BookDAO {
         preparedStatement = con.prepareStatement("DELETE FROM book WHERE isbn=?");
         preparedStatement.setString(1, isbn);
         preparedStatement.executeUpdate();
-        preparedStatement.close();
+        //  preparedStatement.close();
     }
 
     @Override
@@ -49,7 +50,7 @@ public class BookDAOImpl implements BookDAO {
         preparedStatement.setBoolean(1, availability);
         preparedStatement.setString(2, isbn);
         preparedStatement.executeUpdate();
-        preparedStatement.close();
+        // preparedStatement.close();
     }
 
     @Override
@@ -58,16 +59,41 @@ public class BookDAOImpl implements BookDAO {
         preparedStatement.setBoolean(1, access);
         preparedStatement.setString(2, isbn);
         preparedStatement.executeUpdate();
-        preparedStatement.close();
+        //  preparedStatement.close();
     }
 
     @Override
-    public ResultSet searchBook(String ISBN, String title) throws SQLException {
-        preparedStatement = con.prepareStatement("SELECT * FROM book WHERE isbn=? AND title =?");
+    public ResultSet searchBook(String ISBN) throws SQLException {
+        preparedStatement = con.prepareStatement("SELECT * FROM book WHERE isbn=? ");
         preparedStatement.setString(1, ISBN);
-        preparedStatement.setString(2, title);
-        ResultSet result = preparedStatement.executeQuery();
-        preparedStatement.close();
+        result = preparedStatement.executeQuery();
+        //  preparedStatement.close();
+        return result;
+    }
+
+    @Override
+    public ResultSet searchAvailableBooks() throws SQLException {
+        preparedStatement = con.prepareStatement("SELECT * FROM book WHERE available=?");
+        preparedStatement.setBoolean(1, true);
+        result = preparedStatement.executeQuery();
+        //  preparedStatement.close();
+        return result;
+    }
+
+    @Override
+    public ResultSet searchAccessibleBooks() throws SQLException {
+        preparedStatement = con.prepareStatement("SELECT * FROM book WHERE borrowable=?");
+        preparedStatement.setBoolean(1, true);
+        result = preparedStatement.executeQuery();
+        // preparedStatement.close();
+        return result;
+    }
+
+    @Override
+    public ResultSet getAllBooks() throws SQLException {
+        preparedStatement = con.prepareStatement("SELECT * FROM book ");
+        result = preparedStatement.executeQuery();
+        // preparedStatement.close();
         return result;
     }
 
