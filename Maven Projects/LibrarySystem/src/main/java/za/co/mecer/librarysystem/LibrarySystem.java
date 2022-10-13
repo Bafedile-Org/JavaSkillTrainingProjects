@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import za.co.mecer.dbconnection.DatabaseConnection;
 import za.co.mecer.exceptions.AuthorException;
+import za.co.mecer.exceptions.BookException;
 import za.co.mecer.exceptions.ClientException;
 import za.co.mecer.exceptions.LoanException;
 import za.co.mecer.exceptions.PaymentException;
@@ -29,7 +30,8 @@ public class LibrarySystem {
                 service.setOptionChoice(choice);
 
             } catch (SQLException | ClientException | LoanException
-                    | IOException | AuthorException | PaymentException ex) {
+                    | IOException | AuthorException | PaymentException
+                    | BookException | NullPointerException ex) {
                 System.out.printf("Error: %s%n", ex.getMessage());
             }
         } while (choice != 6);

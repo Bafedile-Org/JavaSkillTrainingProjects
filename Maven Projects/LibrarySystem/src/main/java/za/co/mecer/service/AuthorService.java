@@ -54,9 +54,9 @@ public class AuthorService {
             case 3:
                 author = getAuthorDetails();
                 conn.setAutoCommit(false);
-                authorImpl.removeAuthor(author);
                 authorBookImpl.removeAuthorBook(authorImpl.getAuthorId(author.getName()),
                         new BookDAOImpl(conn).getBookId(bookISBN));
+
                 conn.setAutoCommit(true);
                 System.out.println(String.format("%nAUTHOR %S Removed%n%n", author.getName()));
                 break;
@@ -66,13 +66,6 @@ public class AuthorService {
                 break;
             default:
                 System.out.println("EXITED AUTHOR MENU!!");
-        }
-    }
-
-    public void displayAuthor(ResultSet set) throws SQLException {
-        while (set.next()) {
-            System.out.println(String.format("Author Name: %s%n"
-                    + "Author's Book ID: %s%n%n", set.getString("author"), set.getString("book_id")));
         }
     }
 

@@ -2,7 +2,6 @@ package za.co.mecer.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import za.co.mecer.model.Author;
 
 /**
  *

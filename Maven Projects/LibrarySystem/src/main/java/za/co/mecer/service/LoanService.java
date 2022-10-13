@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import za.co.mecer.exceptions.ClientException;
 import za.co.mecer.exceptions.LoanException;
@@ -48,11 +49,30 @@ public class LoanService {
             case 5:
                 loanImpl.getAllLoans();
                 loanImpl.displayLoans();
-
+                break;
+            case 6:
+                loanImpl.addFine(getLoanId(), getLoanFine());
                 break;
             default:
                 System.out.println("EXITED LOAN MENU!!!");
         }
+    }
+
+    public double getLoanFine() {
+        boolean isValid;
+        double loanFine = 0;
+        do {
+            try {
+                System.out.println("Please enter the loan fine: ");
+                loanFine = input.nextDouble();
+
+                isValid = !(loanFine < 0);
+            } catch (InputMismatchException ex) {
+                System.out.println(String.format("Error: %s%n", ex.getMessage()));
+                isValid = false;
+            }
+        } while (!isValid);
+        return loanFine;
     }
 
     public void displayLoan(ResultSet set) throws SQLException {
@@ -92,12 +112,9 @@ public class LoanService {
     public Loan getLoanDetails() throws LoanException {
         System.out.println("Please enter borrowed date (dd-MM-YYYY): ");
         String dateString = input.next();
-
         LocalDate borrowedDate = LocalDate.of(Integer.parseInt(dateString.split("-")[2]),
                 Integer.parseInt(dateString.split("-")[1]), Integer.parseInt(dateString.split("-")[0]));
-
         LocalDate returnDate = getReturnDate();
-
         return new Loan(borrowedDate, returnDate, 0);
     }
 }

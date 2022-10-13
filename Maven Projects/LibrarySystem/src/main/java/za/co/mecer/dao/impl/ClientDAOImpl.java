@@ -193,12 +193,14 @@ public class ClientDAOImpl implements ClientDAO {
             try {
                 preparedStatement.close();
             } catch (SQLException ex) {
+                System.err.println("Error " + ex.getMessage());
             }
         }
         if (result != null) {
             try {
                 result.close();
             } catch (SQLException ex) {
+                System.err.println("Error " + ex.getMessage());
             }
         }
     }

@@ -23,7 +23,7 @@ public interface LoanDAO {
 
     void changeReturnDate(int loanId, LocalDate newReturnDate);
 
-    void addFine(int loanId, Double fine);
+    void addFine(int loanId, double fine);
 
     Loan searchLoan(int loanId);
 

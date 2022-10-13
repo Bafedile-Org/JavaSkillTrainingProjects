@@ -1,7 +1,5 @@
 package za.co.mecer;
 
-import za.co.mecer.exceptions.AuthorException;
-
 /**
  *
  * @author Dimakatso Sebatane

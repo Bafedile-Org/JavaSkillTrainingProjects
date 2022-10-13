@@ -18,7 +18,8 @@ public class Author implements Authors {
 
     private BookDAO bookDao;
 
-    public Author() throws SQLException {
+    public Author(int authorId) throws SQLException {
+        this.setAuthorId(authorId);
         bookDao = new BookDAOImpl(DatabaseConnection.getInstance().getConnection());
     }
 

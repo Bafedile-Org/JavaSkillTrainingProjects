@@ -85,12 +85,10 @@ public class BookService {
 
         System.out.println("Please enter the book ISBN Number: ");
         String isbn = input.next();
-
         System.out.println("Please enter book accessibility(ture/false): ");
         boolean access = input.nextBoolean();
         System.out.println("Please enter book availability(ture/false): ");
         boolean available = input.nextBoolean();
-
         return new Book(title, isbn, available, access);
 
     }
@@ -98,7 +96,6 @@ public class BookService {
     public String getBookSearchDetails() {
         System.out.println("Please enter book isbn number:");
         String isbn = input.next();
-
         return isbn;
 
     }

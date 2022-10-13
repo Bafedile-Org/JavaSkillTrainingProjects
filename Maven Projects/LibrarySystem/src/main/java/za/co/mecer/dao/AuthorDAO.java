@@ -12,7 +12,7 @@ public interface AuthorDAO {
 
     public void addAuthor(Author author);
 
-    public void removeAuthor(Author author);
+    public void removeAuthor(int authorId);
 
     public Author searchAuthor(String name);
 

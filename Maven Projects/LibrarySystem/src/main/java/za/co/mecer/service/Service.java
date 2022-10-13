@@ -105,7 +105,7 @@ public class Service implements Services {
                         + "6 Update Book Accessibility\n"
                         + "7 Get ALL Books\n"
                         + "8 Exit Book Menu\n"
-                        + "Your choice: \n");
+                        + "Your choice:");
                 choice = input.nextInt();
                 isValid = !(choice < 1 && choice > 8);
             } catch (NumberFormatException ex) {
@@ -131,7 +131,7 @@ public class Service implements Services {
                         + "3 Remove An Author\n"
                         + "4 Get ALL Authors\n"
                         + "5 Exit Author Menu\n"
-                        + "Your Choice:\n"));
+                        + "Your Choice:"));
                 choice = input.nextInt();
                 isValid = !(choice < 1 && choice > 5);
             } catch (NumberFormatException ex) {
@@ -159,7 +159,7 @@ public class Service implements Services {
                         + "7 Update Client Work Telephone Number\n"
                         + "8 Get ALL Clients\n"
                         + "9 Exit Client Menu\n"
-                        + "Your Choice: \n"));
+                        + "Your Choice:"));
                 choice = input.nextInt();
                 isValid = !(choice < 1 && choice > 9);
             } catch (NumberFormatException ex) {
@@ -183,10 +183,11 @@ public class Service implements Services {
                         + "3 Remove A Loan\n"
                         + "4 Update Return Date\n"
                         + "5 Get All Loans\n"
-                        + "6 Exit Loan Menu\n"
-                        + "Your Choice:\n"));
+                        + "6 Update Loan Fine\n"
+                        + "7 Exit Loan Menu\n"
+                        + "Your Choice:"));
                 choice = input.nextInt();
-                isValid = !(choice < 1 && choice > 6);
+                isValid = !(choice < 1 && choice > 7);
             } catch (NumberFormatException ex) {
                 System.out.println(String.format("Error: %s%n", ex.getMessage()));
                 isValid = false;
@@ -209,7 +210,7 @@ public class Service implements Services {
                         + "3 Remove Payment\n"
                         + "4 Get All Payments\n"
                         + "5 Exit Payment Menu\n"
-                        + "Your Choice: \n"));
+                        + "Your Choice: "));
                 choice = input.nextInt();
                 isValid = !(choice < 1 && choice > 5);
             } catch (NumberFormatException ex) {

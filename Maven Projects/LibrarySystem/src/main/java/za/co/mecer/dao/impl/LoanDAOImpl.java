@@ -7,11 +7,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import za.co.mecer.model.Client;
 import za.co.mecer.dao.LoanDAO;
-import za.co.mecer.exceptions.AuthorException;
 import za.co.mecer.exceptions.LoanException;
-import za.co.mecer.model.Author;
 import za.co.mecer.model.Loan;
 
 /**
@@ -84,11 +81,11 @@ public class LoanDAOImpl implements LoanDAO {
     }
 
     @Override
-    public void addFine(int loanId, Double fine) {
+    public void addFine(int loanId, double fine) {
         try {
             if (conn != null) {
                 preparedStatement = conn.prepareStatement("UPDATE loan SET fine = ? WHERE loan_id = ?");
-                preparedStatement.setDouble(1, FINE);
+                preparedStatement.setDouble(1, fine);
                 preparedStatement.setInt(2, loanId);
                 preparedStatement.executeUpdate();
             }
@@ -153,12 +150,14 @@ public class LoanDAOImpl implements LoanDAO {
             try {
                 preparedStatement.close();
             } catch (SQLException ex) {
+                System.err.println("Error " + ex.getMessage());
             }
         }
         if (result != null) {
             try {
                 result.close();
             } catch (SQLException ex) {
+                System.err.println("Error " + ex.getMessage());
             }
         }
     }
