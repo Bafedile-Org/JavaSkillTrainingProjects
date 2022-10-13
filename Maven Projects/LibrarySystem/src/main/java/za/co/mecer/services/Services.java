@@ -1,4 +1,4 @@
-package za.co.mecer;
+package za.co.mecer.services;
 
 import java.io.IOException;
 import java.sql.SQLException;

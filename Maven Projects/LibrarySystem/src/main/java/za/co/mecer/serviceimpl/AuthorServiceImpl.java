@@ -1,4 +1,4 @@
-package za.co.mecer.service;
+package za.co.mecer.serviceimpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,7 +19,7 @@ import za.co.mecer.exceptions.AuthorException;
  *
  * @author Dimakatso Sebatane
  */
-public class AuthorService {
+public class AuthorServiceImpl {
 
     AuthorDAOImpl authorImpl;
     AuthorBookDAOImpl authorBookImpl;
@@ -29,13 +29,25 @@ public class AuthorService {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     Connection conn;
 
-    public AuthorService(Connection conn) throws SQLException {
+    /**
+     *
+     * @param conn
+     * @throws SQLException
+     */
+    public AuthorServiceImpl(Connection conn) throws SQLException {
         this.conn = conn;
         this.authorImpl = new AuthorDAOImpl(conn);
         this.authorBookImpl = new AuthorBookDAOImpl(conn);
         this.bookImpl = new BookDAOImpl(conn);
     }
 
+    /**
+     *
+     * @param choice
+     * @throws SQLException
+     * @throws AuthorException
+     * @throws IOException
+     */
     public void processAuthorMenu(int choice) throws SQLException, AuthorException, IOException {
         switch (choice) {
             case 1:
@@ -69,12 +81,20 @@ public class AuthorService {
         }
     }
 
+    /**
+     *
+     * @return @throws IOException
+     */
     public String getAuthorName() throws IOException {
         System.out.println("Please enter author name: ");
         String name = reader.readLine();
         return name;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAuthorId() {
         boolean isValid;
         int authorId = 0;
@@ -94,11 +114,22 @@ public class AuthorService {
         return authorId;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getAuthorBookISBN() {
         System.out.println("Please enter author's book isbn: ");
         bookISBN = input.next();
         return bookISBN;
     }
+
+    /**
+     *
+     * @return @throws AuthorException
+     * @throws SQLException
+     * @throws IOException
+     */
 
     public Author getAuthorDetails() throws AuthorException, SQLException, IOException {
         String name = getAuthorName();

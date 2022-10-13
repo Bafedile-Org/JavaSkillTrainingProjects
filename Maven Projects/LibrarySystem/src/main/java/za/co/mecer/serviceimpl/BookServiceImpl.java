@@ -1,4 +1,4 @@
-package za.co.mecer.service;
+package za.co.mecer.serviceimpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,21 +10,35 @@ import java.util.Scanner;
 import za.co.mecer.model.Book;
 import za.co.mecer.dao.impl.BookDAOImpl;
 import za.co.mecer.exceptions.BookException;
+import za.co.mecer.services.BookService;
 
 /**
  *
  * @author Dimakatso Sebatane
  */
-public class BookService {
+public class BookServiceImpl implements BookService {
 
     BookDAOImpl bookImpl;
     Scanner input = new Scanner(System.in);
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public BookService(Connection conn) throws SQLException {
+    /**
+     *
+     * @param conn
+     * @throws SQLException
+     */
+    public BookServiceImpl(Connection conn) throws SQLException {
         this.bookImpl = new BookDAOImpl(conn);
     }
 
+    /**
+     *
+     * @param choice
+     * @throws SQLException
+     * @throws IOException
+     * @throws BookException
+     */
+    @Override
     public void processBookMenu(int choice) throws SQLException, IOException, BookException {
         switch (choice) {
             case 1:
@@ -59,12 +73,24 @@ public class BookService {
         }
     }
 
+    /**
+     *
+     * @param str
+     * @return
+     */
+    @Override
     public boolean updateBook(String str) {
         System.out.println(String.format("Update Book %s(true/false): ", str));
         return input.nextBoolean();
 
     }
 
+    /**
+     *
+     * @param set
+     * @throws SQLException
+     */
+    @Override
     public void displayBooks(ResultSet set) throws SQLException {
 
         while (set.next()) {
@@ -79,6 +105,11 @@ public class BookService {
         }
     }
 
+    /**
+     *
+     * @return @throws IOException
+     */
+    @Override
     public Book getBookDetails() throws IOException {
         System.out.println("Please enter the book title: ");
         String title = reader.readLine();
@@ -93,6 +124,7 @@ public class BookService {
 
     }
 
+    @Override
     public String getBookSearchDetails() {
         System.out.println("Please enter book isbn number:");
         String isbn = input.next();

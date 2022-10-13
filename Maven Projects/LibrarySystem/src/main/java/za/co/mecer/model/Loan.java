@@ -14,6 +14,14 @@ public class Loan implements Loans {
     private double fine;
     private int loanId;
 
+    /**
+     *
+     * @param loanId
+     * @param borrowedDate
+     * @param returnDate
+     * @param Fine
+     * @throws LoanException
+     */
     public Loan(int loanId, LocalDate borrowedDate, LocalDate returnDate, double Fine) throws LoanException {
         this.loanId = loanId;
         this.borrowedDate = borrowedDate;
@@ -21,32 +29,60 @@ public class Loan implements Loans {
         this.setFine(Fine);
     }
 
+    /**
+     *
+     * @param borrowedDate
+     * @param returnDate
+     * @param Fine
+     * @throws LoanException
+     */
     public Loan(LocalDate borrowedDate, LocalDate returnDate, double Fine) throws LoanException {
         this.borrowedDate = borrowedDate;
         this.returnDate = returnDate;
         this.setFine(Fine);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public LocalDate getReturnDate() {
         return returnDate;
     }
 
+    /**
+     *
+     * @param returnDate
+     */
     @Override
     public void setReturnDate(LocalDate returnDate) {
         this.returnDate = returnDate;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public LocalDate getBorrowedDate() {
         return borrowedDate;
     }
 
+    /**
+     *
+     * @param borrowedDate
+     */
     @Override
     public void setBorrowedDate(LocalDate borrowedDate) {
         this.borrowedDate = borrowedDate;
     }
 
+    /**
+     *
+     * @param fine
+     * @throws LoanException
+     */
     @Override
     public void setFine(double fine) throws LoanException {
         if (fine < 0) {
@@ -55,11 +91,19 @@ public class Loan implements Loans {
         this.fine = fine;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public double getFine() {
         return fine;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return String.format("Book borrowed date: %s%n"

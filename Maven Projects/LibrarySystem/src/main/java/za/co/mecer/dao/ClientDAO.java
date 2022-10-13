@@ -11,6 +11,8 @@ import za.co.mecer.model.Client;
  */
 public interface ClientDAO {
 
+    public String CLIENT_ERROR_MSG = "Either Your Connection Or The Payment Is Null!!!";
+
     void addClient(Client client);
 
     public void getAllClients();
@@ -26,8 +28,6 @@ public interface ClientDAO {
     void changeClientMobileTel(String identityNum, String newMobileTel);
 
     Client searchClient(String identityNum);
-
-    public void close(PreparedStatement preparedStatement, ResultSet result);
 
     public void displayClients();
 }

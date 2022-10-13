@@ -1,10 +1,6 @@
 package za.co.mecer.dao;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import za.co.mecer.model.Client;
 import za.co.mecer.model.Loan;
 
 /**
@@ -13,7 +9,7 @@ import za.co.mecer.model.Loan;
  */
 public interface LoanDAO {
 
-    public double FINE = 12.5;
+    public String LOAN_ERROR_MSG = "Either Your Connection Or The Loan Is Null!!!";
 
     public void getAllLoans();
 
@@ -26,8 +22,6 @@ public interface LoanDAO {
     void addFine(int loanId, double fine);
 
     Loan searchLoan(int loanId);
-
-    public void close(PreparedStatement preparedStatement, ResultSet result);
 
     public void displayLoans();
 }

@@ -6,6 +6,10 @@ package za.co.mecer.exceptions;
  */
 public class ClientException extends Exception {
 
+    /**
+     *
+     * @param msg
+     */
     public ClientException(String msg) {
         super(msg);
     }

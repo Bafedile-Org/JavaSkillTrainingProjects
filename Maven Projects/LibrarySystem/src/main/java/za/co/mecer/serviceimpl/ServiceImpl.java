@@ -1,4 +1,4 @@
-package za.co.mecer.service;
+package za.co.mecer.serviceimpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,32 +12,41 @@ import za.co.mecer.exceptions.AuthorException;
 import za.co.mecer.exceptions.ClientException;
 import za.co.mecer.exceptions.LoanException;
 import za.co.mecer.exceptions.PaymentException;
-import za.co.mecer.Services;
+import za.co.mecer.services.Services;
 import za.co.mecer.exceptions.BookException;
 
 /**
  *
  * @author Dimakatso Sebatane
  */
-public class Service implements Services {
+public class ServiceImpl implements Services {
 
     Scanner input = new Scanner(System.in);
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     DatabaseConnection dbConn = DatabaseConnection.getInstance();
-    BookService bookService;
-    LoanService loanService;
-    ClientService clientService;
-    PaymentService paymentService;
-    AuthorService authorService;
+    BookServiceImpl bookService;
+    LoanServiceImpl loanService;
+    ClientServiceImpl clientService;
+    PaymentServiceImpl paymentService;
+    AuthorServiceImpl authorService;
 
-    public Service(Connection conn) throws SQLException {
-        this.bookService = new BookService(conn);
-        this.loanService = new LoanService(conn);
-        this.clientService = new ClientService(conn);
-        this.paymentService = new PaymentService(conn);
-        this.authorService = new AuthorService(conn);
+    /**
+     *
+     * @param conn
+     * @throws SQLException
+     */
+    public ServiceImpl(Connection conn) throws SQLException {
+        this.bookService = new BookServiceImpl(conn);
+        this.loanService = new LoanServiceImpl(conn);
+        this.clientService = new ClientServiceImpl(conn);
+        this.paymentService = new PaymentServiceImpl(conn);
+        this.authorService = new AuthorServiceImpl(conn);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getMenuChoice() {
         boolean isValid;
@@ -64,6 +73,17 @@ public class Service implements Services {
         return choice;
     }
 
+    /**
+     *
+     * @param choice
+     * @throws SQLException
+     * @throws ClientException
+     * @throws LoanException
+     * @throws IOException
+     * @throws AuthorException
+     * @throws PaymentException
+     * @throws BookException
+     */
     @Override
     public void setOptionChoice(int choice) throws SQLException, ClientException, LoanException, IOException,
             AuthorException, PaymentException, BookException {
@@ -90,6 +110,10 @@ public class Service implements Services {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getBookMenuChoice() {
         boolean isValid;
@@ -119,6 +143,10 @@ public class Service implements Services {
 
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getAuthorMenuChoice() {
         boolean isValid;
@@ -143,6 +171,10 @@ public class Service implements Services {
         return choice;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getClientMenuChoice() {
         boolean isValid;
@@ -171,6 +203,10 @@ public class Service implements Services {
         return choice;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getLoanMenuChoice() {
         boolean isValid;
@@ -198,6 +234,10 @@ public class Service implements Services {
 
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getPaymentMenuChoice() {
         boolean isValid;

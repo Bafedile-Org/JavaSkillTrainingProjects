@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import za.co.mecer.dao.ClosingDAO;
 import za.co.mecer.dao.LoanDAO;
 import za.co.mecer.exceptions.LoanException;
 import za.co.mecer.model.Loan;
@@ -15,17 +16,26 @@ import za.co.mecer.model.Loan;
  *
  * @author Dimakatso Sebatane
  */
-public class LoanDAOImpl implements LoanDAO {
+public class LoanDAOImpl implements LoanDAO, ClosingDAO {
 
     private Connection conn = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet result = null;
     List<Loan> loans = new ArrayList<>();
 
+    /**
+     *
+     * @param conn
+     */
     public LoanDAOImpl(Connection conn) {
         this.conn = conn;
     }
 
+    /**
+     *
+     * @param clientIdentityNum
+     * @param loan
+     */
     @Override
     public void addLoan(String clientIdentityNum, Loan loan) {
         /**
@@ -49,6 +59,10 @@ public class LoanDAOImpl implements LoanDAO {
         }
     }
 
+    /**
+     *
+     * @param loanId
+     */
     @Override
     public void removeLoan(int loanId) {
         try {
@@ -64,6 +78,11 @@ public class LoanDAOImpl implements LoanDAO {
         }
     }
 
+    /**
+     *
+     * @param loanId
+     * @param newReturnDate
+     */
     @Override
     public void changeReturnDate(int loanId, LocalDate newReturnDate) {
         try {
@@ -80,6 +99,11 @@ public class LoanDAOImpl implements LoanDAO {
         }
     }
 
+    /**
+     *
+     * @param loanId
+     * @param fine
+     */
     @Override
     public void addFine(int loanId, double fine) {
         try {
@@ -97,6 +121,11 @@ public class LoanDAOImpl implements LoanDAO {
 
     }
 
+    /**
+     *
+     * @param loanId
+     * @return
+     */
     @Override
     public Loan searchLoan(int loanId) {
         Loan loan = null;
@@ -121,6 +150,9 @@ public class LoanDAOImpl implements LoanDAO {
 
     }
 
+    /**
+     * Gets all the loans in the database
+     */
     @Override
     public void getAllLoans() {
         Loan loan = null;
@@ -144,24 +176,9 @@ public class LoanDAOImpl implements LoanDAO {
 
     }
 
-    @Override
-    public void close(PreparedStatement preparedStatement, ResultSet result) {
-        if (preparedStatement != null) {
-            try {
-                preparedStatement.close();
-            } catch (SQLException ex) {
-                System.err.println("Error " + ex.getMessage());
-            }
-        }
-        if (result != null) {
-            try {
-                result.close();
-            } catch (SQLException ex) {
-                System.err.println("Error " + ex.getMessage());
-            }
-        }
-    }
-
+    /**
+     * Displays all the loans
+     */
     @Override
     public void displayLoans() {
         loans.forEach((loan) -> System.out.println(loan));

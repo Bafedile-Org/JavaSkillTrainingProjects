@@ -10,6 +10,8 @@ import za.co.mecer.model.Author;
  */
 public interface AuthorDAO {
 
+    public String AUTHOR_ERROR_MSG = "Either Your Connection Or The Author is Null!!!";
+
     public void addAuthor(Author author);
 
     public void removeAuthor(int authorId);
@@ -19,7 +21,5 @@ public interface AuthorDAO {
     public void getAllAuthors();
 
     public void displayAuthors();
-
-    public void close(PreparedStatement preparedStatement, ResultSet result);
 
 }

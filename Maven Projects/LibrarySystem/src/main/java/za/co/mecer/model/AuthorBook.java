@@ -17,30 +17,58 @@ public class AuthorBook implements AuthorBooks {
 
     private BookDAO bookDao;
 
+    /**
+     *
+     * @throws SQLException
+     */
     public AuthorBook() throws SQLException {
         bookDao = new BookDAOImpl(DatabaseConnection.getInstance().getConnection());
     }
 
+    /**
+     *
+     * @param authorId
+     * @param bookId
+     * @throws AuthorException
+     * @throws SQLException
+     */
     public AuthorBook(int authorId, int bookId) throws AuthorException, SQLException {
         this.setBookId(bookId);
         this.setAuthorId(authorId);
         bookDao = new BookDAOImpl(DatabaseConnection.getInstance().getConnection());
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getBookId() {
         return bookId;
     }
 
+    /**
+     *
+     * @param bookId
+     */
     @Override
     public void setBookId(int bookId) {
         this.bookId = bookId;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getAuthorId() {
         return authorId;
     }
+
+    /**
+     *
+     * @param authorId
+     */
 
     @Override
     public void setAuthorId(int authorId) {

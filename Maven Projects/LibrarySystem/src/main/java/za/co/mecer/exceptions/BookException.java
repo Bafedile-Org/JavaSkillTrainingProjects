@@ -6,6 +6,10 @@ package za.co.mecer.exceptions;
  */
 public class BookException extends Exception {
 
+    /**
+     *
+     * @param msg
+     */
     public BookException(String msg) {
         super(msg);
     }

@@ -6,6 +6,10 @@ package za.co.mecer.exceptions;
  */
 public class LoanException extends Exception {
 
+    /**
+     *
+     * @param msg
+     */
     public LoanException(String msg) {
         super(msg);
     }

@@ -9,6 +9,7 @@ import java.util.List;
 import static za.co.mecer.Books.BOOK_NOT_FOUND_MSG;
 import za.co.mecer.exceptions.AuthorException;
 import za.co.mecer.dao.BookDAO;
+import za.co.mecer.dao.ClosingDAO;
 import za.co.mecer.exceptions.BookException;
 import za.co.mecer.model.Book;
 
@@ -16,24 +17,33 @@ import za.co.mecer.model.Book;
  *
  * @author Dimakatso Sebatane
  */
-public class BookDAOImpl implements BookDAO {
+public class BookDAOImpl implements BookDAO, ClosingDAO {
 
     private PreparedStatement preparedStatement = null;
     private Connection conn = null;
     private ResultSet result = null;
     private List<Book> books = new ArrayList<>();
 
+    /**
+     *
+     * @param conn
+     * @throws SQLException
+     */
     public BookDAOImpl(Connection conn) throws SQLException {
         this.conn = conn;
     }
 
+    /**
+     *
+     * @param book
+     */
     @Override
     public void addBook(Book book) {
         /**
          * <<Book fields>> isbn, title,available, borrowable
          */
         try {
-            if (conn != null) {
+            if (conn != null && book != null) {
                 preparedStatement = conn.prepareStatement("INSERT INTO book (isbn,title,available,borrowable) VALUES"
                         + "(?,?,?,?)");
                 preparedStatement.setString(1, book.getISBN());
@@ -41,14 +51,20 @@ public class BookDAOImpl implements BookDAO {
                 preparedStatement.setBoolean(3, true);
                 preparedStatement.setBoolean(4, true);
                 preparedStatement.executeUpdate();
+            } else {
+                throw new BookException(BOOK_ERROR_MSG);
             }
-        } catch (SQLException se) {
+        } catch (SQLException | BookException se) {
             System.err.println("Error " + se.getMessage());
         } finally {
             close(preparedStatement, result);
         }
     }
 
+    /**
+     *
+     * @param isbn
+     */
     @Override
     public void removeBook(String isbn) {
         try {
@@ -64,6 +80,11 @@ public class BookDAOImpl implements BookDAO {
         }
     }
 
+    /**
+     *
+     * @param isbn
+     * @param availability
+     */
     @Override
     public void changeBookAvailability(String isbn, boolean availability) {
         try {
@@ -80,6 +101,11 @@ public class BookDAOImpl implements BookDAO {
         }
     }
 
+    /**
+     *
+     * @param isbn
+     * @param access
+     */
     @Override
     public void changeBookAccessiblity(String isbn, boolean access) {
         try {
@@ -96,6 +122,11 @@ public class BookDAOImpl implements BookDAO {
         }
     }
 
+    /**
+     *
+     * @param ISBN
+     * @return
+     */
     @Override
     public Book searchBook(String ISBN) {
         Book book = null;
@@ -119,6 +150,9 @@ public class BookDAOImpl implements BookDAO {
         return book;
     }
 
+    /**
+     * Gets all the available books from the database
+     */
     @Override
     public void searchAvailableBooks() {
         Book book;
@@ -141,6 +175,9 @@ public class BookDAOImpl implements BookDAO {
         }
     }
 
+    /**
+     * Gets all the accessible books from the database
+     */
     @Override
     public void searchAccessibleBooks() {
         Book book;
@@ -164,6 +201,9 @@ public class BookDAOImpl implements BookDAO {
 
     }
 
+    /**
+     * Gets all the books from the database
+     */
     @Override
     public void getAllBooks() {
         Book book;
@@ -185,24 +225,11 @@ public class BookDAOImpl implements BookDAO {
         }
     }
 
-    @Override
-    public void close(PreparedStatement preparedStatement, ResultSet result) {
-        if (preparedStatement != null) {
-            try {
-                preparedStatement.close();
-            } catch (SQLException ex) {
-                System.err.println("Error " + ex.getMessage());
-            }
-        }
-        if (result != null) {
-            try {
-                result.close();
-            } catch (SQLException ex) {
-                System.err.println("Error " + ex.getMessage());
-            }
-        }
-    }
-
+    /**
+     * Displays all the books
+     *
+     * @throws BookException
+     */
     @Override
     public void displayBooks() throws BookException {
         if (books.isEmpty()) {
@@ -211,13 +238,16 @@ public class BookDAOImpl implements BookDAO {
         books.forEach((book) -> System.out.println(book));
     }
 
+    /**
+     *
+     * @param isbn
+     * @return
+     */
     @Override
-
     public int getBookId(String isbn) {
         int bookId;
         Book book = searchBook(isbn);
         bookId = book.getBookId();
-        System.out.println("Book id: " + bookId);
         return bookId;
     }
 

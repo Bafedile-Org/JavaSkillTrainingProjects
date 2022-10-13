@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import za.co.mecer.exceptions.AuthorException;
 import za.co.mecer.dao.AuthorDAO;
+import za.co.mecer.dao.ClosingDAO;
 import za.co.mecer.model.Author;
 
 /**
  *
  * @author Dimakatso Sebatane
  */
-public class AuthorDAOImpl implements AuthorDAO {
+public class AuthorDAOImpl implements AuthorDAO, ClosingDAO {
 
     private PreparedStatement preparedStatement = null;
     private ResultSet result = null;
@@ -22,29 +23,42 @@ public class AuthorDAOImpl implements AuthorDAO {
     private AuthorBookDAOImpl authorBookImpl;
     List<Author> authors = new ArrayList<>();
 
+    /**
+     *
+     * @param conn
+     */
     public AuthorDAOImpl(Connection conn) {
         this.conn = conn;
         this.authorBookImpl = new AuthorBookDAOImpl(conn);
     }
 
+    /**
+     *
+     * @param author
+     */
     @Override
     public void addAuthor(Author author) {
         try {
-            if (conn != null) {
+            if (conn != null && author != null) {
                 preparedStatement = conn.prepareStatement("INSERT INTO author (name) VALUES (?)");
                 preparedStatement.setString(1, author.getName());
                 preparedStatement.executeUpdate();
 
+            } else {
+                throw new AuthorException(AUTHOR_ERROR_MSG);
             }
 
-        } catch (SQLException se) {
+        } catch (SQLException | AuthorException se) {
             System.err.println("Error " + se.getMessage() + "\n");
-//            se.printStackTrace();
         } finally {
             close(preparedStatement, result);
         }
     }
 
+    /**
+     *
+     * @param authorId
+     */
     @Override
     public void removeAuthor(int authorId) {
         try {
@@ -61,13 +75,22 @@ public class AuthorDAOImpl implements AuthorDAO {
         }
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     */
     public int getAuthorId(String name) {
         Author author = searchAuthor(name);
         int authorId = author.getAuthorId();
         return authorId;
     }
 
-    //**********************************************************************************
+    /**
+     *
+     * @param name
+     * @return
+     */
     @Override
     public Author searchAuthor(String name) {
         Author author = null;
@@ -91,7 +114,9 @@ public class AuthorDAOImpl implements AuthorDAO {
         return author;
     }
 
-    //**********************************************************************************
+    /**
+     * Returns all authors in the database
+     */
     @Override
     public void getAllAuthors() {
 
@@ -116,27 +141,12 @@ public class AuthorDAOImpl implements AuthorDAO {
 
     }
 
+    /**
+     * Displays all the authors
+     */
     @Override
     public void displayAuthors() {
         authors.forEach((author) -> System.out.println(author));
-    }
-
-    @Override
-    public void close(PreparedStatement preparedStatement, ResultSet result) {
-        if (preparedStatement != null) {
-            try {
-                preparedStatement.close();
-            } catch (SQLException ex) {
-                System.err.println("Error " + ex.getMessage());
-            }
-        }
-        if (result != null) {
-            try {
-                result.close();
-            } catch (SQLException ex) {
-                System.err.println("Error " + ex.getMessage());
-            }
-        }
     }
 
 }

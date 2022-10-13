@@ -18,32 +18,65 @@ public class Author implements Authors {
 
     private BookDAO bookDao;
 
+    /**
+     *
+     * @param authorId
+     * @throws SQLException
+     */
     public Author(int authorId) throws SQLException {
         this.setAuthorId(authorId);
         bookDao = new BookDAOImpl(DatabaseConnection.getInstance().getConnection());
     }
 
+    /**
+     *
+     * @param authorId
+     * @param name
+     * @throws AuthorException
+     * @throws SQLException
+     */
     public Author(int authorId, String name) throws AuthorException, SQLException {
         this.setName(name);
         this.setAuthorId(authorId);
         bookDao = new BookDAOImpl(DatabaseConnection.getInstance().getConnection());
     }
 
+    /**
+     *
+     * @param name
+     * @throws AuthorException
+     * @throws SQLException
+     */
     public Author(String name) throws AuthorException, SQLException {
         this.setName(name);
         bookDao = new BookDAOImpl(DatabaseConnection.getInstance().getConnection());
     }
 
+    /**
+     *
+     * @param name
+     */
     @Override
-    public void setName(String name) {
+    public void setName(String name) throws AuthorException {
+        if (name.isEmpty() || name == null) {
+            throw new AuthorException(NAME_ERROR_MSG);
+        }
         this.name = name;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return String.format("Author Name: %s%n"
@@ -51,16 +84,28 @@ public class Author implements Authors {
                 + "Book ISBN Number: %s%n%s%n%n", name, authorId, isbn, getAuthorBook());
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getAuthorId() {
         return authorId;
     }
 
+    /**
+     *
+     * @param authorId
+     */
     @Override
     public void setAuthorId(int authorId) {
         this.authorId = authorId;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Book getAuthorBook() {
         Book book = bookDao.searchBook(isbn);

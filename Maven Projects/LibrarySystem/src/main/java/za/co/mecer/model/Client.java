@@ -12,6 +12,18 @@ public class Client implements Clients {
     private String identityNum, firstName, lastName, address, homeTel, workTel, mobileTel;
     private int clientId;
 
+    /**
+     *
+     * @param clientId
+     * @param firstName
+     * @param lastName
+     * @param identityNum
+     * @param address
+     * @param homeTel
+     * @param workTel
+     * @param mobileTel
+     * @throws ClientException
+     */
     public Client(int clientId, String firstName, String lastName, String identityNum,
             String address, String homeTel, String workTel, String mobileTel) throws ClientException {
         setIdentityNum(identityNum);
@@ -24,6 +36,17 @@ public class Client implements Clients {
         setClientId(clientId);
     }
 
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @param identityNum
+     * @param address
+     * @param homeTel
+     * @param workTel
+     * @param mobileTel
+     * @throws ClientException
+     */
     public Client(String firstName, String lastName, String identityNum,
             String address, String homeTel, String workTel, String mobileTel) throws ClientException {
         setIdentityNum(identityNum);
@@ -35,6 +58,11 @@ public class Client implements Clients {
         setWorkTel(workTel);
     }
 
+    /**
+     *
+     * @param firstName
+     * @throws ClientException
+     */
     @Override
     public void setFirstName(String firstName) throws ClientException {
         if (!checkNameLength(firstName)) {
@@ -43,6 +71,11 @@ public class Client implements Clients {
         this.firstName = firstName;
     }
 
+    /**
+     *
+     * @param lastName
+     * @throws ClientException
+     */
     @Override
     public void setLastName(String lastName) throws ClientException {
         if (!checkNameLength(lastName)) {
@@ -51,6 +84,11 @@ public class Client implements Clients {
         this.lastName = lastName;
     }
 
+    /**
+     *
+     * @param identityNum
+     * @throws ClientException
+     */
     @Override
     public void setIdentityNum(String identityNum) throws ClientException {
         if (!checkIdentityNumLength(identityNum)) {
@@ -59,11 +97,20 @@ public class Client implements Clients {
         this.identityNum = identityNum;
     }
 
+    /**
+     *
+     * @param address
+     */
     @Override
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     *
+     * @param homeTel
+     * @throws ClientException
+     */
     @Override
     public void setHomeTel(String homeTel) throws ClientException {
         if (!checkTelLength(homeTel)) {
@@ -72,6 +119,11 @@ public class Client implements Clients {
         this.homeTel = homeTel;
     }
 
+    /**
+     *
+     * @param workTel
+     * @throws ClientException
+     */
     @Override
     public void setWorkTel(String workTel) throws ClientException {
         if (!checkTelLength(workTel)) {
@@ -80,6 +132,11 @@ public class Client implements Clients {
         this.workTel = workTel;
     }
 
+    /**
+     *
+     * @param mobileTel
+     * @throws ClientException
+     */
     @Override
     public void setMobileTel(String mobileTel) throws ClientException {
         if (!checkTelLength(mobileTel)) {
@@ -88,56 +145,106 @@ public class Client implements Clients {
         this.mobileTel = mobileTel;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getIdentityNum() {
         return identityNum;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getAddress() {
         return address;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getHomeTel() {
         return homeTel;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getWorkTel() {
         return workTel;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getMobileTel() {
         return mobileTel;
     }
 
+    /**
+     *
+     * @param name
+     * @return
+     * @throws ClientException
+     */
     @Override
     public boolean checkNameLength(String name) throws ClientException {
         return (name.length() > 0);
     }
 
+    /**
+     *
+     * @param identityNum
+     * @return
+     * @throws ClientException
+     */
     @Override
     public boolean checkIdentityNumLength(String identityNum) throws ClientException {
         return (identityNum.length() == 13);
     }
 
+    /**
+     *
+     * @param homeTel
+     * @return
+     * @throws ClientException
+     */
     @Override
     public boolean checkTelLength(String homeTel) throws ClientException {
         return (homeTel.length() == 10);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return String.format("Client Id: %d%n"
@@ -150,6 +257,11 @@ public class Client implements Clients {
                 + "Mobile Telephone Number: %s%n%n", clientId, firstName, lastName, identityNum, address, homeTel, workTel, mobileTel);
     }
 
+    /**
+     *
+     * @param clientId
+     * @throws ClientException
+     */
     @Override
     public void setClientId(int clientId) throws ClientException {
         if (clientId < 0) {
@@ -158,6 +270,10 @@ public class Client implements Clients {
         this.clientId = clientId;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getClientId() {
         return clientId;

@@ -6,6 +6,10 @@ package za.co.mecer.exceptions;
  */
 public class PaymentException extends Exception {
 
+    /**
+     *
+     * @param msg
+     */
     public PaymentException(String msg) {
         super(msg);
     }

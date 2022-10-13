@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import za.co.mecer.dao.ClosingDAO;
 import za.co.mecer.dao.PaymentDAO;
-import za.co.mecer.exceptions.AuthorException;
 import za.co.mecer.exceptions.PaymentException;
 import za.co.mecer.model.Payment;
 
@@ -15,17 +15,26 @@ import za.co.mecer.model.Payment;
  *
  * @author Dimakatso Sebatane
  */
-public class PaymentDAOImpl implements PaymentDAO {
+public class PaymentDAOImpl implements PaymentDAO, ClosingDAO {
 
     private Connection conn = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet result = null;
     private List<Payment> payments = new ArrayList<>();
 
+    /**
+     *
+     * @param conn
+     */
     public PaymentDAOImpl(Connection conn) {
         this.conn = conn;
     }
 
+    /**
+     *
+     * @param loanId
+     * @param payment
+     */
     @Override
     public void addPayment(int loanId, Payment payment) {
         double amountOwed;
@@ -62,6 +71,10 @@ public class PaymentDAOImpl implements PaymentDAO {
         }
     }
 
+    /**
+     *
+     * @param loanId
+     */
     @Override
     public void removePayment(int loanId) {
         try {
@@ -78,6 +91,9 @@ public class PaymentDAOImpl implements PaymentDAO {
         }
     }
 
+    /**
+     * Gets all the payments from the database
+     */
     @Override
     public void getAllPayments() {
         Payment payment = null;
@@ -97,6 +113,11 @@ public class PaymentDAOImpl implements PaymentDAO {
         }
     }
 
+    /**
+     *
+     * @param loanId
+     * @return
+     */
     @Override
     public Payment getPayment(int loanId) {
         Payment payment = null;
@@ -117,24 +138,10 @@ public class PaymentDAOImpl implements PaymentDAO {
         return payment;
     }
 
-    @Override
-    public void close(PreparedStatement preparedStatement, ResultSet result) {
-        if (preparedStatement != null) {
-            try {
-                preparedStatement.close();
-            } catch (SQLException ex) {
-                System.err.println("Error " + ex.getMessage());
-            }
-        }
-        if (result != null) {
-            try {
-                result.close();
-            } catch (SQLException ex) {
-                System.err.println("Error " + ex.getMessage());
-            }
-        }
-    }
-
+    /**
+     * Displays all the 
+     *
+     */
     @Override
     public void displayPayments() {
         payments.forEach((payment) -> System.out.println(payment));

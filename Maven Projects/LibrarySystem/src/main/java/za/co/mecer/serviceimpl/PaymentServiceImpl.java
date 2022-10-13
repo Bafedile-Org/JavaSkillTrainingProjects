@@ -1,4 +1,4 @@
-package za.co.mecer.service;
+package za.co.mecer.serviceimpl;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,23 +10,35 @@ import java.util.Scanner;
 import za.co.mecer.exceptions.PaymentException;
 import za.co.mecer.model.Payment;
 import za.co.mecer.dao.impl.PaymentDAOImpl;
+import za.co.mecer.services.PaymentService;
 
 /**
  *
  * @author Dimakatso Sebatane
  */
-public class PaymentService {
+public class PaymentServiceImpl implements PaymentService {
 
     PaymentDAOImpl paymentImpl;
-    LoanService loanService;
+    LoanServiceImpl loanService;
     Scanner input = new Scanner(System.in);
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public PaymentService(Connection conn) {
+    /**
+     *
+     * @param conn
+     */
+    public PaymentServiceImpl(Connection conn) {
         this.paymentImpl = new PaymentDAOImpl(conn);
-        this.loanService = new LoanService(conn);
+        this.loanService = new LoanServiceImpl(conn);
     }
 
+    /**
+     *
+     * @param choice
+     * @throws SQLException
+     * @throws PaymentException
+     */
+    @Override
     public void processPaymentMenu(int choice) throws SQLException, PaymentException {
         switch (choice) {
             case 1:
@@ -49,6 +61,12 @@ public class PaymentService {
 
     }
 
+    /**
+     *
+     * @param set
+     * @throws SQLException
+     */
+    @Override
     public void displayPayment(ResultSet set) throws SQLException {
         while (set.next()) {
             System.out.println(String.format("Payment Id: %d%n"
@@ -57,6 +75,11 @@ public class PaymentService {
         }
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
     public double getPayment() {
         boolean isValid;
         double amount = 0;

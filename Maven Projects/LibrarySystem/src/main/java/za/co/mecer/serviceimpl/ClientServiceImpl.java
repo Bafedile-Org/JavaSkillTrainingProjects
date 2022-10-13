@@ -1,4 +1,4 @@
-package za.co.mecer.service;
+package za.co.mecer.serviceimpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,21 +10,32 @@ import java.util.Scanner;
 import za.co.mecer.model.Client;
 import za.co.mecer.dao.impl.ClientDAOImpl;
 import za.co.mecer.exceptions.ClientException;
+import za.co.mecer.services.ClientService;
 
 /**
  *
  * @author Dimakatso Sebatane
  */
-public class ClientService {
+public class ClientServiceImpl implements ClientService {
 
     Scanner input = new Scanner(System.in);
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     ClientDAOImpl clientImpl;
 
-    public ClientService(Connection conn) {
+    /**
+     *
+     * @param conn
+     */
+    public ClientServiceImpl(Connection conn) {
         this.clientImpl = new ClientDAOImpl(conn);
     }
 
+    /**
+     *
+     * @param set
+     * @throws SQLException
+     */
+    @Override
     public void displayClient(ResultSet set) throws SQLException {
 
         while (set.next()) {
@@ -41,24 +52,46 @@ public class ClientService {
         }
     }
 
+    /**
+     *
+     * @return @throws IOException
+     */
+    @Override
     public String getAddress() throws IOException {
         System.out.println("Please enter client address: ");
         String address = reader.readLine();
         return address;
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
     public String getClientIdentity() {
         System.out.println("Please enter client identity num: ");
         String identityNum = input.next();
         return identityNum;
     }
 
+    /**
+     *
+     * @param str
+     * @return
+     */
+    @Override
     public String getTelephone(String str) {
         System.out.println(String.format("Please enter client %s Tel: ", str));
         String tel = input.next();
         return tel;
     }
 
+    /**
+     *
+     * @return @throws ClientException
+     * @throws IOException
+     */
+    @Override
     public Client getClientDetails() throws ClientException, IOException {
         String firstName, lastName, address, homeTel, workTel, mobileTel, identityNum;
         System.out.println("Please enter client first name: ");
@@ -74,6 +107,14 @@ public class ClientService {
         return new Client(firstName, lastName, identityNum, address, homeTel, workTel, mobileTel);
     }
 
+    /**
+     *
+     * @param choice
+     * @throws SQLException
+     * @throws ClientException
+     * @throws IOException
+     */
+    @Override
     public void processClientMenu(int choice) throws SQLException, ClientException, IOException {
         switch (choice) {
             case 1:

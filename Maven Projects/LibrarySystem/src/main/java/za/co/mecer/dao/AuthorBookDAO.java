@@ -13,6 +13,4 @@ public interface AuthorBookDAO {
 
     public void removeAuthorBook(int authorId, int bookId);
 
-    public void close(PreparedStatement preparedStatement, ResultSet result);
-
 }

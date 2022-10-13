@@ -12,6 +12,8 @@ import za.co.mecer.model.Book;
  */
 public interface BookDAO {
 
+    public String BOOK_ERROR_MSG = "Either Your Connection Or The Book Is Null!!";
+
     public int getBookId(String isbn);
 
     public void addBook(Book book);
@@ -29,8 +31,6 @@ public interface BookDAO {
     public void searchAvailableBooks();
 
     public void searchAccessibleBooks();
-
-    public void close(PreparedStatement preparedStatement, ResultSet result);
 
     public void displayBooks() throws BookException;
 

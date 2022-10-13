@@ -1,4 +1,4 @@
-package za.co.mecer.service;
+package za.co.mecer.serviceimpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,24 +13,38 @@ import za.co.mecer.exceptions.ClientException;
 import za.co.mecer.exceptions.LoanException;
 import za.co.mecer.model.Loan;
 import za.co.mecer.dao.impl.LoanDAOImpl;
+import za.co.mecer.services.LoanService;
 
 /**
  *
  * @author Dimakatso Sebatane
  */
-public class LoanService {
+public class LoanServiceImpl implements LoanService {
 
     LoanDAOImpl loanImpl;
-    ClientService clientService;
+    ClientServiceImpl clientService;
     Scanner input = new Scanner(System.in);
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    public LoanService(Connection conn) {
+    /**
+     *
+     * @param conn
+     */
+    public LoanServiceImpl(Connection conn) {
         this.loanImpl = new LoanDAOImpl(conn);
-        this.clientService = new ClientService(conn);
+        this.clientService = new ClientServiceImpl(conn);
 
     }
 
+    /**
+     *
+     * @param choice
+     * @throws SQLException
+     * @throws LoanException
+     * @throws ClientException
+     * @throws IOException
+     */
+    @Override
     public void processLoanMenu(int choice) throws SQLException, LoanException, ClientException, IOException {
         switch (choice) {
             case 1:
@@ -58,6 +72,11 @@ public class LoanService {
         }
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
     public double getLoanFine() {
         boolean isValid;
         double loanFine = 0;
@@ -75,6 +94,12 @@ public class LoanService {
         return loanFine;
     }
 
+    /**
+     *
+     * @param set
+     * @throws SQLException
+     */
+    @Override
     public void displayLoan(ResultSet set) throws SQLException {
         while (set.next()) {
             System.out.println(String.format("Book borrowed date: %s%n"
@@ -84,6 +109,11 @@ public class LoanService {
         }
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
     public int getLoanId() {
         int loanId = 0;
         boolean isValid;
@@ -100,6 +130,11 @@ public class LoanService {
         return loanId;
     }
 
+    /**
+     *
+     * @return
+     */
+    @Override
     public LocalDate getReturnDate() {
         System.out.println("Please enter return  date (dd-MM-YYYY): ");
         String returnDateString = input.next();
@@ -109,6 +144,11 @@ public class LoanService {
         return returnDate;
     }
 
+    /**
+     *
+     * @return @throws LoanException
+     */
+    @Override
     public Loan getLoanDetails() throws LoanException {
         System.out.println("Please enter borrowed date (dd-MM-YYYY): ");
         String dateString = input.next();

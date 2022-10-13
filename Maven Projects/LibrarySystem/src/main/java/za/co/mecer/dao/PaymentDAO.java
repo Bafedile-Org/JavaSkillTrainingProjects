@@ -11,6 +11,8 @@ import za.co.mecer.model.Payment;
  */
 public interface PaymentDAO {
 
+    public String PAYMENT_ERROR_MSG = "Either Your Connection Or The Payment Is Null!!!";
+
     public void addPayment(int loanId, Payment payment);
 
     public void removePayment(int loanId);
@@ -20,7 +22,5 @@ public interface PaymentDAO {
     public Payment getPayment(int loanId);
 
     void displayPayments();
-
-    public void close(PreparedStatement preparedStatement, ResultSet result);
 
 }

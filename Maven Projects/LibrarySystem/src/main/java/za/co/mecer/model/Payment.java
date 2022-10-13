@@ -12,15 +12,31 @@ public class Payment implements Payments {
     private double amount;
     private int paymentId;
 
+    /**
+     *
+     * @param amount
+     * @throws PaymentException
+     */
     public Payment(double amount) throws PaymentException {
         setAmount(amount);
     }
 
+    /**
+     *
+     * @param paymentId
+     * @param amount
+     * @throws PaymentException
+     */
     public Payment(int paymentId, double amount) throws PaymentException {
         setAmount(amount);
         this.paymentId = paymentId;
     }
 
+    /**
+     *
+     * @param amount
+     * @throws PaymentException
+     */
     @Override
     public void setAmount(double amount) throws PaymentException {
         if (amount < 0) {
@@ -29,6 +45,11 @@ public class Payment implements Payments {
         this.amount = amount;
     }
 
+    /**
+     * Returns an amount
+     *
+     * @return
+     */
     @Override
     public double getAmount() {
         return amount;
@@ -48,6 +69,10 @@ public class Payment implements Payments {
         this.paymentId = paymentId;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return String.format("Payment Id: %d%n"

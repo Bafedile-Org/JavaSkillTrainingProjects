@@ -8,23 +8,32 @@ import java.util.ArrayList;
 import java.util.List;
 import za.co.mecer.exceptions.ClientException;
 import za.co.mecer.dao.ClientDAO;
+import za.co.mecer.dao.ClosingDAO;
 import za.co.mecer.model.Client;
 
 /**
  *
  * @author Dimakatso Sebatane
  */
-public class ClientDAOImpl implements ClientDAO {
+public class ClientDAOImpl implements ClientDAO, ClosingDAO {
 
     private PreparedStatement preparedStatement = null;
     private Connection conn = null;
     private ResultSet result = null;
     private List<Client> clients = new ArrayList<>();
 
+    /**
+     *
+     * @param conn
+     */
     public ClientDAOImpl(Connection conn) {
         this.conn = conn;
     }
 
+    /**
+     *
+     * @param client
+     */
     @Override
     public void addClient(Client client) {
         /**
@@ -52,6 +61,10 @@ public class ClientDAOImpl implements ClientDAO {
         }
     }
 
+    /**
+     *
+     * @param identityNum
+     */
     @Override
     public void removeClient(String identityNum) {
         try {
@@ -68,9 +81,13 @@ public class ClientDAOImpl implements ClientDAO {
         }
     }
 
+    /**
+     *
+     * @param identityNum
+     * @param newAddress
+     */
     @Override
-    public void changeClientAddress(String identityNum, String newAddress
-    ) {
+    public void changeClientAddress(String identityNum, String newAddress) {
         try {
             if (conn != null) {
                 preparedStatement = conn.prepareStatement("UPDATE client SET address=?  WHERE identitynum = ?");
@@ -86,9 +103,13 @@ public class ClientDAOImpl implements ClientDAO {
         }
     }
 
+    /**
+     *
+     * @param identityNum
+     * @param newHomeTel
+     */
     @Override
-    public void changeClientHomeTel(String identityNum, String newHomeTel
-    ) {
+    public void changeClientHomeTel(String identityNum, String newHomeTel) {
         try {
             if (conn != null) {
 
@@ -105,9 +126,13 @@ public class ClientDAOImpl implements ClientDAO {
         }
     }
 
+    /**
+     *
+     * @param identityNum
+     * @param newWorkTel
+     */
     @Override
-    public void changeClientWorkTel(String identityNum, String newWorkTel
-    ) {
+    public void changeClientWorkTel(String identityNum, String newWorkTel) {
         try {
             if (conn != null) {
                 preparedStatement = conn.prepareStatement("UPDATE client SET workTel=?  WHERE identitynum = ?");
@@ -122,9 +147,13 @@ public class ClientDAOImpl implements ClientDAO {
         }
     }
 
+    /**
+     *
+     * @param identityNum
+     * @param newMobileTel
+     */
     @Override
-    public void changeClientMobileTel(String identityNum, String newMobileTel
-    ) {
+    public void changeClientMobileTel(String identityNum, String newMobileTel) {
         try {
             if (conn != null) {
                 preparedStatement = conn.prepareStatement("UPDATE client SET mobiletel=?  WHERE identitynum = ?");
@@ -139,6 +168,11 @@ public class ClientDAOImpl implements ClientDAO {
         }
     }
 
+    /**
+     *
+     * @param identityNum
+     * @return
+     */
     @Override
     public Client searchClient(String identityNum
     ) {
@@ -164,6 +198,9 @@ public class ClientDAOImpl implements ClientDAO {
         return client;
     }
 
+    /**
+     * Gets all the clients in the database
+     */
     @Override
     public void getAllClients() {
         Client client;
@@ -187,26 +224,11 @@ public class ClientDAOImpl implements ClientDAO {
         }
     }
 
+    /**
+     * Displays all the clients
+     *
+     */
     @Override
-    public void close(PreparedStatement preparedStatement, ResultSet result) {
-        if (preparedStatement != null) {
-            try {
-                preparedStatement.close();
-            } catch (SQLException ex) {
-                System.err.println("Error " + ex.getMessage());
-            }
-        }
-        if (result != null) {
-            try {
-                result.close();
-            } catch (SQLException ex) {
-                System.err.println("Error " + ex.getMessage());
-            }
-        }
-    }
-
-    @Override
-
     public void displayClients() {
         clients.forEach((client) -> System.out.println(client));
     }

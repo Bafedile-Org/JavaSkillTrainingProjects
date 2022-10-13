@@ -8,7 +8,7 @@ import za.co.mecer.exceptions.BookException;
 import za.co.mecer.exceptions.ClientException;
 import za.co.mecer.exceptions.LoanException;
 import za.co.mecer.exceptions.PaymentException;
-import za.co.mecer.service.Service;
+import za.co.mecer.serviceimpl.ServiceImpl;
 
 /**
  *
@@ -25,7 +25,7 @@ public class LibrarySystem {
         int choice = 0;
         do {
             try {
-                Service service = new Service(dbConn.getConnection());
+                ServiceImpl service = new ServiceImpl(dbConn.getConnection());
                 choice = service.getMenuChoice();
                 service.setOptionChoice(choice);
 

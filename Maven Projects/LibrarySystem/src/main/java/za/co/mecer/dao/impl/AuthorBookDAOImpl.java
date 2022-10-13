@@ -7,29 +7,39 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import za.co.mecer.dao.AuthorBookDAO;
+import za.co.mecer.dao.ClosingDAO;
 import za.co.mecer.model.Author;
 
 /**
  *
  * @author Dimakatso Sebatane
  */
-public class AuthorBookDAOImpl implements AuthorBookDAO {
-    
+public class AuthorBookDAOImpl implements AuthorBookDAO, ClosingDAO {
+
     private PreparedStatement preparedStatement = null;
     private ResultSet result = null;
     private Author author;
     Connection conn = null;
     List<Author> authors = new ArrayList<>();
-    
+
+    /**
+     *
+     * @param conn
+     */
     public AuthorBookDAOImpl(Connection conn) {
         this.conn = conn;
     }
-    
+
+    /**
+     *
+     * @param authorId
+     * @param bookId
+     */
     @Override
     public void addAuthorBook(int authorId, int bookId) {
         try {
             if (conn != null) {
-                
+
                 preparedStatement = conn.prepareStatement("INSERT INTO author_book (author_id, book_id) VALUES (?,?)");
                 preparedStatement.setInt(1, authorId);
                 preparedStatement.setInt(2, bookId);
@@ -41,7 +51,12 @@ public class AuthorBookDAOImpl implements AuthorBookDAO {
             close(preparedStatement, result);
         }
     }
-    
+
+    /**
+     *
+     * @param authorId
+     * @param bookId
+     */
     @Override
     public void removeAuthorBook(int authorId, int bookId) {
         try {
@@ -50,7 +65,7 @@ public class AuthorBookDAOImpl implements AuthorBookDAO {
                 preparedStatement.setInt(1, authorId);
                 preparedStatement.setInt(2, bookId);
                 preparedStatement.executeUpdate();
-                
+
                 new AuthorDAOImpl(conn).removeAuthor(authorId);
             }
         } catch (SQLException se) {
@@ -59,23 +74,5 @@ public class AuthorBookDAOImpl implements AuthorBookDAO {
             close(preparedStatement, result);
         }
     }
-    
-    @Override
-    public void close(PreparedStatement preparedStatement, ResultSet result) {
-        if (preparedStatement != null) {
-            try {
-                preparedStatement.close();
-            } catch (SQLException ex) {
-                System.err.println("Error " + ex.getMessage());
-            }
-        }
-        if (result != null) {
-            try {
-                result.close();
-            } catch (SQLException ex) {
-                System.err.println("Error " + ex.getMessage());
-            }
-        }
-    }
-    
+
 }
