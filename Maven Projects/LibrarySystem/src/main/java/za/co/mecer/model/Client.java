@@ -12,6 +12,9 @@ public class Client implements Clients {
     private String identityNum, firstName, lastName, address, homeTel, workTel, mobileTel;
     private int clientId;
 
+    public Client() {
+    }
+
     /**
      *
      * @param clientId

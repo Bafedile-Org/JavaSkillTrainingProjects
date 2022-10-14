@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import za.co.mecer.model.Author;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeAll;
 import za.co.mecer.exceptions.AuthorException;
 
 /**
@@ -12,29 +13,53 @@ import za.co.mecer.exceptions.AuthorException;
  */
 public class AuthorTest {
 
+    static Author author;
+
+    /**
+     * Remember you did not run tests for the author get book method Fix it
+     */
+    @BeforeAll
+    public static void setUp() {
+        try {
+            author = new Author(2, "stuart");
+        } catch (AuthorException | SQLException ex) {
+
+        }
+    }
+
     public AuthorTest() {
     }
 
     @Test
     public void assertSetNameNotNull() {
-        try {
-            Author author = new Author("Dimakatso");
-            assertNotNull(author.getName());
-        } catch (AuthorException | SQLException ex) {
+        assertNotNull(author.getName());
 
-        }
     }
 
     @Test
-    public void assertSetNameThrows() {
-        Author author;
-        try {
-            author = new Author("Dimakatso");
-            assertNotNull(author.getName());
-        } catch (AuthorException | SQLException ex) {
+    public void assertSetAuthorNameThrows() {
+        AuthorException ex = assertThrows(AuthorException.class,
+                () -> author.setName(""));
+    }
 
-        }
+    @Test
+    public void assertSetAuthorIdThrows() {
+        AuthorException ex = assertThrows(AuthorException.class,
+                () -> author.setAuthorId(0));
+    }
 
-        AuthorException ex = assertThrows(AuthorException.class, () -> author.setName(null));
+    @Test
+    public void assertGetAuthorNameNotNull() {
+        assertNotNull(author.getName());
+    }
+
+    @Test
+    public void assertGetAuthorBookNull() {
+        assertNull(author.getAuthorBook());
+    }
+
+    @Test
+    public void assertGetAuthorIdNotZero() {
+        assertNotEquals(0, author.getAuthorId());
     }
 }

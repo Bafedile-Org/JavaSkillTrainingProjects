@@ -6,6 +6,8 @@ import za.co.mecer.dao.BookDAO;
 import za.co.mecer.dao.impl.BookDAOImpl;
 import za.co.mecer.dbconnection.DatabaseConnection;
 import za.co.mecer.Authors;
+import za.co.mecer.dao.AuthorBookDAO;
+import za.co.mecer.dao.impl.AuthorBookDAOImpl;
 
 /**
  *
@@ -17,13 +19,14 @@ public class Author implements Authors {
     private int authorId;
 
     private BookDAO bookDao;
+    private AuthorBookDAO authorBookDao;
 
     /**
      *
      * @param authorId
      * @throws SQLException
      */
-    public Author(int authorId) throws SQLException {
+    public Author(int authorId) throws SQLException, AuthorException {
         this.setAuthorId(authorId);
         bookDao = new BookDAOImpl(DatabaseConnection.getInstance().getConnection());
     }
@@ -55,10 +58,11 @@ public class Author implements Authors {
     /**
      *
      * @param name
+     * @throws za.co.mecer.exceptions.AuthorException
      */
     @Override
     public void setName(String name) throws AuthorException {
-        if (name.isEmpty() || name == null) {
+        if (name.length() <= 0) {
             throw new AuthorException(NAME_ERROR_MSG);
         }
         this.name = name;
@@ -98,7 +102,11 @@ public class Author implements Authors {
      * @param authorId
      */
     @Override
-    public void setAuthorId(int authorId) {
+    public void setAuthorId(int authorId) throws AuthorException {
+        if (authorId < 1) {
+            throw new AuthorException(AUTHOR_ID_ERROR_MSG);
+        }
+
         this.authorId = authorId;
     }
 
@@ -108,6 +116,7 @@ public class Author implements Authors {
      */
     @Override
     public Book getAuthorBook() {
+
         Book book = bookDao.searchBook(isbn);
         return book;
     }

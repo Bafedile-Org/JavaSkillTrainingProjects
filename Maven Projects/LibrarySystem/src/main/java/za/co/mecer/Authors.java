@@ -10,6 +10,7 @@ import za.co.mecer.model.Book;
 public interface Authors {
 
     public String NAME_ERROR_MSG = "Name Can Not Be Null OR Empty!!!";
+    public String AUTHOR_ID_ERROR_MSG = "Author Id Can Not Be Less Than 1";
 
     public void setName(String name) throws AuthorException;
 
