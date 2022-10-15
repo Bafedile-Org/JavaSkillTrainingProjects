@@ -75,4 +75,20 @@ public class AuthorBookDAOImpl implements AuthorBookDAO, ClosingDAO {
         }
     }
 
+    public String getBookIsbn(int bookId) {
+        try {
+            if (conn != null) {
+                preparedStatement = conn.prepareStatement("SELECT isbn FROM book WHERE book_id=? ");
+                result = preparedStatement.executeQuery();
+
+                if (result.next()) {
+                    return result.getString("isbn");
+                }
+            }
+        } catch (SQLException se) {
+            System.err.println("Error: " + se.getMessage());
+        }
+
+        return null;
+    }
 }

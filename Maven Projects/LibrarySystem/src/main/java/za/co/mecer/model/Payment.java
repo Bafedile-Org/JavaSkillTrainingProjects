@@ -1,7 +1,7 @@
 package za.co.mecer.model;
 
-import za.co.mecer.exceptions.PaymentException;
 import za.co.mecer.Payments;
+import za.co.mecer.exceptions.PaymentException;
 
 /**
  *
@@ -29,7 +29,7 @@ public class Payment implements Payments {
      */
     public Payment(int paymentId, double amount) throws PaymentException {
         setAmount(amount);
-        this.paymentId = paymentId;
+        setPaymentId(paymentId);
     }
 
     /**
@@ -65,7 +65,10 @@ public class Payment implements Payments {
     /**
      * @param paymentId the paymentId to set
      */
-    public void setPaymentId(int paymentId) {
+    public void setPaymentId(int paymentId) throws PaymentException {
+        if (paymentId <= 0) {
+            throw new PaymentException(PAYMENT_ID_ERROR_MSG);
+        }
         this.paymentId = paymentId;
     }
 

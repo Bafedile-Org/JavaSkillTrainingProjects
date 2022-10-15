@@ -1,5 +1,7 @@
 package za.co.mecer;
 
+import za.co.mecer.exceptions.BookException;
+
 /**
  *
  * @author Dimakatso Sebatane
@@ -7,8 +9,10 @@ package za.co.mecer;
 public interface Books {
 
     public String BOOK_NOT_FOUND_MSG = "Book Not Found!!!";
+    public String BOOK_ISBN_ERROR_MSG = "Book ISBN Number Should Be 13 Digits Long!!";
+    public String BOOK_ID_ERROR_MSG = "Book Id Can Not Be 0 or Less!!";
 
-    public void setISBN(String ISBN);
+    public void setISBN(String ISBN) throws BookException;
 
     public void setAvailability(boolean availability);
 

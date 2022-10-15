@@ -1,7 +1,7 @@
 package za.co.mecer.model;
 
-import za.co.mecer.exceptions.ClientException;
 import za.co.mecer.Clients;
+import za.co.mecer.exceptions.ClientException;
 
 /**
  *
@@ -267,7 +267,7 @@ public class Client implements Clients {
      */
     @Override
     public void setClientId(int clientId) throws ClientException {
-        if (clientId < 0) {
+        if (clientId <= 0) {
             throw new ClientException(CLIENT_ID_ERROR_MSG);
         }
         this.clientId = clientId;

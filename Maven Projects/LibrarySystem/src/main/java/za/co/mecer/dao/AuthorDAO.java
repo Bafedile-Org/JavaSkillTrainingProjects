@@ -1,7 +1,5 @@
 package za.co.mecer.dao;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import za.co.mecer.model.Author;
 
 /**
@@ -21,5 +19,7 @@ public interface AuthorDAO {
     public void getAllAuthors();
 
     public void displayAuthors();
+
+    public String getAuthorName(int authorId);
 
 }

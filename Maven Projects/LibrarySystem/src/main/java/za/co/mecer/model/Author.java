@@ -1,13 +1,8 @@
 package za.co.mecer.model;
 
 import java.sql.SQLException;
-import za.co.mecer.exceptions.AuthorException;
-import za.co.mecer.dao.BookDAO;
-import za.co.mecer.dao.impl.BookDAOImpl;
-import za.co.mecer.dbconnection.DatabaseConnection;
 import za.co.mecer.Authors;
-import za.co.mecer.dao.AuthorBookDAO;
-import za.co.mecer.dao.impl.AuthorBookDAOImpl;
+import za.co.mecer.exceptions.AuthorException;
 
 /**
  *
@@ -15,11 +10,8 @@ import za.co.mecer.dao.impl.AuthorBookDAOImpl;
  */
 public class Author implements Authors {
 
-    private String name, isbn;
+    private String name;
     private int authorId;
-
-    private BookDAO bookDao;
-    private AuthorBookDAO authorBookDao;
 
     /**
      *
@@ -28,7 +20,6 @@ public class Author implements Authors {
      */
     public Author(int authorId) throws SQLException, AuthorException {
         this.setAuthorId(authorId);
-        bookDao = new BookDAOImpl(DatabaseConnection.getInstance().getConnection());
     }
 
     /**
@@ -41,7 +32,6 @@ public class Author implements Authors {
     public Author(int authorId, String name) throws AuthorException, SQLException {
         this.setName(name);
         this.setAuthorId(authorId);
-        bookDao = new BookDAOImpl(DatabaseConnection.getInstance().getConnection());
     }
 
     /**
@@ -52,7 +42,6 @@ public class Author implements Authors {
      */
     public Author(String name) throws AuthorException, SQLException {
         this.setName(name);
-        bookDao = new BookDAOImpl(DatabaseConnection.getInstance().getConnection());
     }
 
     /**
@@ -84,8 +73,8 @@ public class Author implements Authors {
     @Override
     public String toString() {
         return String.format("Author Name: %s%n"
-                + "Author Id: %d%n"
-                + "Book ISBN Number: %s%n%s%n%n", name, authorId, isbn, getAuthorBook());
+                + "Author Id: %d%n",
+                name, authorId);
     }
 
     /**
@@ -100,6 +89,7 @@ public class Author implements Authors {
     /**
      *
      * @param authorId
+     * @throws za.co.mecer.exceptions.AuthorException
      */
     @Override
     public void setAuthorId(int authorId) throws AuthorException {
@@ -108,16 +98,5 @@ public class Author implements Authors {
         }
 
         this.authorId = authorId;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public Book getAuthorBook() {
-
-        Book book = bookDao.searchBook(isbn);
-        return book;
     }
 }

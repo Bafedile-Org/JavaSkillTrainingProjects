@@ -20,5 +20,5 @@ public interface BookService {
 
     public String getBookSearchDetails();
 
-    public Book getBookDetails() throws IOException;
+    public Book getBookDetails() throws IOException, BookException;
 }

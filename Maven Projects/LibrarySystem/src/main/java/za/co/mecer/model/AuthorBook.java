@@ -2,10 +2,17 @@ package za.co.mecer.model;
 
 import java.sql.SQLException;
 import za.co.mecer.AuthorBooks;
-import za.co.mecer.exceptions.AuthorException;
+import static za.co.mecer.Authors.AUTHOR_ID_ERROR_MSG;
+import static za.co.mecer.Books.BOOK_ID_ERROR_MSG;
+import za.co.mecer.dao.AuthorBookDAO;
+import za.co.mecer.dao.AuthorDAO;
 import za.co.mecer.dao.BookDAO;
+import za.co.mecer.dao.impl.AuthorBookDAOImpl;
+import za.co.mecer.dao.impl.AuthorDAOImpl;
 import za.co.mecer.dao.impl.BookDAOImpl;
 import za.co.mecer.dbconnection.DatabaseConnection;
+import za.co.mecer.exceptions.AuthorException;
+import za.co.mecer.exceptions.BookException;
 
 /**
  *
@@ -16,6 +23,8 @@ public class AuthorBook implements AuthorBooks {
     private int authorId, bookId;
 
     private BookDAO bookDao;
+    private AuthorBookDAO authorBook;
+    private AuthorDAO authorDao;
 
     /**
      *
@@ -23,6 +32,8 @@ public class AuthorBook implements AuthorBooks {
      */
     public AuthorBook() throws SQLException {
         bookDao = new BookDAOImpl(DatabaseConnection.getInstance().getConnection());
+        authorBook = new AuthorBookDAOImpl(DatabaseConnection.getInstance().getConnection());
+        authorDao = new AuthorDAOImpl(DatabaseConnection.getInstance().getConnection());
     }
 
     /**
@@ -32,10 +43,12 @@ public class AuthorBook implements AuthorBooks {
      * @throws AuthorException
      * @throws SQLException
      */
-    public AuthorBook(int authorId, int bookId) throws AuthorException, SQLException {
+    public AuthorBook(int authorId, int bookId) throws AuthorException, SQLException, BookException {
         this.setBookId(bookId);
         this.setAuthorId(authorId);
         bookDao = new BookDAOImpl(DatabaseConnection.getInstance().getConnection());
+        authorBook = new AuthorBookDAOImpl(DatabaseConnection.getInstance().getConnection());
+        authorDao = new AuthorDAOImpl(DatabaseConnection.getInstance().getConnection());
     }
 
     /**
@@ -50,9 +63,13 @@ public class AuthorBook implements AuthorBooks {
     /**
      *
      * @param bookId
+     * @throws za.co.mecer.exceptions.BookException
      */
     @Override
-    public void setBookId(int bookId) {
+    public void setBookId(int bookId) throws BookException {
+        if (bookId <= 0) {
+            throw new BookException(BOOK_ID_ERROR_MSG);
+        }
         this.bookId = bookId;
     }
 
@@ -68,11 +85,20 @@ public class AuthorBook implements AuthorBooks {
     /**
      *
      * @param authorId
+     * @throws za.co.mecer.exceptions.AuthorException
      */
+    @Override
+    public void setAuthorId(int authorId) throws AuthorException {
+        if (authorId <= 0) {
+            throw new AuthorException(AUTHOR_ID_ERROR_MSG);
+        }
+        this.authorId = authorId;
+    }
 
     @Override
-    public void setAuthorId(int authorId) {
-        this.authorId = authorId;
+    public String toString() {
+        return String.format("%s%n%s%n%n", authorDao.searchAuthor(authorDao.getAuthorName(authorId)),
+                bookDao.searchBook(authorBook.getBookIsbn(bookId)));
     }
 
 }

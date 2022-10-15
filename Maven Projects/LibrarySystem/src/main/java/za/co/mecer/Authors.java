@@ -1,7 +1,6 @@
 package za.co.mecer;
 
 import za.co.mecer.exceptions.AuthorException;
-import za.co.mecer.model.Book;
 
 /**
  *
@@ -19,7 +18,5 @@ public interface Authors {
     public int getAuthorId();
 
     public void setAuthorId(int authorId) throws AuthorException;
-
-    public Book getAuthorBook();
 
 }

@@ -1,6 +1,7 @@
 package za.co.mecer.model;
 
 import za.co.mecer.Books;
+import za.co.mecer.exceptions.BookException;
 
 /**
  *
@@ -20,12 +21,12 @@ public class Book implements Books {
      * @param availability
      * @param access
      */
-    public Book(int bookId, String title, String ISBN, boolean availability, boolean access) {
+    public Book(int bookId, String title, String ISBN, boolean availability, boolean access) throws BookException {
         this.title = title;
         this.ISBN = ISBN;
         this.availability = availability;
         this.access = access;
-        this.bookId = bookId;
+        this.setBookId(bookId);
 
     }
 
@@ -36,9 +37,9 @@ public class Book implements Books {
      * @param availability
      * @param access
      */
-    public Book(String title, String ISBN, boolean availability, boolean access) {
+    public Book(String title, String ISBN, boolean availability, boolean access) throws BookException {
         this.title = title;
-        this.ISBN = ISBN;
+        this.setISBN(ISBN);
         this.availability = availability;
         this.access = access;
 
@@ -47,9 +48,13 @@ public class Book implements Books {
     /**
      *
      * @param ISBN
+     * @throws za.co.mecer.exceptions.BookException
      */
     @Override
-    public void setISBN(String ISBN) {
+    public void setISBN(String ISBN) throws BookException {
+        if (!checkISBN(ISBN)) {
+            throw new BookException(BOOK_ISBN_ERROR_MSG);
+        }
         this.ISBN = ISBN;
     }
 
@@ -138,8 +143,15 @@ public class Book implements Books {
     /**
      * @param bookId the bookId to set
      */
-    public void setBookId(int bookId) {
+    public void setBookId(int bookId) throws BookException {
+        if (bookId <= 0) {
+            throw new BookException(BOOK_ID_ERROR_MSG);
+        }
         this.bookId = bookId;
+    }
+
+    public boolean checkISBN(String isbn) {
+        return isbn.length() == 13;
     }
 
 }

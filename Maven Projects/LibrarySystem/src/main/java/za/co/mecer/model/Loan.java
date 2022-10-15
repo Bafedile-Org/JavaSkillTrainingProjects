@@ -1,8 +1,8 @@
 package za.co.mecer.model;
 
 import java.time.LocalDate;
-import za.co.mecer.exceptions.LoanException;
 import za.co.mecer.Loans;
+import za.co.mecer.exceptions.LoanException;
 
 /**
  *
@@ -121,7 +121,10 @@ public class Loan implements Loans {
     /**
      * @param loanId the loanId to set
      */
-    public void setLoanId(int loanId) {
+    public void setLoanId(int loanId) throws LoanException {
+        if (loanId <= 0) {
+            throw new LoanException(LOAN_ID_ERROR_MSG);
+        }
         this.loanId = loanId;
     }
 

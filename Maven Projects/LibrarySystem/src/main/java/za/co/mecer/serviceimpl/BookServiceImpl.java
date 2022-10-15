@@ -7,9 +7,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-import za.co.mecer.model.Book;
 import za.co.mecer.dao.impl.BookDAOImpl;
 import za.co.mecer.exceptions.BookException;
+import za.co.mecer.model.Book;
 import za.co.mecer.services.BookService;
 
 /**
@@ -108,9 +108,10 @@ public class BookServiceImpl implements BookService {
     /**
      *
      * @return @throws IOException
+     * @throws za.co.mecer.exceptions.BookException
      */
     @Override
-    public Book getBookDetails() throws IOException {
+    public Book getBookDetails() throws IOException, BookException {
         System.out.println("Please enter the book title: ");
         String title = reader.readLine();
 

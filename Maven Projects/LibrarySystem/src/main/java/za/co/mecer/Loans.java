@@ -10,6 +10,7 @@ import za.co.mecer.exceptions.LoanException;
 public interface Loans {
 
     public String FINE_ERROR_MSG = "Fine Amount Should Be 0.0 or More!!";
+    public String LOAN_ID_ERROR_MSG = "Loan Id Can Not Be 0 Or Less!!";
 
     public LocalDate getReturnDate();
 

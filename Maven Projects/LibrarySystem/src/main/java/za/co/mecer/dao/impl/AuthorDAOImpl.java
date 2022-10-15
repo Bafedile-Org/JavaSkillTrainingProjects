@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import za.co.mecer.exceptions.AuthorException;
 import za.co.mecer.dao.AuthorDAO;
 import za.co.mecer.dao.ClosingDAO;
+import za.co.mecer.exceptions.AuthorException;
 import za.co.mecer.model.Author;
 
 /**
@@ -84,6 +84,24 @@ public class AuthorDAOImpl implements AuthorDAO, ClosingDAO {
         Author author = searchAuthor(name);
         int authorId = author.getAuthorId();
         return authorId;
+    }
+
+    public String getAuthorName(int authorId) {
+        try {
+            if (conn != null) {
+                preparedStatement = conn.prepareStatement("SELECT name FROM author WHERE author_id = ? ");
+                preparedStatement.setInt(1, authorId);
+                result = preparedStatement.executeQuery();
+                if (result.next()) {
+                    return result.getString("name");
+                }
+            }
+        } catch (SQLException se) {
+            System.err.println("Error " + se.getMessage());
+        } finally {
+            close(preparedStatement, result);
+        }
+        return null;
     }
 
     /**

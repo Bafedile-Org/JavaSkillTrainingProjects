@@ -1,11 +1,12 @@
 package za.co.mecer.model.test;
 
 import java.sql.SQLException;
-import za.co.mecer.model.Author;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterAll;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import za.co.mecer.exceptions.AuthorException;
+import za.co.mecer.model.Author;
 
 /**
  *
@@ -15,9 +16,6 @@ public class AuthorTest {
 
     static Author author;
 
-    /**
-     * Remember you did not run tests for the author get book method Fix it
-     */
     @BeforeAll
     public static void setUp() {
         try {
@@ -25,6 +23,11 @@ public class AuthorTest {
         } catch (AuthorException | SQLException ex) {
 
         }
+    }
+
+    @AfterAll
+    public static void closeUp() {
+        author = null;
     }
 
     public AuthorTest() {
@@ -54,12 +57,8 @@ public class AuthorTest {
     }
 
     @Test
-    public void assertGetAuthorBookNull() {
-        assertNull(author.getAuthorBook());
-    }
-
-    @Test
     public void assertGetAuthorIdNotZero() {
         assertNotEquals(0, author.getAuthorId());
     }
+
 }
