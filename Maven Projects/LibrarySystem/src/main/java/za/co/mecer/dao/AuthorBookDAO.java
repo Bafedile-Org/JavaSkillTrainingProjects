@@ -12,4 +12,6 @@ public interface AuthorBookDAO {
 
     public String getBookIsbn(int bookId);
 
+    public void displayAuthorAndBook(String name);
+
 }

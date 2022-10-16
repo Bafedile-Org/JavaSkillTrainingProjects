@@ -184,4 +184,23 @@ public class LoanDAOImpl implements LoanDAO, ClosingDAO {
         loans.forEach((loan) -> System.out.println(loan));
     }
 
+    @Override
+    public int getLoanId(String identityNum) {
+        try {
+            if (conn != null) {
+                preparedStatement = conn.prepareStatement("SELECT loan_id FROM loan WHERE  client_id = (SELECT client_id FROM client WHERE identityNum = ?)");
+                preparedStatement.setString(1, identityNum);
+                result = preparedStatement.executeQuery();
+                if (result.next()) {
+                    return result.getInt("loan_id");
+                }
+            }
+        } catch (SQLException se) {
+            System.err.println(String.format("Error: %s%n", se.getMessage()));
+        } finally {
+            close(preparedStatement, result);
+        }
+        return 0;
+    }
+
 }

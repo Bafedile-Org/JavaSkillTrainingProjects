@@ -14,12 +14,13 @@ import za.co.mecer.model.Author;
 import za.co.mecer.dao.impl.AuthorDAOImpl;
 import za.co.mecer.dao.impl.BookDAOImpl;
 import za.co.mecer.exceptions.AuthorException;
+import za.co.mecer.services.AuthorService;
 
 /**
  *
  * @author Dimakatso Sebatane
  */
-public class AuthorServiceImpl {
+public class AuthorServiceImpl implements AuthorService {
 
     AuthorDAOImpl authorImpl;
     AuthorBookDAOImpl authorBookImpl;
@@ -48,6 +49,7 @@ public class AuthorServiceImpl {
      * @throws AuthorException
      * @throws IOException
      */
+    @Override
     public void processAuthorMenu(int choice) throws SQLException, AuthorException, IOException {
         switch (choice) {
             case 1:
@@ -76,6 +78,9 @@ public class AuthorServiceImpl {
                 authorImpl.getAllAuthors();
                 authorImpl.displayAuthors();
                 break;
+            case 5:
+                authorBookImpl.displayAuthorAndBook(getAuthorName());
+                break;
             default:
                 System.out.println("EXITED AUTHOR MENU!!");
         }
@@ -85,6 +90,7 @@ public class AuthorServiceImpl {
      *
      * @return @throws IOException
      */
+    @Override
     public String getAuthorName() throws IOException {
         System.out.println("Please enter author name: ");
         String name = reader.readLine();
@@ -130,10 +136,10 @@ public class AuthorServiceImpl {
      * @throws SQLException
      * @throws IOException
      */
-
     public Author getAuthorDetails() throws AuthorException, SQLException, IOException {
         String name = getAuthorName();
         bookISBN = getAuthorBookISBN();
         return new Author(name);
     }
+
 }

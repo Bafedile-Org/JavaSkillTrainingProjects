@@ -142,7 +142,30 @@ public class BookDAOImpl implements BookDAO, ClosingDAO {
                     books.add(book);
                 }
             }
-        } catch (SQLException se) {
+        } catch (SQLException | BookException se) {
+            System.err.println("Error " + se.getMessage());
+        } finally {
+            close(preparedStatement, result);
+        }
+        return book;
+    }
+
+    @Override
+    public Book searchBookById(int bookId) {
+        Book book = null;
+        books.clear();
+        try {
+            if (conn != null) {
+                preparedStatement = conn.prepareStatement("SELECT * FROM book WHERE book_id=? ");
+                preparedStatement.setInt(1, bookId);
+                result = preparedStatement.executeQuery();
+                while (result.next()) {
+                    book = new Book(result.getInt("book_id"), result.getString("title"),
+                            result.getString("isbn"), result.getBoolean("available"), result.getBoolean("borrowable"));
+                    books.add(book);
+                }
+            }
+        } catch (SQLException | BookException se) {
             System.err.println("Error " + se.getMessage());
         } finally {
             close(preparedStatement, result);
@@ -168,7 +191,7 @@ public class BookDAOImpl implements BookDAO, ClosingDAO {
                     books.add(book);
                 }
             }
-        } catch (SQLException se) {
+        } catch (SQLException | BookException se) {
             System.err.println("Error " + se.getMessage());
         } finally {
             close(preparedStatement, result);
@@ -193,7 +216,7 @@ public class BookDAOImpl implements BookDAO, ClosingDAO {
                     books.add(book);
                 }
             }
-        } catch (SQLException se) {
+        } catch (SQLException | BookException se) {
             System.err.println("Error " + se.getMessage());
         } finally {
             close(preparedStatement, result);
@@ -218,7 +241,7 @@ public class BookDAOImpl implements BookDAO, ClosingDAO {
                     books.add(book);
                 }
             }
-        } catch (SQLException se) {
+        } catch (SQLException | BookException se) {
             System.err.println("Error " + se.getMessage());
         } finally {
             close(preparedStatement, result);
@@ -246,8 +269,13 @@ public class BookDAOImpl implements BookDAO, ClosingDAO {
     @Override
     public int getBookId(String isbn) {
         int bookId;
-        Book book = searchBook(isbn);
-        bookId = book.getBookId();
+        try {
+            Book book = searchBook(isbn);
+            bookId = book.getBookId();
+        } catch (NullPointerException ex) {
+            System.err.println(String.format("Error: Book Does Not Exists"));
+            bookId = 0;
+        }
         return bookId;
     }
 

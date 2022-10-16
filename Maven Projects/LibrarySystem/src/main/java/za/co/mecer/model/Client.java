@@ -130,7 +130,11 @@ public class Client implements Clients {
     @Override
     public void setWorkTel(String workTel) throws ClientException {
         if (!checkTelLength(workTel)) {
-            throw new ClientException(TEL_ERROR_MSG);
+            if (workTel.length() == 0) {
+                this.workTel = workTel;
+            } else {
+                throw new ClientException(TEL_ERROR_MSG);
+            }
         }
         this.workTel = workTel;
     }
@@ -143,7 +147,12 @@ public class Client implements Clients {
     @Override
     public void setMobileTel(String mobileTel) throws ClientException {
         if (!checkTelLength(mobileTel)) {
-            throw new ClientException(TEL_ERROR_MSG);
+            if (mobileTel.length() == 0) {
+                this.mobileTel = mobileTel;
+            } else {
+                throw new ClientException(TEL_ERROR_MSG);
+            }
+
         }
         this.mobileTel = mobileTel;
     }

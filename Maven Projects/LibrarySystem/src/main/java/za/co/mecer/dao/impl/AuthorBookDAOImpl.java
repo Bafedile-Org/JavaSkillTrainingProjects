@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import za.co.mecer.dao.AuthorBookDAO;
+import za.co.mecer.dao.AuthorDAO;
+import za.co.mecer.dao.BookDAO;
 import za.co.mecer.dao.ClosingDAO;
 import za.co.mecer.model.Author;
 
@@ -18,7 +20,8 @@ public class AuthorBookDAOImpl implements AuthorBookDAO, ClosingDAO {
 
     private PreparedStatement preparedStatement = null;
     private ResultSet result = null;
-    private Author author;
+    private AuthorDAO authorDao;
+    private BookDAO bookDao;
     Connection conn = null;
     List<Author> authors = new ArrayList<>();
 
@@ -75,6 +78,12 @@ public class AuthorBookDAOImpl implements AuthorBookDAO, ClosingDAO {
         }
     }
 
+    /**
+     *
+     * @param bookId
+     * @return
+     */
+    @Override
     public String getBookIsbn(int bookId) {
         try {
             if (conn != null) {
@@ -90,5 +99,32 @@ public class AuthorBookDAOImpl implements AuthorBookDAO, ClosingDAO {
         }
 
         return null;
+    }
+
+    @Override
+    public void displayAuthorAndBook(String name) {
+        List<Author> authors = new ArrayList<>();
+        try {
+            if (conn != null) {
+                authorDao = new AuthorDAOImpl(conn);
+                bookDao = new BookDAOImpl(conn);
+
+                //   System.out.println(String.format("%s%s%n%n", authorDao.searchAuthorById(authorId), bookDao.searchBookById(bookId)));
+                authorDao.searchAuthor(name);
+                authors = authorDao.getAuthors();
+
+                for (Author author : authors) {
+                    preparedStatement = conn.prepareStatement("SELECT book_id FROM author_book WHERE author_id = ?");
+                    preparedStatement.setInt(1, author.getAuthorId());
+                    result = preparedStatement.executeQuery();
+                    if (result.next()) {
+                        System.out.println(String.format("%s%s%n%n", author, bookDao.searchBookById(result.getInt("book_id"))));
+                    }
+                }
+            }
+        } catch (SQLException se) {
+            System.err.println("Error: " + se.getMessage());
+        }
+
     }
 }

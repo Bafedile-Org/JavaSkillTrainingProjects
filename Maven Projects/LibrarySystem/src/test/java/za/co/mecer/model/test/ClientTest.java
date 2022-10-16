@@ -55,7 +55,7 @@ public class ClientTest {
     @Test
     public void assertSetMobileTelThrows() {
         assertThrows(ClientException.class, ()
-                -> client2.setMobileTel(""));
+                -> client2.setMobileTel("123"));
     }
 
     @Test

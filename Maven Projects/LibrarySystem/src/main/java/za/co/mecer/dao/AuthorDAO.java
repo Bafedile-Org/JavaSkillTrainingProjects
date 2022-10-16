@@ -1,5 +1,6 @@
 package za.co.mecer.dao;
 
+import java.util.List;
 import za.co.mecer.model.Author;
 
 /**
@@ -21,5 +22,11 @@ public interface AuthorDAO {
     public void displayAuthors();
 
     public String getAuthorName(int authorId);
+
+    public int getAuthorId(String name);
+
+    public Author searchAuthorById(int authorId);
+
+    public List<Author> getAuthors();
 
 }

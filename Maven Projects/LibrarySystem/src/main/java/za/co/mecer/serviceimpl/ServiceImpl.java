@@ -158,7 +158,8 @@ public class ServiceImpl implements Services {
                         + "2 Get An Author\n"
                         + "3 Remove An Author\n"
                         + "4 Get ALL Authors\n"
-                        + "5 Exit Author Menu\n"
+                        + "5 Display An Author and Book\n"
+                        + "6 Exit Author Menu\n"
                         + "Your Choice:"));
                 choice = input.nextInt();
                 isValid = !(choice < 1 && choice > 5);

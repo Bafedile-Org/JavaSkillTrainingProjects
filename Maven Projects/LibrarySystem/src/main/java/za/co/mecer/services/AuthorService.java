@@ -20,4 +20,6 @@ public interface AuthorService {
     public String getAuthorBookISBN();
 
     public Author getAuthorDetails() throws AuthorException, SQLException, IOException;
+
+//    public void displayAuthorAndBook();
 }

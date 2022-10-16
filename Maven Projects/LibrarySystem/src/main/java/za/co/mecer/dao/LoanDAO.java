@@ -24,4 +24,6 @@ public interface LoanDAO {
     Loan searchLoan(int loanId);
 
     public void displayLoans();
+
+    public int getLoanId(String identityNum);
 }

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import za.co.mecer.Authors;
 import za.co.mecer.dao.AuthorDAO;
 import za.co.mecer.dao.ClosingDAO;
 import za.co.mecer.exceptions.AuthorException;
@@ -86,6 +87,7 @@ public class AuthorDAOImpl implements AuthorDAO, ClosingDAO {
         return authorId;
     }
 
+    @Override
     public String getAuthorName(int authorId) {
         try {
             if (conn != null) {
@@ -117,6 +119,29 @@ public class AuthorDAOImpl implements AuthorDAO, ClosingDAO {
             if (conn != null) {
                 preparedStatement = conn.prepareStatement("SELECT * FROM author WHERE name = ? ");
                 preparedStatement.setString(1, name);
+                result = preparedStatement.executeQuery();
+                while (result.next()) {
+                    author = new Author(result.getInt("author_id"), result.getString("name"));
+                    authors.add(author);
+                }
+            }
+        } catch (SQLException | AuthorException se) {
+            System.err.println("Error " + se.getMessage());
+        } finally {
+            close(preparedStatement, result);
+        }
+
+        return author;
+    }
+
+    @Override
+    public Author searchAuthorById(int authorId) {
+        Author author = null;
+        authors.clear();
+        try {
+            if (conn != null) {
+                preparedStatement = conn.prepareStatement("SELECT * FROM author WHERE author_id = ? ");
+                preparedStatement.setInt(1, authorId);
                 result = preparedStatement.executeQuery();
                 while (result.next()) {
                     author = new Author(result.getInt("author_id"), result.getString("name"));
@@ -165,6 +190,11 @@ public class AuthorDAOImpl implements AuthorDAO, ClosingDAO {
     @Override
     public void displayAuthors() {
         authors.forEach((author) -> System.out.println(author));
+    }
+
+    @Override
+    public List<Author> getAuthors() {
+        return authors;
     }
 
 }

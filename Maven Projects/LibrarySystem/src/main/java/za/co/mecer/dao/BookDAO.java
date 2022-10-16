@@ -34,4 +34,6 @@ public interface BookDAO {
 
     public void displayBooks() throws BookException;
 
+    public Book searchBookById(int bookId);
+
 }

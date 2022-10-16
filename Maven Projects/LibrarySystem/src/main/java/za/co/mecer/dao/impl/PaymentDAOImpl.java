@@ -124,6 +124,7 @@ public class PaymentDAOImpl implements PaymentDAO, ClosingDAO {
         try {
             if (conn != null) {
                 preparedStatement = conn.prepareStatement("SELECT * FROM payment WHERE loan_id = ?");
+                preparedStatement.setInt(1, loanId);
                 result = preparedStatement.executeQuery();
                 while (result.next()) {
                     payment = new Payment(result.getInt("payment_id"), result.getDouble("amount"));
@@ -139,7 +140,7 @@ public class PaymentDAOImpl implements PaymentDAO, ClosingDAO {
     }
 
     /**
-     * Displays all the 
+     * Displays all the
      *
      */
     @Override
