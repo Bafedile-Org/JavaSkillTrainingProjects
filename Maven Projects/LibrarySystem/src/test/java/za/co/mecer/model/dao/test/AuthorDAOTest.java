@@ -25,9 +25,6 @@ public class AuthorDAOTest {
 
     static AuthorDAO authorDao;
     static Connection conn;
-    static PreparedStatement preparedStatement;
-    static ResultSet result;
-    static ClosingDAO close;
     static int authorId;
 
     public AuthorDAOTest() {
@@ -47,12 +44,8 @@ public class AuthorDAOTest {
 
     @AfterAll
     public static void closeUp() {
-        try {
-            authorDao.removeAuthor(authorId);
-            close.close(preparedStatement, result);
-        } catch (NullPointerException ex) {
+        authorDao.removeAuthor(authorId);
 
-        }
     }
 
     @Test

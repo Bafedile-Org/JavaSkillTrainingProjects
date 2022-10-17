@@ -25,16 +25,13 @@ public class ClientDAOTest {
 
     static ClientDAO clientDao;
     static Connection conn;
-    static PreparedStatement preparedStatement;
-    static ResultSet result;
-    static ClosingDAO close;
 
     @BeforeAll
     public static void setUp() {
         try {
             conn = DatabaseConnection.getInstance().getConnection();
             clientDao = new ClientDAOImpl(conn);
-            clientDao.addClient(new Client("Dan", "Brown", "1234567890123", "England, London", "0123456789", "", ""));
+            clientDao.addClient(new Client("Dan", "Brown", "1234567890124", "England, London", "0123456789", "", ""));
         } catch (ClientException ex) {
             System.out.println(String.format("Error: %s%n", ex.getMessage()));
         }
@@ -42,21 +39,16 @@ public class ClientDAOTest {
 
     @AfterAll
     public static void closeUp() {
-        try {
-            clientDao.removeClient("1234567890123");
-            close.close(preparedStatement, result);
-        } catch (NullPointerException ex) {
-
-        }
+        clientDao.removeClient("1234567890124");
     }
 
     @Test
     public void assertSearchClientNotNull() {
-        assertNotNull(clientDao.searchClient("1234567890123"));
+        assertNotNull(clientDao.searchClient("1234567890124"));
     }
 
     @Test
     public void assertSearchClientNull() {
-        assertNull(clientDao.searchClient("1234567890124"));
+        assertNull(clientDao.searchClient("1234567890125"));
     }
 }

@@ -27,9 +27,6 @@ public class BookDAOTest {
 
     static BookDAO bookDao;
     static Connection conn;
-    static PreparedStatement preparedStatement;
-    static ResultSet result;
-    static ClosingDAO close;
     static int bookId;
 
     public BookDAOTest() {
@@ -40,8 +37,8 @@ public class BookDAOTest {
         try {
             conn = DatabaseConnection.getInstance().getConnection();
             bookDao = new BookDAOImpl(conn);
-            bookDao.addBook(new Book("Inferno", "1234567890123", true, true));
-            bookId = bookDao.getBookId("1234567890123");
+            bookDao.addBook(new Book("Inferno", "1234567890124", true, true));
+            bookId = bookDao.getBookId("1234567890124");
         } catch (SQLException | BookException ex) {
             System.out.println(String.format("Error: %s%n", ex.getMessage()));
         }
@@ -49,23 +46,17 @@ public class BookDAOTest {
 
     @AfterAll
     public static void closeUp() {
-        try {
-            bookDao.removeBook("1234567890123");
-            close.close(preparedStatement, result);
-        } catch (NullPointerException ex) {
-
-        }
-
+        bookDao.removeBook("1234567890124");
     }
 
     @Test
     public void assertSearchBookNotNull() {
-        assertNotNull(bookDao.searchBook("1234567890123"));
+        assertNotNull(bookDao.searchBook("1234567890124"));
     }
 
     @Test
     public void assertSearchBookNull() {
-        assertNull(bookDao.searchBook("1234567890124"));
+        assertNull(bookDao.searchBook("1234567890125"));
     }
 
     @Test
