@@ -41,7 +41,7 @@ public class PaymentDAOTest {
         conn = DatabaseConnection.getInstance().getConnection();
 
         try {
-            clientIdentity = "1234567890123";
+            clientIdentity = "1234567890124";
             clientDao = new ClientDAOImpl(conn);
             clientDao.addClient(new Client("Dan", "Brown", clientIdentity, "England, London", "0123456789", "", ""));
         } catch (ClientException ex) {
@@ -57,6 +57,7 @@ public class PaymentDAOTest {
         try {
             paymentDao = new PaymentDAOImpl(conn);
             paymentDao.addPayment(loanId, new Payment(20));
+
         } catch (PaymentException ex) {
             System.out.println(String.format("Error: %s%n", ex));
         }

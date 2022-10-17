@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import za.co.mecer.dao.ClientDAO;
 import za.co.mecer.dao.LoanDAO;
-import za.co.mecer.dao.impl.AuthorBookDAOImpl;
 import za.co.mecer.dao.impl.ClientDAOImpl;
 import za.co.mecer.dao.impl.LoanDAOImpl;
 import za.co.mecer.dbconnection.DatabaseConnection;
@@ -16,8 +15,6 @@ import za.co.mecer.exceptions.ClientException;
 import za.co.mecer.exceptions.LoanException;
 import za.co.mecer.model.Client;
 import za.co.mecer.model.Loan;
-import static za.co.mecer.model.dao.test.ClientDAOTest.clientDao;
-import static za.co.mecer.model.dao.test.ClientDAOTest.conn;
 
 /**
  *
@@ -39,12 +36,11 @@ public class LoanDAOTest {
         conn = DatabaseConnection.getInstance().getConnection();
         loanDao = new LoanDAOImpl(conn);
         try {
-            clientIdentity = "1234567890123";
+            clientIdentity = "1234567890124";
             clientDao = new ClientDAOImpl(conn);
             clientDao.addClient(new Client("Dan", "Brown", clientIdentity, "England, London", "0123456789", "", ""));
 
             loanDao.addLoan(clientIdentity, new Loan(LocalDate.now(), LocalDate.now().plusWeeks(2), 0.0));
-
             loanId = loanDao.getLoanId(clientIdentity);
         } catch (ClientException | LoanException ex) {
             System.out.println(String.format("Error: %s%n", ex.getMessage()));
@@ -70,12 +66,12 @@ public class LoanDAOTest {
 
     @Test
     public void assertGetLoanIdNotZero() {
-        assertTrue(loanDao.getLoanId("1234567890123") > 0);
+        assertTrue(loanDao.getLoanId(clientIdentity) > 0);
     }
 
     @Test
     public void assertGetLoanIdZero() {
-        assertFalse(loanDao.getLoanId("1234567890124") > 0);
+        assertFalse(loanDao.getLoanId("1234567890125") > 0);
     }
 
 }
