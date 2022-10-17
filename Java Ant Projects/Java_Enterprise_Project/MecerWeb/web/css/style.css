@@ -1,0 +1,22 @@
+/* 
+    Created on : 17 Oct 2022, 11:27:49 AM
+    Author     : Dimakatso Sebatane
+*/
+h1,h2{
+    color:white;
+}
+body button{
+    border-radius: 0px;
+    color: green;
+    border-color: skyblue;
+    border-style: dashed;
+    margin-left:20%;
+}
+body button:hover{
+    background-color:cyan;
+}
+body{
+    background:linear-gradient(to left top, lightgreen,skyblue);
+    background-size: cover;
+    background-repeat:  repeat-y;
+}
