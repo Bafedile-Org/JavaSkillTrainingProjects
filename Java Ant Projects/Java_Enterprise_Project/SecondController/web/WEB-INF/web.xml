@@ -3,21 +3,28 @@
     <servlet>
         <servlet-name>Controller</servlet-name>
         <servlet-class>za.co.mecer.Controller</servlet-class>
+    </servlet>    
+    <servlet>
         <servlet-name>getResults</servlet-name>
         <jsp-file>/details.jsp</jsp-file>
-         <servlet-name>getFormPage</servlet-name>
+    </servlet>    
+    <servlet>
+        <servlet-name>getFormPage</servlet-name>
         <jsp-file>/formPage.jsp</jsp-file>
-        
+
         
     </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
         <url-pattern>/control</url-pattern>
-         <servlet-name>getResults</servlet-name>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getResults</servlet-name>
         <url-pattern>/results</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>getFormPage</servlet-name>
         <url-pattern>/form</url-pattern>
-        
        
     </servlet-mapping>
     <session-config>

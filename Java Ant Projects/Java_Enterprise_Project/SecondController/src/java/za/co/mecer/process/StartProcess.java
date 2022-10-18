@@ -16,10 +16,9 @@ public class StartProcess extends ProcessRequest {
         StringBuilder sb = new StringBuilder();
         String firstName, lastName;
         int age;
-        firstName = request.getParameter("firstname");
-        lastName = request.getParameter("lastname");
-        age = new Integer(request.getParameter("age"));
-
+        firstName = request.getParameter("firstname").isEmpty() ? "" : request.getParameter("firstname");
+        lastName = request.getParameter("lastname").isEmpty() ? "" : request.getParameter("lastname");
+        age = request.getParameter("age").isEmpty() ? 0 : new Integer(request.getParameter("age"));
         sb.append(String.format("<!DOCTYPE html>\n"
                 + "<html>\n"
                 + "    <head>\n"
@@ -27,8 +26,8 @@ public class StartProcess extends ProcessRequest {
                 + "        <title>JSP Page</title>\n"
                 + "    </head>\n"
                 + "    <body>\n"
-                + "<h1>Your User Details</h1> \n"
-                + "<p>Welcome <strong> %s %s  aged  %s</strong> to java web applications development</p>\n"
+                + "     <h1>Your User Details</h1> \n"
+                + "     <p>Welcome <strong> %s %s  aged  %s</strong> to java web applications development</p>\n"
                 + "        <a href=\"../SecondController\">HomePage</a>\n"
                 + "    </body>\n"
                 + "</html>", firstName, lastName, age));

@@ -11,12 +11,11 @@ body{
 
 input[type=text]{
     width:20%;
-    background:grey;
     border:none;
     color:white;
 }
 input{
-    background:grey;
+    background:lightgrey;
     border:none;
 }
 input [type=button]{

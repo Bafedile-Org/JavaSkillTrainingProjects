@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <servlet>
+        <servlet-name>JokesController</servlet-name>
+        <servlet-class>za.co.mecer.JokesController</servlet-class>
+        
+    </servlet>
+    <servlet>
+        <servlet-name>display</servlet-name>
+        <jsp-file>/jokes.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JokesController</servlet-name>
+        <url-pattern>/process</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>display</servlet-name>
+        <url-pattern>/display</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>

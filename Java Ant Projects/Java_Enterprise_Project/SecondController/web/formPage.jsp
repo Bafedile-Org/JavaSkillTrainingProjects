@@ -15,7 +15,7 @@
     </head>
     <body>
 
-        <form method="GET" action="http://localhost:8080/SecondController/control">
+        <form method="POST" action="results">
             <h1>Enter your details</h1>
             <p>Please fill in the form below to submit your unique identifiable details</p>
             <label>Firstname</label><br>

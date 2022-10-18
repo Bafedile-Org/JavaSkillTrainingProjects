@@ -16,8 +16,14 @@
         <% String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String age = request.getParameter("age");
-        out.println(String.format("<h1>Your User Details</h1> <p>Welcome <strong> %s %s  aged  %s</strong> to java web applications development</p>",firstname,lastname,age));
+       
+                 %> 
+                 <a href="../SecondController">HomePage</a>
+                 
+                 <%
+        out.println(String.format("<h1>Your User Details</h1>"
+                + " <p>Welcome <strong> %s %s  aged  %s</strong> to java web applications development</p>",firstname,lastname,age));
         %> 
-        <a href="../SecondController">HomePage</a>
+       
     </body>
 </html>
