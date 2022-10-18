@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class StartProcess extends ProcessRequest {
 
     @Override
-    public void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void processTheRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         StringBuilder sb = new StringBuilder();
         String firstName, lastName;
         int age;

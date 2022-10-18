@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Controller Homepage</title>
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <h1>Personal Details</h1>

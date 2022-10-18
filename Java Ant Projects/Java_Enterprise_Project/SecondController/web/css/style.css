@@ -1,0 +1,31 @@
+/* 
+    Created on : Oct 18, 2022, 5:43:10 AM
+    Author     : Dimakatso Sebatane
+*/
+html{
+    min-height: 100%;
+}
+body{
+    background:linear-gradient(to top left,lightcoral, lightblue,lightgreen,skyblue);
+}
+
+input[type=text]{
+    width:20%;
+    background:grey;
+    border:none;
+    color:white;
+}
+input{
+    background:grey;
+    border:none;
+}
+input [type=button]{
+    background-color: green;
+}
+form{margin-top:8%;
+    margin-left:35%;
+}
+form h1{
+    color:white;
+}
+

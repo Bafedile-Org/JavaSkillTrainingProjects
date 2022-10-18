@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class ProcessRequest {
 
-    public abstract void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+    public abstract void processTheRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
     public void sendResponse(HttpServletResponse response, String res) throws ServletException, IOException {
         try (PrintWriter out = response.getWriter()) {

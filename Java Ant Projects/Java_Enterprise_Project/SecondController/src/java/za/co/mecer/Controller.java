@@ -26,11 +26,11 @@ public class Controller extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("pro");
-        if (action != null) {
-            ProcessRequest processRequest = RequestFactory.createRequestAction(action);
-            if (processRequest != null) {
-                processRequest.processRequest(request, response);
+        String process = request.getParameter("button");
+        if (process != null) {
+            ProcessRequest processReq = RequestActionFactory.createRequestAction(process);
+            if (processReq != null) {
+                processReq.processTheRequest(request, response);
             }
         }
 
@@ -75,7 +75,7 @@ public class Controller extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    abstract static class RequestFactory {
+    abstract static class RequestActionFactory {
 
         public static ProcessRequest createRequestAction(String action) {
             if (action != null) {
