@@ -16,41 +16,50 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <h1>Have a laughter!!!</h1>
-        <h2>Here are some good jokes</h2>
-        <table>
-            <tr>
-                <td><b>Mom Jokes</b></td>
-                <td><b>Dad Jokes</b></td>
-                <td><b>Monkey Jokes</b></td>
-            </tr>
-            <tr>
-                <td>Mom laughed</td>
-                <td>Dad shit himself really hard</td>
-                <td>Monkey stole the bananas</td>
-            </tr>
-            <%
-                List<Joke> jokeList = (List<Joke>) request.getAttribute("jokeList");
-                out.println("<tr>");
+        <h1 align='center'>Have a laughter!!!</h1>
+        <h2 align='center'>Here are some good jokes</h2>
 
-                for (int i = 0; i < jokeList.size(); i++) {
-                    if (jokeList.get(i).getJoke() == null) {
-                        out.println("<td> </td>");
-                    } else {
-                        out.println(String.format("<td>%s</td>", jokeList.get(i).getJoke()));
+        <div align='center'>
+            <table id='jokes_table'>
+                <tr>
+                    <th>Mom Jokes</th>
+                </tr>
+
+                <%
+                    List<Joke> momJokes = (List<Joke>) request.getAttribute("mom_jokes");
+                    for (Joke joke : momJokes) {
+                        out.println(String.format("<tr><td>%s</td>  </tr>", joke.getJoke()));
                     }
-                    if (i != 0 && (i % 3 == 0)) {
-                        out.println("</tr><tr>");
+                %>
+
+            </table>
+            <table id='jokes_table'>
+                <tr>
+                    <th>Dad Jokes</th>
+                </tr>
+
+                <%
+                    List<Joke> dadJokes = (List<Joke>) request.getAttribute("dad_jokes");
+                    for (Joke joke : dadJokes) {
+                        out.println(String.format("<tr><td>%s</td>  </tr>", joke.getJoke()));
                     }
-                }
-                out.println("</tr>");
+                %>
+            </table>
+            <table id='jokes_table'>
+                <tr>
+                    <th>Monkey Jokes</th>
+                </tr>
 
-            %>
-
-
-        </table>
-
-
-        <br><a href="/jokes">Add jokes</a>
+                <%
+                    List<Joke> monkeyJokes = (List<Joke>) request.getAttribute("monkey_jokes");
+                    for (Joke joke : monkeyJokes) {
+                        out.println(String.format("<tr><td>%s</td></tr>", joke.getJoke()));
+                    }
+                %>
+            </table>
+        </div>
+        <div>
+            <br/><a href="/jokes">Add jokes</a>
+        </div>
     </body>
 </html>

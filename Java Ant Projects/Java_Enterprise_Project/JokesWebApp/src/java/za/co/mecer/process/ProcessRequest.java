@@ -1,6 +1,5 @@
 package za.co.mecer.process;
 
-import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

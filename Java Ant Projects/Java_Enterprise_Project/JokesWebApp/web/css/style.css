@@ -10,3 +10,38 @@ table ,th ,td{
     background-color:#D6EEEE;
     font-size:17px;
 }
+#jokes_table{
+    display: inline-block;
+    float:none;
+}
+input[type=submit]{
+    background: lightblue;
+    height:30px;
+}
+input[type=submit]:hover{
+    background: green;
+}
+textarea{
+    width: 35%;
+    height:75px;
+    resize: none;
+}
+body a{
+    text-decoration: none;
+}
+body{
+    background: lightgreen;
+}
+body a:hover{
+    color:black;
+    background: greenyellow;
+}
+ul ol{
+    font-size:17px;
+    color:green;
+}
+
+h1, h2 {
+}
+
+

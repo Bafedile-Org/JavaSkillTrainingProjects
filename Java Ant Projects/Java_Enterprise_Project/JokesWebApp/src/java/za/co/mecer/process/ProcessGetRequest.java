@@ -1,6 +1,10 @@
 package za.co.mecer.process;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,38 +28,19 @@ public class ProcessGetRequest extends ProcessRequest {
 
     @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Joke> jokeList = arrange();
-        request.setAttribute("jokeList", jokeList);
+        setAttributes(request);
         dispatcher = request.getRequestDispatcher("display");
         dispatcher.forward(request, response);
     }
 
-    public List<Joke> arrange() {
+    public void setAttributes(HttpServletRequest request) throws ServletException, IOException {
         List<Joke> jokeList = joke.getJokes();
         List<Joke> mom = jokeList.stream().filter((jo) -> jo.getCategory().equalsIgnoreCase("Mom_Jokes")).collect(Collectors.toList());
         List<Joke> dad = jokeList.stream().filter((jo) -> jo.getCategory().equalsIgnoreCase("Dad_Jokes")).collect(Collectors.toList());
         List<Joke> monkey = jokeList.stream().filter((jo) -> jo.getCategory().equalsIgnoreCase("Monkey_Jokes")).collect(Collectors.toList());
-        int max = Math.max(Math.max(mom.size(), monkey.size()), dad.size());
-        List<Joke> all = new ArrayList<>();
-        for (int i = 0; i < max; i++) {
-            if (i < mom.size()) {
-                all.add(mom.get(i));
-            } else {
-                all.add(new JokeImpl());
-            }
-            if (i < dad.size()) {
-                all.add(dad.get(i));
-            } else {
-                all.add(new JokeImpl());
-            }
-            if (i < monkey.size()) {
-                all.add(monkey.get(i));
-            } else {
-                all.add(new JokeImpl());
-            }
-        }
-
-        return all;
+        request.setAttribute("mom_jokes", mom);
+        request.setAttribute("dad_jokes", dad);
+        request.setAttribute("monkey_jokes", monkey);
     }
 
 }

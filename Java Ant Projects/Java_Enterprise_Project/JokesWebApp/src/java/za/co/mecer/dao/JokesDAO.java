@@ -12,4 +12,8 @@ public interface JokesDAO {
     void addJoke(Joke joke);
 
     List<Joke> getJokes();
+
+    public List<Joke> readJokesFromFile();
+
+    public void addJokesToFile(Joke joke);
 }

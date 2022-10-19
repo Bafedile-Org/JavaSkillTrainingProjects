@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
         <title>Jokes Page</title>
-        <link rel='stylesheet' href='/css/style.css'>
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <h1>Wanna make others laugh???</h1>
@@ -23,7 +23,8 @@
                 <option>Monkey_Jokes</option>
             </select><br><br>
             <label>Enter a joke</label><br>
-            <input type='text' name='joke'><br><br>
+            <textarea name='text' name='joke'></textarea><br><br>
+            <!--<input type='text' name='joke'><br><br>-->
             <input type='submit' name='submit' align='left' value='post_joke'>
             <input type='submit' name='submit' align='right' value='display_jokes'>
         </form>
