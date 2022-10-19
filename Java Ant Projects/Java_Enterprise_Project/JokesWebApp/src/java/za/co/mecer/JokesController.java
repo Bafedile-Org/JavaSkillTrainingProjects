@@ -1,18 +1,15 @@
 package za.co.mecer;
 
 import java.io.IOException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import za.co.mecer.joke.Joke;
 import za.co.mecer.joke.JokeImpl;
+import za.co.mecer.process.ProcessGetRequest;
+import za.co.mecer.process.ProcessPostRequest;
 import za.co.mecer.process.ProcessRequest;
-import za.co.mecer.process.ProcessRequesting;
-import za.co.mecer.service.Jokes;
-import za.co.mecer.service.impl.JokesImpl;
 
 /**
  *
@@ -33,29 +30,23 @@ public class JokesController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String category = request.getParameter("category");
         String joke = request.getParameter("joke");
-        RequestDispatcher dispatcher;
         Joke jo = new JokeImpl();
-        Jokes jokes = new JokesImpl();
         ProcessRequest processReq;
 
-        if (category.isEmpty() || joke.isEmpty()) {
-            dispatcher = request.getRequestDispatcher("jokes.jsp");
-            dispatcher.forward(request, response);
-        }
-
         if (request.getParameter("submit").equalsIgnoreCase("post_joke")) {
+            if (category.isEmpty() || joke.isEmpty()) {
+                response.sendRedirect("/jokes");
+                return;
+            }
             jo.setCategory(category);
             jo.setJoke(joke);
-            processReq = RequestActionFactory.createRequestAction(jo);
+            processReq = RequestActionFactory.createRequestPostAction(jo);
             if (processReq != null) {
                 processReq.processRequest(request, response);
             }
-
         } else {
-            List<Joke> jokeList = jokes.getJokes();
-            request.setAttribute("jokeList", jokeList);
-            dispatcher = request.getRequestDispatcher("display");
-            dispatcher.forward(request, response);
+            processReq = RequestActionFactory.createRequestGetAction();
+            processReq.processRequest(request, response);
         }
 
     }
@@ -102,11 +93,15 @@ public class JokesController extends HttpServlet {
 
     abstract static class RequestActionFactory {
 
-        public static ProcessRequest createRequestAction(Joke joke) {
+        public static ProcessRequest createRequestPostAction(Joke joke) {
             if (joke != null) {
-                return new ProcessRequesting(joke);
+                return new ProcessPostRequest(joke);
             }
             return null;
+        }
+
+        public static ProcessRequest createRequestGetAction() {
+            return new ProcessGetRequest();
         }
 
     }

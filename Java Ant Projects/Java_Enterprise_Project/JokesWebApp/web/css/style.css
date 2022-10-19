@@ -3,3 +3,10 @@
     Author     : Dimakatso Sebatane
 */
 
+table ,th ,td{
+    border: 1px solid black;
+    border-collapse: separate;
+    border-color: rosybrown;
+    background-color:#D6EEEE;
+    font-size:17px;
+}

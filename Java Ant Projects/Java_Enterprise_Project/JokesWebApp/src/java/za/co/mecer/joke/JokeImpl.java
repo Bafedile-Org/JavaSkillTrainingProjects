@@ -38,6 +38,6 @@ public class JokeImpl implements Joke {
 
     @Override
     public String toString() {
-        return String.format("%s : %s", category, joke);
+        return String.format("%s : %s%n", category, joke);
     }
 }

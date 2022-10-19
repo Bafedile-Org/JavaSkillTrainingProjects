@@ -13,21 +13,20 @@ import za.co.mecer.service.impl.JokesImpl;
  *
  * @author Dimakatso Sebatane
  */
-public class ProcessRequesting extends ProcessRequest {
-    
+public class ProcessPostRequest extends ProcessRequest {
+
     private Joke joke;
-    private RequestDispatcher dispatcher;
-    
-    public ProcessRequesting(Joke joke) {
+
+    public ProcessPostRequest(Joke joke) {
         this.joke = joke;
     }
-    
+
     @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Jokes jokes = new JokesImpl();
         jokes.addJoke(joke);
-//        dispatcher = request.getRequestDispatcher("jokes.jsp");
-//        dispatcher.forward(request, response);
+        response.sendRedirect("/jokes");
+
     }
-    
+
 }
