@@ -1,0 +1,20 @@
+{
+    "name": "Mr Biggles",
+    "age": 23,
+    "married": false,
+    "hobbies": ["Coding", "Watching Movies", "Reading"],
+    "children": [
+        {
+            "name": "Mr Bean",
+            "age": 5
+        },
+        {
+            "name": "SpongeBob",
+            "age": 7
+        },
+        {
+            "name": "Sofia",
+            "age": 12
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+CREATE IF NOT EXISTS database jokes_db;
+
+CREATE IF NOT EXITS TABLE jokes_category (id INT PRIMARY KEY AUTO_INCREMENT, category VARCHAR(20) NOT NULL);
+CREATE IF NOT EXISTS TABLE jokes(cat_id INT, joke VARCHAR(255), FOREIGN KEY(cat_id) REFERENCES jokes_category(id));
+
+INSERT INTO jokes_category (category) VALUES ('Mom_Jokes');
+INSERT INTO jokes_category (category) VALUES ('Dad_Jokes');
+INSERT INTO jokes_category (category) VALUES ('Monkey_Jokes');
