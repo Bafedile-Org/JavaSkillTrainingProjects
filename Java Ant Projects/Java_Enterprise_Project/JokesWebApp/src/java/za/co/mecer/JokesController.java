@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import za.co.mecer.db.DatabaseConnection;
 import za.co.mecer.joke.Joke;
 import za.co.mecer.joke.JokeImpl;
 import za.co.mecer.process.ProcessGetRequest;
@@ -30,14 +31,14 @@ public class JokesController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String category = request.getParameter("category");
         String joke = request.getParameter("joke");
-        Joke jo = new JokeImpl();
+        Joke jo;
         ProcessRequest processReq;
 
         if (request.getParameter("submit").equalsIgnoreCase("post_joke")) {
-            if (category.isEmpty() || joke.isEmpty()) {
+            if (joke == null) {
                 response.sendRedirect("/jokes");
-                return;
             }
+            jo = new JokeImpl();
             jo.setCategory(category);
             jo.setJoke(joke);
             processReq = RequestActionFactory.createRequestPostAction(jo);

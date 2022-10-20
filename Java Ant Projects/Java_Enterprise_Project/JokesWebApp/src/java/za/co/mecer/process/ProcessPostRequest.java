@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import za.co.mecer.db.DatabaseConnection;
 import za.co.mecer.joke.Joke;
 import za.co.mecer.service.Jokes;
 import za.co.mecer.service.impl.JokesImpl;
@@ -15,6 +16,8 @@ import za.co.mecer.service.impl.JokesImpl;
 public class ProcessPostRequest extends ProcessRequest {
 
     private Joke joke;
+
+    DatabaseConnection dbCon;
 
     public ProcessPostRequest(Joke joke) {
         this.joke = joke;

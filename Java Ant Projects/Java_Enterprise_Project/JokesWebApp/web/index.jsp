@@ -21,10 +21,11 @@
                 <option>Dad_Jokes</option>
                 <option>Mom_Jokes</option>
                 <option>Monkey_Jokes</option>
+                <option>All_Jokes</option>
             </select><br><br>
             <label>Enter a joke</label><br>
-            <textarea name='text' name='joke'></textarea><br><br>
-            <!--<input type='text' name='joke'><br><br>-->
+            <!--<textarea name='joke' placeholder="Enter your joke here"></textarea><br><br>-->
+            <input type='text' name='joke'  placeholder="Enter your joke here"><br><br>
             <input type='submit' name='submit' align='left' value='post_joke'>
             <input type='submit' name='submit' align='right' value='display_jokes'>
         </form>

@@ -12,6 +12,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import za.co.mecer.db.DatabaseConnection;
 import za.co.mecer.joke.Joke;
 import za.co.mecer.joke.JokeImpl;
 import za.co.mecer.service.Jokes;
@@ -23,8 +24,12 @@ import za.co.mecer.service.impl.JokesImpl;
  */
 public class ProcessGetRequest extends ProcessRequest {
 
-    private Jokes joke = new JokesImpl();
+    private Jokes joke;
     private RequestDispatcher dispatcher;
+
+    public ProcessGetRequest() {
+        joke = new JokesImpl();
+    }
 
     @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
