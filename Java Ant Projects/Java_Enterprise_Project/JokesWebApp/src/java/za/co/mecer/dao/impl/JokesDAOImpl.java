@@ -1,6 +1,7 @@
 package za.co.mecer.dao.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -15,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
@@ -32,18 +34,13 @@ import za.co.mecer.joke.JokeImpl;
  */
 public class JokesDAOImpl implements JokesDAO {
 
-    private List<Joke> jsonJokes = new ArrayList<>();
     private List<Joke> jokes = new ArrayList<>();
     private JokesQuery query;
-    private String jsonFilename = "C:\\JavaProgs\\JavaSkillTrainingProjects\\Java Ant Projects"
+    private String jsonFilename = "G:\\JavaSkillTrainingProjects\\Java Ant Projects"
             + "\\Java_Enterprise_Project\\JokesWebApp\\web\\assets\\jokes.json";
-    private ObjectMapper mapper;
-    private ArrayNode jokesArray;
 
     public JokesDAOImpl() {
         query = new JokesQuery();
-        mapper = new ObjectMapper();
-        jokesArray = mapper.createArrayNode();
 
     }
 
@@ -60,7 +57,8 @@ public class JokesDAOImpl implements JokesDAO {
     @Override
     public List<Joke> getJokes() {
 //        jokes = readJokesFromFile();
-        jokes = getJokesFromDb();
+//        jokes = getJokesFromDb();
+        jokes = readJokesFromJson();
         return jokes;
     }
 
@@ -103,40 +101,58 @@ public class JokesDAOImpl implements JokesDAO {
     }
 
     public void addJokesToJson(Joke joke) {
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode node = mapper.createObjectNode();
+        ArrayNode arrayNode;
 
-        try (FileWriter writer = new FileWriter(Paths.get(jsonFilename).toFile(), true)) {
-            JSONParser parser = new JSONParser();
-
-            Object obj = parser.parse(new FileReader(jsonFilename));
-            JSONObject jo = (JSONObject) obj;
-            JSONArray jsonArray = (JSONArray) jo.get("jojos");
-            Iterator<Object> it = jsonArray.iterator();
-            while (it.hasNext()) {
-                String string = it.next().toString();
-                jo = (JSONObject) it.next();
-                Joke j = new JokeImpl(jo.get("category").toString(), jo.get("joke").toString());
-                System.out.println(j);
+        ObjectNode writerNode = mapper.createObjectNode();
+        List<String> jsonArray = null;
+        try {
+            if (!Files.readAllLines(Paths.get(jsonFilename)).isEmpty()) {
+                Map<?, ?> map = mapper.readValue(Paths.get(jsonFilename).toFile(), Map.class);
+                jsonArray = (List) map.get("jokes");
             }
-            jo.put("category", joke.getCategory());
-            jo.put("joke", joke.getJoke());
+            if (jsonArray == null) {
+                arrayNode = node.arrayNode();
+            } else {
+                arrayNode = mapper.valueToTree(jsonArray);
+            }
 
+            node.put("category", joke.getCategory());
+            node.put("joke", joke.getJoke());
+            arrayNode.add(node);
+            writerNode.put("jokes", arrayNode);
+            String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(writerNode);
+            Files.write(Paths.get(jsonFilename), json.getBytes());
         } catch (JsonProcessingException ex) {
             System.out.println(String.format("Error: %s%n", ex.getMessage()));
         } catch (IOException iox) {
             System.out.println(String.format("Error: %s%n", iox.getMessage()));
-        } catch (ParseException ex) {
-            Logger.getLogger(JokesDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void readJokesFromJson() {
-//        try {
-//         
-//          
-//        } catch (ParseException ex) {
-//            Logger.getLogger(JokesDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+    public List<Joke> readJokesFromJson() {
+        ObjectMapper mapper = new ObjectMapper();
+        List<String> jsonArray;
+        List<Joke> jokesList = new ArrayList<>();
+        ArrayNode arrayNode;
 
+        try {
+            if (!Files.readAllLines(Paths.get(jsonFilename)).isEmpty()) {
+                Map<?, ?> map = mapper.readValue(Paths.get(jsonFilename).toFile(), Map.class);
+                jsonArray = (List) map.get("jokes");
+                arrayNode = mapper.valueToTree(jsonArray);
+                for (JsonNode node : arrayNode) {
+
+                    Joke joke = new JokeImpl(node.get("joke").toString().replaceAll("\"", ""), node.get("category").toString().replaceAll("\"", ""));
+                    jokesList.add(joke);
+                }
+            }
+
+        } catch (IOException iox) {
+            System.out.println(String.format("Error: %s%n", iox.getMessage()));
+        }
+        return jokesList;
     }
 
 }

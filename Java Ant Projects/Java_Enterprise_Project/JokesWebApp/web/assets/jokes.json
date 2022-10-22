@@ -1,6 +1,12 @@
 {
-    "jojos":[{
-            "category": "Mom_Jokes",
-            "joke": "hahaha"
-        }]
+  "jokes" : [ {
+    "category" : "Dad_Jokes",
+    "joke" : "dad shit himself"
+  }, {
+    "category" : "Mom_Jokes",
+    "joke" : "mom ouch"
+  }, {
+    "category" : "Monkey_Jokes",
+    "joke" : "monkey monkey"
+  } ]
 }
