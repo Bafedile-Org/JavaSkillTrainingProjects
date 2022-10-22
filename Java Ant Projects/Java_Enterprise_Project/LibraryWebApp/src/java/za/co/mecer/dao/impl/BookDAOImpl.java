@@ -10,6 +10,7 @@ import static za.co.mecer.model.Books.BOOK_NOT_FOUND_MSG;
 import za.co.mecer.exceptions.AuthorException;
 import za.co.mecer.dao.BookDAO;
 import za.co.mecer.dao.ClosingDAO;
+import za.co.mecer.dbconnection.DatabaseConnection;
 import za.co.mecer.exceptions.BookException;
 import za.co.mecer.modelImpl.Book;
 
@@ -29,8 +30,8 @@ public class BookDAOImpl implements BookDAO, ClosingDAO {
      * @param conn
      * @throws SQLException
      */
-    public BookDAOImpl(Connection conn) throws SQLException {
-        this.conn = conn;
+    public BookDAOImpl() throws SQLException {
+        this.conn = DatabaseConnection.getInstance().getConnection();
     }
 
     /**
@@ -226,9 +227,11 @@ public class BookDAOImpl implements BookDAO, ClosingDAO {
 
     /**
      * Gets all the books from the database
+     *
+     * @return
      */
     @Override
-    public void getAllBooks() {
+    public List<Book> getAllBooks() {
         Book book;
         books.clear();
         try {
@@ -246,6 +249,7 @@ public class BookDAOImpl implements BookDAO, ClosingDAO {
         } finally {
             close(preparedStatement, result);
         }
+        return books;
     }
 
     /**

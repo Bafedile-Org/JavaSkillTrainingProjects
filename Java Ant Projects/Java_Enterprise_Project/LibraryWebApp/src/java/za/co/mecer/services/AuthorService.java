@@ -1,9 +1,8 @@
 package za.co.mecer.services;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import za.co.mecer.exceptions.AuthorException;
+import java.util.List;
 import za.co.mecer.modelImpl.Author;
+import za.co.mecer.modelImpl.AuthorBook;
 
 /**
  *
@@ -11,15 +10,8 @@ import za.co.mecer.modelImpl.Author;
  */
 public interface AuthorService {
 
-    public void processAuthorMenu(int choice) throws SQLException, AuthorException, IOException;
+    public List<Author> getAuthors();
 
-    public String getAuthorName() throws IOException;
-
-    public int getAuthorId();
-
-    public String getAuthorBookISBN();
-
-    public Author getAuthorDetails() throws AuthorException, SQLException, IOException;
-
+    public List<AuthorBook> getAuthorBooks();
 //    public void displayAuthorAndBook();
 }

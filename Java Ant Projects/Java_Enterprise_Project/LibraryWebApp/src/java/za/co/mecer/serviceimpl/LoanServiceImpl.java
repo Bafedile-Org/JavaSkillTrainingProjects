@@ -30,9 +30,9 @@ public class LoanServiceImpl implements LoanService {
      *
      * @param conn
      */
-    public LoanServiceImpl(Connection conn) {
-        this.loanImpl = new LoanDAOImpl(conn);
-        this.clientService = new ClientServiceImpl(conn);
+    public LoanServiceImpl() {
+        this.loanImpl = new LoanDAOImpl();
+        this.clientService = new ClientServiceImpl();
 
     }
 

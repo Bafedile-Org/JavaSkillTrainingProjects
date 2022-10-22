@@ -10,7 +10,9 @@ import za.co.mecer.dao.AuthorBookDAO;
 import za.co.mecer.dao.AuthorDAO;
 import za.co.mecer.dao.BookDAO;
 import za.co.mecer.dao.ClosingDAO;
+import za.co.mecer.dbconnection.DatabaseConnection;
 import za.co.mecer.modelImpl.Author;
+import za.co.mecer.modelImpl.AuthorBook;
 
 /**
  *
@@ -29,8 +31,8 @@ public class AuthorBookDAOImpl implements AuthorBookDAO, ClosingDAO {
      *
      * @param conn
      */
-    public AuthorBookDAOImpl(Connection conn) {
-        this.conn = conn;
+    public AuthorBookDAOImpl() {
+        this.conn = DatabaseConnection.getInstance().getConnection();
     }
 
     /**
@@ -69,7 +71,7 @@ public class AuthorBookDAOImpl implements AuthorBookDAO, ClosingDAO {
                 preparedStatement.setInt(2, bookId);
                 preparedStatement.executeUpdate();
 
-                new AuthorDAOImpl(conn).removeAuthor(authorId);
+                new AuthorDAOImpl().removeAuthor(authorId);
             }
         } catch (SQLException se) {
             System.err.println("Error " + se.getMessage());
@@ -102,22 +104,22 @@ public class AuthorBookDAOImpl implements AuthorBookDAO, ClosingDAO {
     }
 
     @Override
-    public void displayAuthorAndBook(String name) {
+    public List<AuthorBook> displayAuthorAndBook() {
         List<Author> authors = new ArrayList<>();
+        List<AuthorBook> authorBooks = new ArrayList<>();
         try {
             if (conn != null) {
-                authorDao = new AuthorDAOImpl(conn);
-                bookDao = new BookDAOImpl(conn);
+                authorDao = new AuthorDAOImpl();
+                bookDao = new BookDAOImpl();
 
-                //   System.out.println(String.format("%s%s%n%n", authorDao.searchAuthorById(authorId), bookDao.searchBookById(bookId)));
-                authorDao.searchAuthor(name);
-                authors = authorDao.getAuthors();
+                authors = authorDao.getAllAuthors();
 
                 for (Author author : authors) {
                     preparedStatement = conn.prepareStatement("SELECT book_id FROM author_book WHERE author_id = ?");
                     preparedStatement.setInt(1, author.getAuthorId());
                     result = preparedStatement.executeQuery();
                     if (result.next()) {
+                        authorBooks.add(new AuthorBook(author, bookDao.searchBookById(result.getInt("book_id"))));
                         System.out.println(String.format("%s%s%n%n", author, bookDao.searchBookById(result.getInt("book_id"))));
                     }
                 }
@@ -125,6 +127,6 @@ public class AuthorBookDAOImpl implements AuthorBookDAO, ClosingDAO {
         } catch (SQLException se) {
             System.err.println("Error: " + se.getMessage());
         }
-
+        return authorBooks;
     }
 }

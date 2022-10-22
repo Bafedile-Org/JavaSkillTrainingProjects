@@ -1,0 +1,63 @@
+/* 
+    Created on : Oct 22, 2022, 8:51:38 PM
+    Author     : Dimakatso Sebatane
+*/
+
+header{
+    color:white;
+    /*background-color:#5279E6;*/
+    background:linear-gradient(to right top, #5279E6,#3FF3A5);
+}
+body{
+    background-color:#3FF3A5;
+}
+#form{
+    border:aquamarine;
+    border-style: double solid;
+    margin-top:15%;
+    background:linear-gradient(to top left, #5279E6,#3FF3A5, #5279E6);
+    padding: 15px 18px;
+    width:35%;
+}
+#form label,h3{
+    color:white;
+}
+#form label{
+    float:left;
+}
+
+#form input{
+    padding: 5px;
+    width:100%;
+    background-color:lightgray;
+    border:none;
+}
+#form a{
+    color:white;
+    text-decoration: none;
+    font-size:12px;
+}
+#form input[type=submit]{
+    background-color:#1C9A5B;
+    font-size:17px;
+}
+#form input[type=submit]:hover{
+    background-color:darkgreen;
+    color:#5279E6;
+    
+}
+
+#form a:hover{
+    background-color:#3FF3A5;
+    color:black;
+}
+
+#books_table tr,td,table{
+    width:50%;
+      border: 1px solid black;
+    border-collapse: separate;
+    border-color: rosybrown;
+    background-color:#D6EEEE;
+    font-size:17px;
+    
+}

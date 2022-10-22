@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import za.co.mecer.dao.ClosingDAO;
 import za.co.mecer.dao.PaymentDAO;
+import za.co.mecer.dbconnection.DatabaseConnection;
 import za.co.mecer.exceptions.PaymentException;
 import za.co.mecer.modelImpl.Payment;
 
@@ -26,8 +27,8 @@ public class PaymentDAOImpl implements PaymentDAO, ClosingDAO {
      *
      * @param conn
      */
-    public PaymentDAOImpl(Connection conn) {
-        this.conn = conn;
+    public PaymentDAOImpl() {
+        this.conn = DatabaseConnection.getInstance().getConnection();
     }
 
     /**
@@ -50,9 +51,9 @@ public class PaymentDAOImpl implements PaymentDAO, ClosingDAO {
                     amountOwed = result.getDouble("fine");
                     if (amountOwed > 0.0) {
                         if ((payment.getAmount() - amountOwed) > 0.0) {
-                            new LoanDAOImpl(conn).addFine(loanId, 0.0);
+                            new LoanDAOImpl().addFine(loanId, 0.0);
                         } else {
-                            new LoanDAOImpl(conn).addFine(loanId, (-1) * (payment.getAmount() - amountOwed));
+                            new LoanDAOImpl().addFine(loanId, (-1) * (payment.getAmount() - amountOwed));
                         }
                         preparedStatement = conn.prepareStatement("INSERT INTO payment (loan_id,amount) VALUES(?,?)");
                         preparedStatement.setInt(1, loanId);

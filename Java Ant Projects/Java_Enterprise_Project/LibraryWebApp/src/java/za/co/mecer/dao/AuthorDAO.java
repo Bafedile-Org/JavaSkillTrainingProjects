@@ -17,7 +17,7 @@ public interface AuthorDAO {
 
     public Author searchAuthor(String name);
 
-    public void getAllAuthors();
+    public List<Author> getAllAuthors();
 
     public void displayAuthors();
 

@@ -1,8 +1,8 @@
 package za.co.mecer.services;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import za.co.mecer.exceptions.BookException;
 import za.co.mecer.modelImpl.Book;
 
@@ -12,13 +12,6 @@ import za.co.mecer.modelImpl.Book;
  */
 public interface BookService {
 
-    public void processBookMenu(int choice) throws SQLException, IOException, BookException;
+    public List<Book> getAllBooks();
 
-    public boolean updateBook(String str);
-
-    public void displayBooks(ResultSet set) throws SQLException;
-
-    public String getBookSearchDetails();
-
-    public Book getBookDetails() throws IOException, BookException;
 }

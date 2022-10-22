@@ -1,5 +1,8 @@
 package za.co.mecer.dao;
 
+import java.util.List;
+import za.co.mecer.model.AuthorBook;
+
 /**
  *
  * @author Dimakatso Sebatane
@@ -12,6 +15,6 @@ public interface AuthorBookDAO {
 
     public String getBookIsbn(int bookId);
 
-    public void displayAuthorAndBook(String name);
+    public void displayAuthorAndBook();
 
 }

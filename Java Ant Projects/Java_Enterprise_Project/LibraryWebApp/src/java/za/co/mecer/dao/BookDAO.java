@@ -3,6 +3,7 @@ package za.co.mecer.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import za.co.mecer.exceptions.BookException;
 import za.co.mecer.modelImpl.Book;
 
@@ -18,7 +19,7 @@ public interface BookDAO {
 
     public void addBook(Book book);
 
-    public void getAllBooks();
+    public List<Book> getAllBooks();
 
     public void removeBook(String isbn);
 

@@ -25,15 +25,30 @@ public class AuthorBook implements AuthorBooks {
     private BookDAO bookDao;
     private AuthorBookDAO authorBook;
     private AuthorDAO authorDao;
+    private Author author;
+    private Book book;
 
     /**
      *
      * @throws SQLException
      */
     public AuthorBook() throws SQLException {
-        bookDao = new BookDAOImpl(DatabaseConnection.getInstance().getConnection());
-        authorBook = new AuthorBookDAOImpl(DatabaseConnection.getInstance().getConnection());
-        authorDao = new AuthorDAOImpl(DatabaseConnection.getInstance().getConnection());
+        bookDao = new BookDAOImpl();
+        authorBook = new AuthorBookDAOImpl();
+        authorDao = new AuthorDAOImpl();
+    }
+
+    public AuthorBook(Author author, Book book) {
+        this.author = author;
+        this.book = book;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public Book getBook() {
+        return book;
     }
 
     /**
@@ -46,9 +61,9 @@ public class AuthorBook implements AuthorBooks {
     public AuthorBook(int authorId, int bookId) throws AuthorException, SQLException, BookException {
         this.setBookId(bookId);
         this.setAuthorId(authorId);
-        bookDao = new BookDAOImpl(DatabaseConnection.getInstance().getConnection());
-        authorBook = new AuthorBookDAOImpl(DatabaseConnection.getInstance().getConnection());
-        authorDao = new AuthorDAOImpl(DatabaseConnection.getInstance().getConnection());
+        bookDao = new BookDAOImpl();
+        authorBook = new AuthorBookDAOImpl();
+        authorDao = new AuthorDAOImpl();
     }
 
     /**

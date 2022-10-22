@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import za.co.mecer.dao.ClosingDAO;
 import za.co.mecer.dao.LoanDAO;
+import za.co.mecer.dbconnection.DatabaseConnection;
 import za.co.mecer.exceptions.LoanException;
 import za.co.mecer.modelImpl.Loan;
 
@@ -27,8 +28,8 @@ public class LoanDAOImpl implements LoanDAO, ClosingDAO {
      *
      * @param conn
      */
-    public LoanDAOImpl(Connection conn) {
-        this.conn = conn;
+    public LoanDAOImpl() {
+        this.conn = DatabaseConnection.getInstance().getConnection();
     }
 
     /**

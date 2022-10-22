@@ -9,6 +9,7 @@ import java.util.List;
 import za.co.mecer.exceptions.ClientException;
 import za.co.mecer.dao.ClientDAO;
 import za.co.mecer.dao.ClosingDAO;
+import za.co.mecer.dbconnection.DatabaseConnection;
 import za.co.mecer.modelImpl.Client;
 
 /**
@@ -26,8 +27,8 @@ public class ClientDAOImpl implements ClientDAO, ClosingDAO {
      *
      * @param conn
      */
-    public ClientDAOImpl(Connection conn) {
-        this.conn = conn;
+    public ClientDAOImpl() {
+        this.conn = DatabaseConnection.getInstance().getConnection();
     }
 
     /**

@@ -36,9 +36,9 @@ public class DatabaseConnection {
         return dbConn;
     }
 
-    private static void connect() throws SQLException {
+    private static void connect() {
         String user, url, pass;
-        try (InputStream stream = new FileInputStream("database.properties")) {
+        try (InputStream stream = new FileInputStream("G:\\JavaSkillTrainingProjects\\Java Ant Projects\\Java_Enterprise_Project\\LibraryWebApp\\database.properties")) {
             Properties properties = new Properties();
             properties.load(stream);
             url = properties.getProperty("url");
@@ -48,7 +48,7 @@ public class DatabaseConnection {
             conn = DriverManager.getConnection(url, user, pass);
             createDatabase(conn);
 
-        } catch (IOException iox) {
+        } catch (IOException | SQLException iox) {
             System.out.printf("Error: %s%n", iox.getMessage());
         }
     }
@@ -76,6 +76,7 @@ public class DatabaseConnection {
     }
 
     public Connection getConnection() {
+        connect();
         return conn;
     }
 

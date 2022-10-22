@@ -26,8 +26,8 @@ public class ClientServiceImpl implements ClientService {
      *
      * @param conn
      */
-    public ClientServiceImpl(Connection conn) {
-        this.clientImpl = new ClientDAOImpl(conn);
+    public ClientServiceImpl() {
+        this.clientImpl = new ClientDAOImpl();
     }
 
     /**

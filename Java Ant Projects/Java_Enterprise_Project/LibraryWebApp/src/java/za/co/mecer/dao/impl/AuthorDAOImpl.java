@@ -9,6 +9,7 @@ import java.util.List;
 import za.co.mecer.model.Authors;
 import za.co.mecer.dao.AuthorDAO;
 import za.co.mecer.dao.ClosingDAO;
+import za.co.mecer.dbconnection.DatabaseConnection;
 import za.co.mecer.exceptions.AuthorException;
 import za.co.mecer.modelImpl.Author;
 
@@ -28,9 +29,9 @@ public class AuthorDAOImpl implements AuthorDAO, ClosingDAO {
      *
      * @param conn
      */
-    public AuthorDAOImpl(Connection conn) {
-        this.conn = conn;
-        this.authorBookImpl = new AuthorBookDAOImpl(conn);
+    public AuthorDAOImpl() {
+        conn = DatabaseConnection.getInstance().getConnection();
+        this.authorBookImpl = new AuthorBookDAOImpl();
     }
 
     /**
@@ -161,7 +162,7 @@ public class AuthorDAOImpl implements AuthorDAO, ClosingDAO {
      * Returns all authors in the database
      */
     @Override
-    public void getAllAuthors() {
+    public List<Author> getAllAuthors() {
 
         Author author = null;
         authors.clear();
@@ -181,7 +182,7 @@ public class AuthorDAOImpl implements AuthorDAO, ClosingDAO {
         } finally {
             close(preparedStatement, result);
         }
-
+        return authors;
     }
 
     /**

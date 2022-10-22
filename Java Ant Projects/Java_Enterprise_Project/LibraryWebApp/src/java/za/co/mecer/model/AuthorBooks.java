@@ -1,7 +1,9 @@
 package za.co.mecer.model;
 
+import java.util.List;
 import za.co.mecer.exceptions.AuthorException;
 import za.co.mecer.exceptions.BookException;
+import za.co.mecer.modelImpl.AuthorBook;
 
 /**
  *

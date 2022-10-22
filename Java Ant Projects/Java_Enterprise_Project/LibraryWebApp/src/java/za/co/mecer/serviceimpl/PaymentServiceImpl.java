@@ -27,9 +27,9 @@ public class PaymentServiceImpl implements PaymentService {
      *
      * @param conn
      */
-    public PaymentServiceImpl(Connection conn) {
-        this.paymentImpl = new PaymentDAOImpl(conn);
-        this.loanService = new LoanServiceImpl(conn);
+    public PaymentServiceImpl() {
+        this.paymentImpl = new PaymentDAOImpl();
+        this.loanService = new LoanServiceImpl();
     }
 
     /**
