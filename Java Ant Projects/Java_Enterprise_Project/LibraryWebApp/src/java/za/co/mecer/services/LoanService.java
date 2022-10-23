@@ -14,15 +14,5 @@ import za.co.mecer.modelImpl.Loan;
  */
 public interface LoanService {
 
-    public void processLoanMenu(int choice) throws SQLException, LoanException, ClientException, IOException;
-
-    public double getLoanFine();
-
-    public void displayLoan(ResultSet set) throws SQLException;
-
-    public int getLoanId();
-
-    public LocalDate getReturnDate();
-
-    public Loan getLoanDetails() throws LoanException;
+    public Loan getLoan() throws LoanException;
 }

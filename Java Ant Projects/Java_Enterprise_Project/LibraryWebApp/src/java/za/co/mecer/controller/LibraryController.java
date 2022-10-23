@@ -70,7 +70,7 @@ public class LibraryController extends HttpServlet {
     }// </editor-fold>
 
     abstract static class RequestActionFactory {
-        
+
         public static BooksLibraryProcess createRequestAction() {
             return new BooksLibraryProcess();
         }

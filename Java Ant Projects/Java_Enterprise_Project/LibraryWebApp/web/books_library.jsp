@@ -15,23 +15,30 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Books Page</title>
         <link rel="stylesheet" href='css/style.css'>
+        <script src='js/script.js'></script>
     </head>
-     <header>
+
+    <body>
+        <header>
             <h1 align='center'>DM LIBRARY</h1>
         </header>
-    <body>
         <h1 align='center'>Available Books</h1>
-        <table align='center' id='books_table'>
-            <tr>
-                <td><strong>Author</strong></td>
-                <td><strong>Book Title</strong></td>
-            </tr>
-        <% 
-            List<AuthorBook>bookList = (List<AuthorBook>)request.getAttribute("books");
-            for(AuthorBook book: bookList){
-                out.println(String.format("<tr><td>%s</td><td>%s</td></tr>",book.getAuthor().getName(),book.getBook().getTitle()));
-            }
-        %>
-        </table>
+        <div>
+            <table align='center' id='books_table'>
+                <tr>
+                    <td><strong>Author</strong></td>
+                    <td><strong>Book Title</strong></td>
+                </tr>
+                <%
+                    List<AuthorBook> bookList = (List<AuthorBook>) request.getAttribute("books");
+                    for (AuthorBook book : bookList) {
+                        out.println(String.format("<tr><td>%s</td><td>%s</td></tr>", book.getAuthor().getName(), book.getBook().getTitle()));
+                    }
+                %>
+            </table>
+        </div>
+        <div id="btn">
+            <input type='button' onclick='loanBook()'  value='Loan a book'>
+        </div>
     </body>
 </html>

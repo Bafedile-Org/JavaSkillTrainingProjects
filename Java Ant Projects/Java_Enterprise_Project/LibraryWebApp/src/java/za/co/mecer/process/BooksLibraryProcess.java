@@ -20,13 +20,10 @@ public class BooksLibraryProcess {
 
     public void processGetBooks(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-//            BookService bookService = new BookServiceImpl();
             AuthorService authorService = new AuthorServiceImpl();
             List<AuthorBook> authorBookList = authorService.getAuthorBooks();
-//            List<Book> bookList = bookService.getAllBooks();
             request.setAttribute("books", authorBookList);
-//            request.setAttribute("authors", authorList);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("books_library.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("bookLibrary");
             dispatcher.forward(request, response);
         } catch (SQLException sql) {
             System.out.println(String.format("Error: %s%n", sql.getMessage()));

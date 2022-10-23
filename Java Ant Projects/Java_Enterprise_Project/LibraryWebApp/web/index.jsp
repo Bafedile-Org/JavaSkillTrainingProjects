@@ -11,10 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Library Page</title>
         <link rel="stylesheet" href='css/style.css'>
-        <script>
-            function doClick(){
-                location.href='sign_in.jsp';
-            }
+        <script src='js/script.js'></script>
         </script>
     </head>
     <body>
@@ -27,7 +24,7 @@
 %>
 
         <div align='center'>
-            <form  id='form' method="POST" action="sign_in.jsp">
+            <form  id='form' method="POST" action="signIn">
                 <h3>Sign up</h3>
                 <div>
                     <label>Username</label>
@@ -43,7 +40,7 @@
                 </div><br>
                 <div>
                     <input type="submit" name="sign_up" value="Sign up"><br>
-                    <a href="#">Already have an account? Sign in</a>
+                    <a href="signIn">Already have an account? Sign in</a>
                 </div>
 
 

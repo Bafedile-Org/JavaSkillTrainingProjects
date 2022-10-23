@@ -14,7 +14,7 @@ body{
 #form{
     border:aquamarine;
     border-style: double solid;
-    margin-top:15%;
+    margin-top:10%;
     background:linear-gradient(to top left, #5279E6,#3FF3A5, #5279E6);
     padding: 15px 18px;
     width:35%;
@@ -44,8 +44,18 @@ body{
 #form input[type=submit]:hover{
     background-color:darkgreen;
     color:#5279E6;
-    
+
 }
+#form input[type=button]{
+    background-color:#1C9A5B;
+    font-size:17px;
+}
+#form input[type=button]:hover{
+    background-color:darkgreen;
+    color:#5279E6;
+
+}
+
 
 #form a:hover{
     background-color:#3FF3A5;
@@ -54,10 +64,15 @@ body{
 
 #books_table tr,td,table{
     width:50%;
-      border: 1px solid black;
+    border: 1px solid black;
     border-collapse: separate;
     border-color: rosybrown;
     background-color:#D6EEEE;
     font-size:17px;
-    
+
+}
+#btn input[type=button]{
+    font-size:17px;
+    color:white;
+    background-color:darkgreen;
 }

@@ -12,15 +12,7 @@ import za.co.mecer.modelImpl.Client;
  */
 public interface ClientService {
 
-    public void processClientMenu(int choice) throws SQLException, ClientException, IOException;
+    public Client getClient(String identityNum);
 
-    public Client getClientDetails() throws ClientException, IOException;
-
-    public String getTelephone(String str);
-
-    public String getClientIdentity();
-
-    public String getAddress() throws IOException;
-
-    public void displayClient(ResultSet set) throws SQLException;
+    public void addClient(Client client);
 }

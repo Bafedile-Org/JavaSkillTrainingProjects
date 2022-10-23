@@ -8,6 +8,62 @@
         <servlet-name>LibraryController</servlet-name>
         <url-pattern>/control</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>RegisterClient</servlet-name>
+        <jsp-file>/client_reg.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterClient</servlet-name>
+        <url-pattern>/registerClient</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>RegisteredClient</servlet-name>
+        <jsp-file>/registered_client.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisteredClient</servlet-name>
+        <url-pattern>/registeredClient</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>BookLoan</servlet-name>
+        <jsp-file>/book_loan.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BookLoan</servlet-name>
+        <url-pattern>/bookLoan</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>BookLibrary</servlet-name>
+        <jsp-file>/books_library.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BookLibrary</servlet-name>
+        <url-pattern>/bookLibrary</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>SignIn</servlet-name>
+        <jsp-file>/sign_in.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignIn</servlet-name>
+        <url-pattern>/signIn</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>SignUp</servlet-name>
+        <jsp-file>/index.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignUp</servlet-name>
+        <url-pattern>/signUp</url-pattern>
+    </servlet-mapping>
+    
+    
     <session-config>
         <session-timeout>
             30
