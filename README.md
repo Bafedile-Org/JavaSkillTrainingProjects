@@ -18,3 +18,8 @@ Projects that are committed in this repository are the ones I have been tasked t
 > Concurrency and Threads
 > MySQL Database 
 > Generics
+### Java Enterprise Edition
+> Java Server Pages
+> REST
+> Model View Controller
+> Postman
