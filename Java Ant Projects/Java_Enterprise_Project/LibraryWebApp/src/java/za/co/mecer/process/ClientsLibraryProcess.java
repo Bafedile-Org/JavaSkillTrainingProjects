@@ -29,6 +29,7 @@ public class ClientsLibraryProcess {
             client = clientService.getClient(request.getParameter("identityNum"));
             if (client != null) {
                 request.setAttribute("client", client);
+                request.setAttribute("identityNum", request.getParameter("identityNum"));
                 dispatcher.forward(request, response);
             } else {
                 dispatcher = request.getRequestDispatcher("registerClient");

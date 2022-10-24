@@ -113,7 +113,7 @@ public class AuthorBook implements AuthorBooks {
     @Override
     public String toString() {
         return String.format("%s%n%s%n%n", authorDao.searchAuthor(authorDao.getAuthorName(authorId)),
-                bookDao.searchBook(authorBook.getBookIsbn(bookId)));
+                bookDao.searchBookByISBN(authorBook.getBookIsbn(bookId)));
     }
 
 }

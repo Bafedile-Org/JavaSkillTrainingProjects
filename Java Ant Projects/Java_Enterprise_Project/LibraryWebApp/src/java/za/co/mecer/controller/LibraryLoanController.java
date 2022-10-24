@@ -5,7 +5,8 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import za.co.mecer.process.ClientsLibraryProcess;
+import za.co.mecer.exceptions.LoanException;
+import za.co.mecer.process.LoanLibraryProcess;
 
 /**
  *
@@ -13,12 +14,25 @@ import za.co.mecer.process.ClientsLibraryProcess;
  */
 @WebServlet("/loan")
 public class LibraryLoanController extends LibraryController {
-    
+
     @Override
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        response.sendRedirect("bookLoan");
+        try {
+            LoanLibraryProcess process = RequestActionFactory.createRequestAction();
+            process.processLoanRequest(request, response);
+
+        } catch (LoanException ioe) {
+
+        }
     }
-    
+
+    abstract static class RequestActionFactory {
+
+        public static LoanLibraryProcess createRequestAction() {
+            return new LoanLibraryProcess();
+        }
+    }
+
 }

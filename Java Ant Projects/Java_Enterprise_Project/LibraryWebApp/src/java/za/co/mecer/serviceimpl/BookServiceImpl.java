@@ -1,15 +1,11 @@
 package za.co.mecer.serviceimpl;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 import za.co.mecer.dao.impl.BookDAOImpl;
-import za.co.mecer.dbconnection.DatabaseConnection;
-import za.co.mecer.exceptions.BookException;
 import za.co.mecer.modelImpl.Book;
 import za.co.mecer.services.BookService;
 
@@ -30,5 +26,20 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> getAllBooks() {
         return bookImpl.getAllBooks();
+    }
+
+    @Override
+    public void addBook(Book book) {
+        bookImpl.addBook(book);
+    }
+
+    @Override
+    public Book getBookByISBN(String ISBN) {
+        return bookImpl.searchBookByISBN(ISBN);
+    }
+
+    @Override
+    public Book getBookByTitle(String title) {
+        return bookImpl.searchBookByTitle(title);
     }
 }

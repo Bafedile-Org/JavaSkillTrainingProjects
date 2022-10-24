@@ -38,19 +38,20 @@ public class LoanDAOImpl implements LoanDAO, ClosingDAO {
      * @param loan
      */
     @Override
-    public void addLoan(String clientIdentityNum, Loan loan) {
+    public void addLoan(String clientIdentityNum, Loan loan, String bookISBN) {
         /**
          * <<Loan Fields>> client_id, borroweddate, returndate, fine
          */
         try {
             if (conn != null) {
                 preparedStatement = conn.prepareStatement("INSERT INTO loan (client_id,borroweddate, returndate,fine)"
-                        + "VALUES ((SELECT client_id FROM client WHERE identityNum = ?),?,?,?)");
+                        + "VALUES ((SELECT client_id FROM client WHERE identityNum = ?),(SELECT book_id FROM book WHERE isbn=?),?,?,?)");
 
                 preparedStatement.setString(1, clientIdentityNum);
-                preparedStatement.setString(2, loan.getBorrowedDate().toString());
-                preparedStatement.setString(3, loan.getReturnDate().toString());
-                preparedStatement.setDouble(4, loan.getFine());
+                preparedStatement.setString(2, bookISBN);
+                preparedStatement.setString(3, loan.getBorrowedDate().toString());
+                preparedStatement.setString(4, loan.getReturnDate().toString());
+                preparedStatement.setDouble(5, loan.getFine());
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException se) {

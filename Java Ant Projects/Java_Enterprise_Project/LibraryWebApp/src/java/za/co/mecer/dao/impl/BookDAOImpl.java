@@ -129,13 +129,36 @@ public class BookDAOImpl implements BookDAO, ClosingDAO {
      * @return
      */
     @Override
-    public Book searchBook(String ISBN) {
+    public Book searchBookByISBN(String ISBN) {
         Book book = null;
         books.clear();
         try {
             if (conn != null) {
                 preparedStatement = conn.prepareStatement("SELECT * FROM book WHERE isbn=? ");
                 preparedStatement.setString(1, ISBN);
+                result = preparedStatement.executeQuery();
+                while (result.next()) {
+                    book = new Book(result.getInt("book_id"), result.getString("title"),
+                            result.getString("isbn"), result.getBoolean("available"), result.getBoolean("borrowable"));
+                    books.add(book);
+                }
+            }
+        } catch (SQLException | BookException se) {
+            System.err.println("Error " + se.getMessage());
+        } finally {
+            close(preparedStatement, result);
+        }
+        return book;
+    }
+
+    @Override
+    public Book searchBookByTitle(String title) {
+        Book book = null;
+        books.clear();
+        try {
+            if (conn != null) {
+                preparedStatement = conn.prepareStatement("SELECT * FROM book WHERE title=? ");
+                preparedStatement.setString(1, title);
                 result = preparedStatement.executeQuery();
                 while (result.next()) {
                     book = new Book(result.getInt("book_id"), result.getString("title"),
@@ -274,7 +297,7 @@ public class BookDAOImpl implements BookDAO, ClosingDAO {
     public int getBookId(String isbn) {
         int bookId;
         try {
-            Book book = searchBook(isbn);
+            Book book = searchBookByISBN(isbn);
             bookId = book.getBookId();
         } catch (NullPointerException ex) {
             System.err.println(String.format("Error: Book Does Not Exists"));

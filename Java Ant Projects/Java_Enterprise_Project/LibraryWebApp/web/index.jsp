@@ -19,10 +19,6 @@
             <h1 align='center'>DM LIBRARY</h1>
         </header>
 
-        <%
-//        List<Books> bookList
-%>
-
         <div align='center'>
             <form  id='form' method="POST" action="signIn">
                 <h3>Sign up</h3>

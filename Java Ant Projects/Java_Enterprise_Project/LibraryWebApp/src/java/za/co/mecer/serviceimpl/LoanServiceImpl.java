@@ -37,6 +37,11 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
+    public void addLoan(String clientIdentityNum, Loan loan, String bookISBN) throws LoanException {
+        loanImpl.addLoan(clientIdentityNum, loan, bookISBN);
+    }
+
+    @Override
     public Loan getLoan() throws LoanException {
         return loanImpl.searchLoan(9);
     }

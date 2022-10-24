@@ -15,4 +15,6 @@ import za.co.mecer.modelImpl.Loan;
 public interface LoanService {
 
     public Loan getLoan() throws LoanException;
+
+    public void addLoan(String clientIdentityNum, Loan loan, String bookISBN) throws LoanException;
 }

@@ -27,7 +27,9 @@ public interface BookDAO {
 
     public void changeBookAccessiblity(String isbn, boolean access);
 
-    public Book searchBook(String ISBN);
+    public Book searchBookByISBN(String ISBN);
+
+    public Book searchBookByTitle(String title);
 
     public void searchAvailableBooks();
 

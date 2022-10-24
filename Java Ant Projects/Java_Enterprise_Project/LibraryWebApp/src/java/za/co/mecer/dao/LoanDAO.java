@@ -13,7 +13,7 @@ public interface LoanDAO {
 
     public void getAllLoans();
 
-    void addLoan(String clientIdentityNum, Loan loan);
+    void addLoan(String clientIdentityNum, Loan loan, String bookISBN);
 
     void removeLoan(int loanId);
 

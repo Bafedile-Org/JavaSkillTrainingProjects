@@ -14,13 +14,17 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-            <header>
+        <%
+            String clientIdentityNum = (String) request.getAttribute("identityNum");
+            request.setAttribute("clientIdentityNum", clientIdentityNum);
+        %>
+        <header>
             <h1 align='center'>DM LIBRARY</h1>
         </header>
         <div  align='center'>
             <form id='form' method="POST" action='loan'  >
                 <h3>Book Loan</h3>
-                
+
                 <div>
                     <label>Book Author</label>
                     <input type='text' placeholder="Enter book author" name='author'>
@@ -31,12 +35,13 @@
                 </div><br>
                 <div>
                     <label>Book ISBN Number</label>
-                    <input type='text' placeholder="Enter book ISBN number" name='identityNum' minlength="13" maxlength="13">
+                    <input type='text' placeholder="Enter book ISBN number" name='isbn' minlength="13" maxlength="13">
                 </div><br>
                 <div>
                     <input type='submit' name='loan' value='Loan book'>
                     <input type='button' name='back' value='Back to library' onclick="goToHome()">
                 </div>
-            </form></div>
+            </form>
+        </div>
     </body>
 </html>
