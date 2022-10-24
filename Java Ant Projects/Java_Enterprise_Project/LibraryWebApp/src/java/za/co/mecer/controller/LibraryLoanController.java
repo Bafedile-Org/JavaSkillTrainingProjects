@@ -22,21 +22,17 @@ public class LibraryLoanController extends LibraryController {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        request.setAttribute("identityNum", identityNum);
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("bookLoan");
+        String sub = request.getParameter("submit");
         try {
-            if (request.getParameter("submit").equalsIgnoreCase("submit")) {
+            if (sub != null && sub.equalsIgnoreCase("submit")) {
                 response.sendRedirect("bookLoan");
-//                dispatcher.forward(request, response);
                 identityNum = request.getParameter("identityNum");
 
             } else {
                 LoanLibraryProcess process = RequestActionFactory.createRequestAction();
                 process.processLoanRequest(request, response, identityNum);
             }
-
         } catch (LoanException ioe) {
-
         }
     }
 

@@ -10,3 +10,7 @@ function goToHome(){
     location.href='books';
 }
 
+function manageBooks(){
+    location.href='addBook';
+}
+

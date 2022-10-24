@@ -1,6 +1,6 @@
 <%-- 
-    Document   : book_loan
-    Created on : Oct 23, 2022, 10:51:23 AM
+    Document   : add_book
+    Created on : 24 Oct 2022, 1:35:22 PM
     Author     : Dimakatso Sebatane
 --%>
 
@@ -14,15 +14,11 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <%
-            String clientIdentityNum = (String) request.getAttribute("identityNum");
-            request.setAttribute("clientIdentityNum", clientIdentityNum);
-        %>
         <header>
             <h1 align='center'>DM LIBRARY</h1>
         </header>
         <div  align='center'>
-            <form id='form' method="POST" action='loan'  >
+            <form id='form' method="POST"   action="books">
                 <h3>Book Loan</h3>
 
                 <div>
@@ -31,15 +27,32 @@
                 </div><br>
                 <div>
                     <label>Book Title</label>
-                    <input type='text' placeholder="Enter book title" name='bookTitle'>
+                    <input type='text' placeholder="Enter book title" name='title'>
                 </div><br>
                 <div>
                     <label>Book ISBN Number</label>
                     <input type='text' placeholder="Enter book ISBN number" name='isbn' minlength="13" maxlength="13">
                 </div><br>
+                
                 <div>
-                    <input type='submit' name='submit' value='Loan book'>
-                    <input type='button' name='back' value='Back to library' onclick="goToHome()">
+                    <label>Book Availability</label>
+                    <select>
+                        <option name="available" value="true">true</option>
+                        <option name="available" value="true">false</option>
+                    </select>
+                </div><br>
+                <div>
+                    <label>Book Borrowable</label>
+                    <select>
+                        <option name="borrowable" value="true">true</option>
+                        <option name="borrowable" value="true">false</option>
+                    </select>
+                </div><br>
+                
+                
+                <div>
+                    <input type='submit' name='submit' value='Add book'>
+                    <input type='button' name='back' value='Back to library' onclick='goToHome()'>
                 </div>
             </form>
         </div>

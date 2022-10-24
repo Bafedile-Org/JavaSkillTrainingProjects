@@ -12,6 +12,7 @@ import za.co.mecer.modelImpl.Author;
 import za.co.mecer.dao.impl.AuthorDAOImpl;
 import za.co.mecer.dao.impl.BookDAOImpl;
 import za.co.mecer.modelImpl.AuthorBook;
+import za.co.mecer.modelImpl.Book;
 import za.co.mecer.services.AuthorService;
 
 /**
@@ -44,7 +45,25 @@ public class AuthorServiceImpl implements AuthorService {
         return authorImpl.getAllAuthors();
     }
 
+    @Override
     public List<AuthorBook> getAuthorBooks() {
         return authorBookImpl.displayAuthorAndBook();
+    }
+
+    @Override
+    public void addAuthorBook(AuthorBook authorBook) {
+        Author author = authorImpl.searchAuthor(authorBook.getAuthor().getName());
+        Book book = bookImpl.searchBookByISBN(authorBook.getBook().getISBN());
+        authorBookImpl.addAuthorBook(author.getAuthorId(), book.getBookId());
+    }
+
+    @Override
+    public void addAuthor(Author author) {
+        authorImpl.addAuthor(author);
+    }
+
+    @Override
+    public void addBook(Book book) {
+        bookImpl.addBook(book);
     }
 }

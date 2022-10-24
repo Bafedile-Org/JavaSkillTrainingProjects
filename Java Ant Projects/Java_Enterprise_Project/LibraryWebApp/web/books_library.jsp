@@ -37,8 +37,9 @@
                 %>
             </table>
         </div>
-        <div id="btn">
+        <div id="btn" align='right'>
             <input type='button' onclick='loanBook()'  value='Loan a book'>
+            <input type='button' onclick='manageBooks()'  value='Manage books' id='btnManage' >
         </div>
     </body>
 </html>

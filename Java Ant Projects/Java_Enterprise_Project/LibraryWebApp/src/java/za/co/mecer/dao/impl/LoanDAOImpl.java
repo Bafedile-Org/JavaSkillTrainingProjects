@@ -45,7 +45,7 @@ public class LoanDAOImpl implements LoanDAO, ClosingDAO {
          */
         try {
             if (conn != null) {
-                preparedStatement = conn.prepareStatement("INSERT INTO loan (client_id,borroweddate, returndate,fine)"
+                preparedStatement = conn.prepareStatement("INSERT INTO loan (client_id,book_id,borroweddate, returndate,fine)"
                         + "VALUES ((SELECT client_id FROM client WHERE identityNum = ?),(SELECT book_id FROM book WHERE isbn=?),?,?,?)");
 
                 preparedStatement.setString(1, clientIdentityNum);

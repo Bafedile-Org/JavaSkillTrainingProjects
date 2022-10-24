@@ -1,6 +1,7 @@
 package za.co.mecer.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,8 +27,21 @@ public class LibraryController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        BooksLibraryProcess process = RequestActionFactory.createRequestAction();
-        process.processGetBooks(request, response);
+        String sub = request.getParameter("submit");
+        try {
+            if (sub != null) {
+                if (sub.equalsIgnoreCase("add book")) {
+                    BooksLibraryProcess process = RequestActionFactory.createRequestAction();
+                    process.processAddBook(request, response);
+                    response.sendRedirect("books");
+                }
+            } else {
+                BooksLibraryProcess process = RequestActionFactory.createRequestAction();
+                process.processGetBooks(request, response);
+            }
+        } catch (SQLException iox) {
+            System.out.println(String.format("Error: %s%n", iox.getMessage()));
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,9 +84,10 @@ public class LibraryController extends HttpServlet {
     }// </editor-fold>
 
     abstract static class RequestActionFactory {
-
+        
         public static BooksLibraryProcess createRequestAction() {
             return new BooksLibraryProcess();
         }
+        
     }
 }

@@ -61,11 +61,13 @@ public class DatabaseConnection {
             conn.prepareStatement("CREATE TABLE  IF NOT EXISTS client (client_id INT AUTO_INCREMENT PRIMARY KEY, firstname VARCHAR(30) NOT NULL,\n"
                     + "lastname VARCHAR(30) NOT NULL, identityNum VARCHAR(13), address VARCHAR(255), homeTel VARCHAR(10) NOT NULL, workTel VARCHAR(10),\n"
                     + "mobileTel VARCHAR(10));").executeUpdate();
-            conn.prepareStatement("CREATE TABLE IF NOT EXISTS book (book_id INT AUTO_INCREMENT PRIMARY KEY, isbn VARCHAR(13) NOT NULL, title VARCHAR(45), \n"
-                    + "available BOOLEAN , borrowable BOOLEAN );").executeUpdate();
-            conn.prepareStatement("CREATE  TABLE IF NOT EXISTS loan (loan_id INT AUTO_INCREMENT PRIMARY KEY, client_id INT NOT NULL,book_id INT, borrowedDate DATE NOT NULL,\n"
-                    + "returnDate DATE NOT NULL, fine DECIMAL(5,2), FOREIGN KEY (client_id) REFERENCES client(client_id),FOREIGN KEY(book_id) REFERENCES \n"
-                    + "book book_id);").executeUpdate();
+
+            conn.prepareStatement("CREATE TABLE IF NOT EXISTS book (book_id INT AUTO_INCREMENT  UNIQUE, isbn VARCHAR(13) NOT NULL, title VARCHAR(45), \n"
+                    + "available BOOLEAN , borrowable BOOLEAN,PRIMARY KEY(isbn,title) );").executeUpdate();
+
+            conn.prepareStatement("CREATE  TABLE IF NOT EXISTS loan (loan_id INT AUTO_INCREMENT UNIQUE, client_id INT NOT NULL,book_id INT, borrowedDate DATE NOT NULL,\n"
+                    + "returnDate DATE NOT NULL, fine DECIMAL(5,2),PRIMARY KEY(client_id,book_id), FOREIGN KEY (client_id) REFERENCES client(client_id),FOREIGN KEY(book_id) REFERENCES \n"
+                    + "book (book_id));").executeUpdate();
 
             conn.prepareStatement("CREATE TABLE IF NOT EXISTS payment (payment_id INT AUTO_INCREMENT PRIMARY KEY, loan_id INT NOT NULL, amount DECIMAL(5,2) DEFAULT 0.0,\n"
                     + "FOREIGN KEY (loan_id) REFERENCES loan(loan_id));").executeUpdate();

@@ -63,6 +63,15 @@
         <url-pattern>/signUp</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>AddBook</servlet-name>
+        <jsp-file>/add_book.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddBook</servlet-name>
+        <url-pattern>/addBook</url-pattern>
+    </servlet-mapping>
+    
     
     <session-config>
         <session-timeout>
