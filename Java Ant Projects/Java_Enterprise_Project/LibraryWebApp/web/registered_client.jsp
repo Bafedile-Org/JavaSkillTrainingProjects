@@ -18,7 +18,7 @@
             <h1 align='center'>DM LIBRARY</h1>
         </header>
         <div  align='center'>
-            <form id='form' method="POST" action='bookLoan'  >
+            <form id='form' method="POST" action='loan'  >
                 <h3>Registered Client</h3>
                 <div>
                     <label>Firstname</label>
@@ -33,7 +33,7 @@
                     <input type='text' placeholder="Enter your identity number" name='identityNum' minlength="13" maxlength="13">
                 </div><br>
                 <div>
-                    <input type='submit' name='registerClient' value='Submit'>
+                    <input type='submit' name='submit' value='Submit'>
                     <input type='button'  value='Register Client' onclick='loanBook()'>
                 </div>
             </form></div>

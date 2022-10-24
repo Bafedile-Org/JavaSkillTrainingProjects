@@ -36,6 +36,7 @@ public class LoanDAOImpl implements LoanDAO, ClosingDAO {
      *
      * @param clientIdentityNum
      * @param loan
+     * @param bookISBN
      */
     @Override
     public void addLoan(String clientIdentityNum, Loan loan, String bookISBN) {

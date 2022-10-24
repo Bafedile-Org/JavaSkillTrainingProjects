@@ -1,0 +1,47 @@
+/* 
+    Created on : 18 Oct 2022, 2:55:52 PM
+    Author     : Dimakatso Sebatane
+*/
+
+table ,th ,td{
+    border: 1px solid black;
+    border-collapse: separate;
+    border-color: rosybrown;
+    background-color:#D6EEEE;
+    font-size:17px;
+}
+#jokes_table{
+    display: inline-block;
+    float:none;
+}
+input[type=submit]{
+    background: lightblue;
+    height:30px;
+}
+input[type=submit]:hover{
+    background: green;
+}
+textarea{
+    width: 35%;
+    height:75px;
+    resize: none;
+}
+body a{
+    text-decoration: none;
+}
+body{
+    background: lightgreen;
+}
+body a:hover{
+    color:black;
+    background: greenyellow;
+}
+ul ol{
+    font-size:17px;
+    color:green;
+}
+
+h1, h2 {
+}
+
+

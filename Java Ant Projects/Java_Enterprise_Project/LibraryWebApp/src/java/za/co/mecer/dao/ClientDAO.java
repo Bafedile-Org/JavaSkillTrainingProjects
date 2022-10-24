@@ -3,6 +3,7 @@ package za.co.mecer.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import za.co.mecer.modelImpl.Client;
 
 /**
@@ -12,6 +13,8 @@ import za.co.mecer.modelImpl.Client;
 public interface ClientDAO {
 
     public String CLIENT_ERROR_MSG = "Either Your Connection Or The Payment Is Null!!!";
+
+    public List<Client> getClients();
 
     void addClient(Client client);
 

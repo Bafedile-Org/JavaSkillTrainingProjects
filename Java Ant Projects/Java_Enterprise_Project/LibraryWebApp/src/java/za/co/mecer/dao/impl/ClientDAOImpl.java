@@ -225,6 +225,12 @@ public class ClientDAOImpl implements ClientDAO, ClosingDAO {
         }
     }
 
+    @Override
+    public List<Client> getClients() {
+        getAllClients();
+        return clients;
+    }
+
     /**
      * Displays all the clients
      *

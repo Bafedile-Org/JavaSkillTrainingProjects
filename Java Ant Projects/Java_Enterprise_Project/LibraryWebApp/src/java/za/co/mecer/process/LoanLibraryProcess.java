@@ -22,12 +22,12 @@ public class LoanLibraryProcess {
 
     Book book = null;
 
-    public void processLoanRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, LoanException {
+    public void processLoanRequest(HttpServletRequest request, HttpServletResponse response, String identity) throws ServletException, IOException, LoanException {
         LoanService loanService = new LoanServiceImpl();
         Loan loan = new Loan(LocalDate.now(), LocalDate.now().plusWeeks(2), 0.0);
-        String clientIdentityNum = (String) request.getAttribute("clientIdentityNum");
+
         if (checkBookExists(request, response)) {
-            loanService.addLoan(clientIdentityNum, loan, book.getISBN());
+            loanService.addLoan(identity, loan, book.getISBN());
             response.sendRedirect("books");
         } else {
             response.sendRedirect("bookLoan");

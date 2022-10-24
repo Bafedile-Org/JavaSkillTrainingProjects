@@ -1,0 +1,5 @@
+Monkey_Jokes:{monkeys ate banana and fart}
+Mom_Jokes:{mom thought she was cooking chicken but she cooked a frog instead}
+Dad_Jokes:{dad laughed}
+Dad_Jokes:{dad fell from the stairs}
+Monkey_Jokes:{Newa newa newa thori gaTHA!!!}
