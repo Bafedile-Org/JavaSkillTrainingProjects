@@ -38,7 +38,7 @@ public class DatabaseConnection {
 
     private static void connect() {
         String user, url, pass;
-        try (InputStream stream = new FileInputStream("C:\\Javaprogs\\JavaSkillTrainingProjects\\Java Ant Projects\\Java_Enterprise_Project\\LibraryWebApp\\database.properties")) {
+        try (InputStream stream = new FileInputStream("G:\\JavaSkillTrainingProjects\\Java Ant Projects\\Java_Enterprise_Project\\LibraryWebApp\\database.properties")) {
             Properties properties = new Properties();
             properties.load(stream);
             url = properties.getProperty("url");

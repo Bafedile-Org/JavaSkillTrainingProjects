@@ -253,20 +253,24 @@ public class Client implements Clients {
         return (homeTel.length() == 10);
     }
 
-    /**
-     *
-     * @return
-     */
+//    /**
+//     *
+//     * @return
+//     */
+//    @Override
+//    public String toString() {
+//        return String.format("Client Id: %d%n"
+//                + "FirstName: %S%n"
+//                + "LastName: %S%n"
+//                + "Identity Number: %S%n"
+//                + "Home Address: %S%n"
+//                + "Home Telephone Number: %s%n"
+//                + "Work Telephone Number: %s%n"
+//                + "Mobile Telephone Number: %s%n%n", clientId, firstName, lastName, identityNum, address, homeTel, workTel, mobileTel);
+//    }
     @Override
     public String toString() {
-        return String.format("Client Id: %d%n"
-                + "FirstName: %S%n"
-                + "LastName: %S%n"
-                + "Identity Number: %S%n"
-                + "Home Address: %S%n"
-                + "Home Telephone Number: %s%n"
-                + "Work Telephone Number: %s%n"
-                + "Mobile Telephone Number: %s%n%n", clientId, firstName, lastName, identityNum, address, homeTel, workTel, mobileTel);
+        return String.format("%d;%S;%S;%S;%S;%S;%S;%S", clientId, firstName, lastName, identityNum, address, homeTel, workTel, mobileTel);
     }
 
     /**

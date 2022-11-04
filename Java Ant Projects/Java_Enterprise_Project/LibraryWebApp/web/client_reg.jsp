@@ -15,6 +15,12 @@
     </head>
     <body>
         <header>
+            <nav class="top_nav">
+                <ul>
+                    <li><a href='slideshow' >Home</a><li>
+                    <li><a href='books'>Book Library</a><li>
+                </ul>
+            </nav>
             <h1 align='center'>DM LIBRARY</h1>
         </header>
         <div  align='center'>

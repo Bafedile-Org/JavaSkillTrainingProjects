@@ -72,6 +72,24 @@
         <url-pattern>/addBook</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>ClientsList</servlet-name>
+        <jsp-file>/clients_list.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ClientsList</servlet-name>
+        <url-pattern>/clients</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>BookSlideShow</servlet-name>
+        <jsp-file>/books_slide.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BookSlideShow</servlet-name>
+        <url-pattern>/slideshow</url-pattern>
+    </servlet-mapping>
+    
     
     <session-config>
         <session-timeout>
@@ -79,6 +97,8 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
+     
+        <welcome-file>books_slide.jsp</welcome-file>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

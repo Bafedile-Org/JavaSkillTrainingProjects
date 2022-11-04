@@ -20,6 +20,14 @@
 
     <body>
         <header>
+            <nav class="top_nav">
+                <ul>
+                    <li><a href='slideshow' >Home</a><li>
+                    <li><a href='signUp' >SignUp</a><li>
+                    <li><a href='signIn'>SignIn</a><li>
+                    <li><a href='books' class="active">Book Library</a><li>
+                </ul>
+            </nav>
             <h1 align='center'>DM LIBRARY</h1>
         </header>
         <h1 align='center'>Available Books</h1>
@@ -38,8 +46,9 @@
             </table>
         </div>
         <div id="btn" align='right'>
-            <input type='button' onclick='loanBook()'  value='Loan a book'>
-            <input type='button' onclick='manageBooks()'  value='Manage books' id='btnManage' >
+            <input align='left' type='button' onclick='loanBook()'  value='Loan a book'>
+            <input align='center' type='button' onclick='manageBooks()'  value='Manage books' id='btnManage' >
+            <input align='right' type='button' onclick='manageClients()'  value='Manage clients' id='btnManage' >
         </div>
     </body>
 </html>
